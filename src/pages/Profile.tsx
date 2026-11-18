@@ -139,6 +139,45 @@ export default function Profile() {
                 </article>
               ))}
             </div>
+
+            <section className="speaking-evidence" aria-labelledby="speaking-evidence-title">
+              <div className="speaking-evidence-heading">
+                <p className="item-meta">In practice</p>
+                <h3 id="speaking-evidence-title">Public speaking in context</h3>
+              </div>
+              <div className="speaking-gallery">
+                <figure>
+                  <img
+                    src="./images/model-united-nations-speech.jpg"
+                    alt="ChunYin Shang delivering a Model United Nations committee speech at a wooden podium"
+                    width="1620"
+                    height="1080"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption>
+                    <p className="photo-meta">Model United Nations · 2025</p>
+                    <h4>Delivering a committee speech</h4>
+                    <p>Speaking as a student delegate at a session hosted by Shanghai International Studies University, with country positions and committee motions displayed behind the podium.</p>
+                  </figcaption>
+                </figure>
+                <figure>
+                  <img
+                    src="./images/china-un-presentation.jpg"
+                    alt="ChunYin Shang presenting on China’s return to the United Nations at SFLSHZ"
+                    width="1280"
+                    height="853"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption>
+                    <p className="photo-meta">Academic presentation · SFLSHZ</p>
+                    <h4>China’s return to the United Nations</h4>
+                    <p>Presenting at Shanghai Foreign Language School Affiliated to SISU, Hangzhou, connecting historical inquiry with public communication.</p>
+                  </figcaption>
+                </figure>
+              </div>
+            </section>
           </section>
 
           <section id="education" className="profile-section">

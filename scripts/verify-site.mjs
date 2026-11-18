@@ -85,6 +85,12 @@ try {
   await page.getByRole('link', { name: "Explore ChunYin Shang's profile" }).click()
   await page.waitForURL('**/#/profile')
   check(await page.locator('.profile-intro').isVisible(), 'Primary profile CTA navigates to profile')
+  await page.locator('.speaking-evidence').scrollIntoViewIfNeeded()
+  await page.waitForFunction(() => [...document.querySelectorAll('.speaking-gallery img')].every((image) => image.complete && image.naturalWidth > 0))
+  check(await page.locator('.speaking-gallery figure').count() === 2, 'Profile renders both public-speaking photographs')
+  check(await page.locator('.speaking-gallery img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Both public-speaking photographs load successfully')
+  check(await page.getByText('hosted by Shanghai International Studies University', { exact: false }).isVisible(), 'MUN caption identifies the event host accurately')
+  await page.evaluate(() => window.scrollTo(0, 0))
   const scrollBefore = await page.evaluate(() => window.scrollY)
   await page.getByRole('button', { name: 'Research', exact: true }).click()
   await page.waitForTimeout(450)
@@ -148,6 +154,12 @@ try {
     await mobilePage.goto(`http://127.0.0.1:4173/#${route}`, { waitUntil: 'networkidle' })
     await noHorizontalOverflow(mobilePage, `Mobile ${route}`)
     check(await mobilePage.locator('h1, h2').first().isVisible(), `Mobile ${route}: primary content is visible`)
+    if (route === '/profile') {
+      await mobilePage.locator('.speaking-evidence').scrollIntoViewIfNeeded()
+      await mobilePage.waitForFunction(() => [...document.querySelectorAll('.speaking-gallery img')].every((image) => image.complete && image.naturalWidth > 0))
+      check(await mobilePage.locator('.speaking-gallery img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Mobile public-speaking photographs load successfully')
+      await mobilePage.locator('.speaking-evidence').screenshot({ path: join(qaDir, 'mobile-speaking-evidence.png') })
+    }
     await screenshot(mobilePage, name)
   }
   await mobilePage.goto('http://127.0.0.1:4173/#/writing', { waitUntil: 'networkidle' })

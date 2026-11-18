@@ -711,6 +711,82 @@ ul {
   color: var(--accent-action);
 }
 
+.speaking-evidence {
+  padding-top: 48px;
+}
+
+.speaking-evidence-heading {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.35fr) minmax(0, 1.65fr);
+  align-items: baseline;
+  gap: 24px;
+}
+
+.speaking-evidence-heading h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.speaking-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.speaking-gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: var(--surface-warm);
+  object-fit: cover;
+}
+
+.speaking-gallery figcaption {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.speaking-gallery .photo-meta {
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.speaking-gallery h4 {
+  margin: 8px 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.18rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.speaking-gallery figcaption > p:last-child {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .speaking-evidence-heading,
+  .speaking-gallery {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .speaking-gallery {
+    gap: 36px;
+  }
+
+  .speaking-gallery figcaption > p:last-child {
+    font-size: 0.9rem;
+  }
+}
+
 .education-list article > p:last-child {
   margin-top: 8px;
   color: var(--text-secondary);
