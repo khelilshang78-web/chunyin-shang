@@ -1,12 +1,13 @@
 ---
 name: "ChunYin Shang"
-description: "A monochrome editorial portfolio grounded in personal inquiry, authentic photography, and long-form writing."
+description: "A neutral monochrome artistic portfolio with dedicated academic reading spaces for research and writing."
 colors:
-  paper: "#fafafa"
-  ink: "#0a0a0a"
-  muted: "#555555"
-  line: "#e5e5e5"
-  soft: "#f2f2f2"
+  paper: "#f7f7f7"
+  ink: "#101010"
+  muted: "#5c5c5c"
+  line: "#d9d9d9"
+  soft: "#efefef"
+  white: "#ffffff"
 typography:
   family: "Times New Roman, Times, serif"
   body: "17px / 1.6; 16px on mobile"
@@ -25,81 +26,91 @@ spacing:
 
 ## Direction
 
-A restrained, print-like editorial site: regular-weight serif headlines, generous white space, thin rules, square corners, and authentic documentary photography. Keep every route in the same visual language. Use hierarchy, spacing, and ruled lists rather than cards, shadows, gradients, decorative color, or extra typefaces.
+The site operates as a **gallery outside and a reading room inside**. The homepage opening, identity areas, public-speaking galleries, and activity photography use an artistic portfolio language: carbon-black fields, large scale, full-bleed imagery, asymmetric composition, and restrained motion. Research records and long-form writing use a quieter academic editorial language: neutral white surfaces, readable measures, thin rules, and source metadata. The whole site is neutral monochrome; never reintroduce warm paper, cream, terracotta, or decorative color.
 
 ## Palette and typography
 
-- **Paper `#fafafa`**: page background, header, and text on black.
-- **Ink `#0a0a0a`**: primary text, major rules, focus, progress, primary action, contact, and footer.
-- **Muted `#555555`**: introductions, metadata, captions, and secondary copy.
-- **Line `#e5e5e5`**: secondary dividers and control borders.
-- **Soft `#f2f2f2`**: Current Work background, image loading surface, and pagination hover.
+- **Paper `#f7f7f7`**: neutral page background and text on dark surfaces.
+- **Ink `#101010`**: gallery surfaces, primary text, major rules, focus, contact, and footer.
+- **Muted `#5c5c5c`**: introductions, metadata, captions, and secondary copy on light surfaces.
+- **Line `#d9d9d9`**: secondary dividers and control borders.
+- **Soft `#efefef`**: Current Work background, image loading surface, writing-row hover, and pagination hover.
+- **White `#ffffff`**: the dedicated Profile research record.
 
-Use **Times New Roman**, with Times and generic serif fallbacks, for all headings, body copy, navigation, controls, labels, and captions. Headings use weight 400, tight tracking, and responsive clamps. Labels are small, semibold, uppercase, and letter-spaced. Italic is limited to deliberate emphasis, such as the homepage question and archive-title hover.
+On dark gallery surfaces, use paper for primary content and explicitly assigned light greys (`#bdbdbd`–`#e2e2e2`) for secondary copy. Do not use the light-surface muted token on black. Focus outlines switch to paper on dark surfaces.
 
-Default geometry is square with one-pixel rules. The circular 44 px archive arrow is the exception. Global keyboard focus is a 2 px ink outline with a 4 px offset; preserve visible focus and minimum 44 px interactive targets.
+Use **Times New Roman**, with Times and generic serif fallbacks, throughout the existing site. Headings use weight 400, tight tracking, and responsive clamps up to 6rem. Labels are small, semibold, uppercase, and letter-spaced. Italic is reserved for the homepage question, research emphasis, and selected title hovers.
+
+Default geometry is square with thin rules. The circular archive arrow and small wordmark dot are exceptions. Preserve visible keyboard focus and minimum 44 px interactive targets.
 
 ## Shared chrome
 
-The homepage has its own static, rule-bound header. Profile, Writing, and Essay use the shared sticky header. Both use a compact wordmark and Profile, Writing, and Contact links; shared active links receive a simple underline. Inner-page footers and the homepage contact band are black with paper-colored text, a compact location line, and an email link.
+All headers use a carbon-black gallery frame with paper-colored navigation and a small wordmark dot. The homepage header is static; Profile, Writing, and Essay use the shared sticky header. Active navigation uses a paper underline. Inner-page footers and the homepage contact band continue the dark frame with location and email.
 
 ## Homepage
 
-Preserve this sequence:
+Preserve this sequence and its gallery/reading-room alternation:
 
-1. **Question and introduction** — “How do institutions shape everyday life?” with an italic emphasis, concise introduction, and profile/writing actions.
-2. **Panoramic MUN photograph** — a wide `2.15 / 1` crop with a factual two-part caption headed **“YMUN · May 2025.”**
-3. **Current Work** — a soft-grey section led by **Research 01 · Working paper**, followed by two smaller ruled entries for reading/writing and student leadership. The featured research is visually primary, not equal in weight to the supporting entries.
-4. **Experience** — two authentic images in an asymmetric grid: a large `3 / 2` presentation image and a narrower, offset `4 / 5` panel-discussion image, each captioned, followed by a Profile activities link.
-5. **Selected writing** — full-width ruled essay rows with **“Read · Essay”** and year metadata, title, excerpt, and arrow; link to the complete archive.
-6. **Contact** — a compact black band with location and email.
+1. **Gallery opening** — a black field with “How do institutions shape everyday life?” in two masked lines, a concise introduction, and profile/writing actions. Primary action is paper on ink; secondary copy uses light grey.
+2. **Asymmetric photographic opening** — a large central MUN photograph in a `1.65 / 1` crop, flanked by two smaller `4 / 5` photographs at different vertical offsets. The composition creates a diagonal rhythm around the main evidence rather than relying on a loader or abstract effect. The factual two-part main caption is headed **“YMUN · May 2025”**; satellite captions read **“Global Youth Shanghai Diplomats Summit · SISU”** and **“Panel discussion · SFLSHZ.”**
+3. **Academic work record** — a soft neutral section led by **Research 01 · Working paper**, followed by two smaller ruled entries for reading/writing and student leadership. The featured research uses a two-column record, ink rule, and one scroll-triggered reveal.
+4. **Gallery experience** — a full-width black section with all eight authentic activity photographs arranged in a continuous 3D ring. The active photograph is full opacity with a precise caption; adjacent photographs provide spatial context. Autoplay rotates continuously at 7 degrees per second only while the region and browser tab are visible, with the active caption updating as each photograph reaches the front. Previous, next, pause, and resume controls are keyboard accessible; hover and focus pause rotation.
+5. **Academic writing index** — neutral full-width ruled essay rows with **“Read · Essay”**, year metadata, title, excerpt, and arrow. Hover uses a soft neutral background and italic title.
+6. **Contact** — a dark band with a subtle top rule, location, and generously scaled email link.
 
-Feature Research 01 in a two-column, ink-ruled record: index, title, summary, and **View research record** link on the left; **Research question**, **Methods**, and **Status** (`Independent research · 2026`) on the right. The link targets `/profile#research`. Keep opening copy and captions constrained to readable measures while allowing the photograph and major section headings to carry the editorial scale.
+The research link targets `/profile#research`. Keep opening copy and captions constrained to readable measures while allowing photographs and major headings to carry the artistic scale.
 
 ## Profile
 
-Use **one editorial column**, not sticky side rails:
+Use **one primary column**, introduced by a black identity gallery:
 
-- A compact identity header pairs a 180 px `4 / 5` portrait with name, preferred name, and location.
-- A horizontal section index sits between identity and content. Its buttons smooth-scroll to Direction, Research, Learning, Leadership, Activities, Education, and Capabilities without rewriting the URL.
-- Navigation is hash-aware across routes: `/profile#research` and `/profile#activities` scroll directly to their section starts; route changes without a matching hash reset to the top. Preserve section scroll margins and global scroll padding so targets clear the sticky header.
-- The main record is centered at a maximum width of 1180 px. Use large section statements, readable introductions, ruled lists, timelines, and research details rather than cards.
-- Keep the two research-area content types distinct: **Research 01 · Read the record** for the working paper and **Documentary 01 · Watch & listen** for the documentary. Both retain title, source metadata, summary, research question, current stage, and methods/themes tags; do not relabel the documentary as Research 01.
-- Leadership includes a two-image public-speaking gallery. **Beyond the classroom** uses exactly six captioned photographs in an asymmetric 12-column mosaic, mixing wide and portrait crops. Each figure includes a concise title, precise factual category, and description.
+- The identity header pairs a 180 px `4 / 5` portrait with name, preferred name, and location, all on carbon black.
+- A light horizontal section index sits between identity and content. Its buttons smooth-scroll to Direction, Research, Learning, Leadership, Activities, Education, and Capabilities without rewriting the URL.
+- Navigation is hash-aware across routes: `/profile#research` and `/profile#activities` scroll directly to their section starts; route changes without a matching hash reset to the top.
+- The main record is centered at a maximum width of 1180 px. Direction, learning, leadership, activities, education, and capabilities retain clear portfolio-style hierarchy without decorative paper textures.
+- Direction, Research, Learning, Leadership, Education, and Capabilities use a text-plus-evidence split above 1000 px: substantive content occupies the left column and one contextual photograph occupies a narrower right column. The six figures are respectively the reading collage, public-toilet working notes, Risk-Pilot demonstration, Halloween student-activity hosting, teacher discussion, and bass practice. Research notes may remain sticky beside the longer record; no other side figure needs motion.
+- **Research is the dedicated academic reading space**: a white, ink-ruled band with generous internal padding, source metadata, readable summaries, research questions, current stages, and methods/themes tags. Its working-notes screenshot is cropped to remove application chrome.
+- Keep the two content types distinct: **Research 01 · Read the record** and **Documentary 01 · Watch & listen**.
+- Leadership retains its two-image public-speaking gallery below the new section-level hosting photograph. **Beyond the classroom** uses exactly six captioned photographs in an asymmetric 12-column mosaic; it does not need an additional side figure. These galleries emphasize the authentic images rather than academic rules or cards.
 
 ## Writing archive and long-form reading
 
+Writing is an academic reading surface inside the shared dark site frame.
+
 ### Archive
 
-Use a two-column hero above a transparent, rule-led tool area. Search matches title, subtitle, excerpt, category, and tags; theme and year filters combine with the query. Show a live result count and a resettable empty state. Essay rows remain linear, with year/reading time, title, category, subtitle, excerpt, tags, and a circular arrow link—never a card grid.
+Use a two-column hero above a transparent, rule-led tool area on neutral paper. Search matches title, subtitle, excerpt, category, and tags; theme and year filters combine with the query. Show a live result count and a resettable empty state. The archive contains three personal/philosophical essays and one clearly labelled **Research Note**. Rows remain linear, with year/reading time, title, category, subtitle, excerpt, tags, and a circular arrow link—never a card grid.
 
-### Essay
+### Essays and research note
 
 - A fixed 3 px ink bar tracks reading progress.
-- The header contains an archive back link, large title, subtitle, byline metadata, and tags.
-- Desktop reading uses a narrow margin note beside a **70ch** article column; the margin note may link to the original Chinese publication when supplied.
-- Body copy is `1.13rem / 1.78`; sections have clear spacing, and quotes use a simple ink left rule with a citation.
-- Newer/older essay pagination splits into two columns on desktop. At the oldest essay, the next link returns to the archive. Unknown slugs show a simple not-found state with an archive link.
+- English is the default edited reading version. All three personal/philosophical essays provide an **English / 中文原文** switch with native, keyboard-accessible buttons. The wallet essay’s Chinese version contains the personal body only, excluding the subsequent AI dialogue.
+- The header contains an archive back link, large title, subtitle, byline metadata, and tags. Chinese titles use a CJK serif fallback after Times New Roman; Chinese body copy is never italicized.
+- Desktop reading uses a narrow margin note beside a **70ch** article column; the margin note may link to the original Chinese publication or official research documents.
+- Rousseau and Hegel portraits appear as inline documentary figures in both language versions of their respective articles. The research note includes two original policy screenshots, separates observation, documented evidence, hypotheses, working interpretation, and unresolved questions, and never presents the working hypothesis as settled.
+- Body copy is `1.13rem / 1.78` in English and `1.9` line-height in Chinese; sections have clear spacing, and quotes use a simple ink left rule with a citation.
+- Newer/older essay pagination splits into two columns on desktop. At the oldest entry, the next link returns to the archive. Unknown slugs show a simple not-found state with an archive link.
 
 ## Photography and content integrity
 
-Use only authentic, supplied photographs in their **natural color**, with responsive `object-fit: cover` crops and accurate alt text. Captions provide context without overpowering the image. Do not add color overlays, stylized filters, decorative frames, or shadow treatments.
+Use only authentic, supplied photographs in their **natural color**, with responsive `object-fit: cover` crops and accurate alt text. Natural photography provides the color within the otherwise monochrome interface. Do not add color overlays, stylized filters, decorative frames, or shadow treatments.
 
-**Never substitute stock, AI-generated, or placeholder photographs. Never invent facts, events, dates, awards, publications, outcomes, testimonials, or other evidence.** Keep captions and metadata factual; do not infer specifics from appearance alone. Preserve these exact event facts on their corresponding images: **“YMUN · May 2025”** for committee negotiation, **“Global Youth Shanghai Diplomats Summit · SISU”** for the committee speech, **“HSYLC · Summer program”** for the Harvard Summit for Young Leaders in China, and **“Football · Top 8 in Fuyang, Hangzhou”** for the team photograph. Lazy-load below-the-fold documentary images and retain explicit dimensions where provided.
+**Never substitute stock, AI-generated, or placeholder photographs. Never invent facts, events, dates, awards, publications, outcomes, testimonials, or other evidence.** Preserve these exact event facts: **“YMUN · May 2025”**, **“Global Youth Shanghai Diplomats Summit · SISU”**, **“HSYLC · Summer program”**, and **“Football · Top 8 in Fuyang, Hangzhou”** on their corresponding images. Lazy-load below-the-fold documentary images and retain explicit dimensions where provided.
 
 ## Responsive behavior
 
 The principal mobile breakpoint is **760 px**, with a 320 px minimum canvas and 20 px gutters. Verify at 375 px.
 
-- Homepage introduction, section headings, featured research record, supporting work entries, experience grid, essay rows, contact, and footer stack. Metadata moves above essay titles.
-- The MUN image becomes full bleed and changes to a `4 / 3` crop; its caption retains 20 px side padding. The secondary experience image becomes a 78%-width, right-aligned portrait.
-- Shared navigation hides the secondary wordmark and Contact; keep navigation compact and usable. The homepage retains its own compact navigation.
-- Profile identity shrinks to a 104 px portrait. The horizontal section index becomes a single-row, horizontally scrollable strip. Multi-column records, speaking gallery, capability list, and six-photo mosaic stack; mosaic images use simpler landscape or portrait ratios with 40 px separation.
+- Homepage introduction, section headings, research record, supporting entries, photo ring, essay rows, contact, and footer stack. The black gallery regions remain full bleed.
+- The opening gallery places the MUN image first in a `4 / 3` crop, followed by the two satellite photographs in an equal two-column row; all three align to the 20 px content gutters. The ring uses a 64 vw active card, a 280 px radius, and a 300 px viewport so adjacent photographs remain visible without horizontal page overflow.
+- Shared navigation hides the secondary wordmark and Contact; keep navigation compact and usable.
+- Profile identity shrinks to a 104 px portrait. The research band removes negative margins and uses vertical padding only. The horizontal section index becomes a single-row scrollable strip.
+- Multi-column records, speaking gallery, capability list, and six-photo mosaic stack; mosaic images use simpler landscape or portrait ratios with 40 px separation. Each Profile side figure stacks below its corresponding text at 1000 px and below, retains its natural aspect ratio, and uses a 40 px gap.
 - Archive filters stack. Essay metadata becomes inline above the title. Article margin note and body stack, and pagination becomes one column.
-- Wrap or stack controls and ensure long titles and email addresses do not create horizontal page scrolling.
+- Ensure long titles and email addresses do not create horizontal page scrolling. Touch devices do not depend on hover; all ring controls retain 44 px targets.
 
 ## Motion and reduced motion
 
-Motion is restrained. Only the homepage MUN photograph uses the `image-unmask` entrance: an 800 ms reveal from a 16% bottom clip and 3 px blur to the fully visible, sharp image, using `cubic-bezier(0.16, 1, 0.3, 1)`. Link hover uses small opacity or arrow shifts; do not add parallax, card lifts, or broad scroll animation.
+Motion is authored at three scales: two masked homepage title lines, one coordinated opening-gallery reveal, and one-time in-view reveals for the featured research record and experience gallery. The title lines use a 680 ms exponential ease-out with a 90 ms stagger. The main photograph unmasks first, followed by the two satellite images at 120 ms and 220 ms delays. Research combines a short rise with a clip reveal; the gallery uses opacity and a 24 px rise. The ring uses requestAnimationFrame for continuous, uniform rotation at 7 degrees per second while visible; React updates only when the active photograph changes, never on every animation frame. Do not add parallax, particles, custom cursors, scroll-jacking, card lifts, or broad animation to every section.
 
-Run the image reveal only under `prefers-reduced-motion: no-preference`. Under `prefers-reduced-motion: reduce`, disable CSS smooth scrolling and reduce animation and transition durations to `0.01ms`, leaving content immediately visible and usable.
+Run entrance motion only under `prefers-reduced-motion: no-preference`. The reveal hook immediately exposes content when reduced motion is requested or IntersectionObserver is unavailable. Reduced motion disables ring autoplay and 3D transition timing while preserving immediate previous/next navigation. Under `prefers-reduced-motion: reduce`, disable CSS smooth scrolling, reduce animation and transition durations to `0.01ms`, and leave all content visible without transforms or clipping.

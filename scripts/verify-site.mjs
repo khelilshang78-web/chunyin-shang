@@ -13,6 +13,7 @@ const mime = {
   '.css': 'text/css; charset=utf-8',
   '.jpg': 'image/jpeg',
   '.png': 'image/png',
+  '.webp': 'image/webp',
   '.svg': 'image/svg+xml',
 }
 
@@ -80,11 +81,30 @@ try {
 
   await page.goto('http://127.0.0.1:4173/#/', { waitUntil: 'networkidle' })
   check((await page.title()).includes('ChunYin Shang'), 'Homepage title identifies ChunYin Shang')
-  check(await page.locator('.home-portrait img').evaluate((image) => image.complete && image.naturalWidth > 0), 'Homepage panoramic photograph loads successfully')
+  check(await page.locator('.home-opening-gallery img').count() === 3, 'Homepage opening composes three authentic activity photographs')
+  check(await page.locator('.home-opening-gallery img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'All three homepage opening photographs load successfully')
+  check(await page.locator('.home-opening-gallery').getByText('Global Youth Shanghai Diplomats Summit · SISU', { exact: true }).isVisible(), 'Homepage opening retains the precise SISU summit caption')
+  check(await page.locator('.home-opening-gallery').getByText('Panel discussion · SFLSHZ', { exact: true }).isVisible(), 'Homepage opening identifies the school panel discussion')
   await page.locator('.home-experiences').scrollIntoViewIfNeeded()
-  await page.waitForFunction(() => [...document.querySelectorAll('.home-experience-grid img')].every((image) => image.complete && image.naturalWidth > 0))
-  check(await page.locator('.home-experience-grid figure').count() === 2, 'Homepage renders two supporting experience photographs')
-  check(await page.locator('.home-experience-grid img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Both homepage experience photographs load successfully')
+  await page.waitForFunction(() => [...document.querySelectorAll('.photo-ring-slide img')].every((image) => image.complete && image.naturalWidth > 0))
+  check(await page.locator('.photo-ring-slide').count() === 8, 'Photo ring renders all eight activity photographs')
+  const uniqueRingImages = await page.locator('.photo-ring-slide img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size)
+  check(uniqueRingImages === 8, 'Photo ring uses eight unique image sources')
+  check(await page.locator('.photo-ring-slide img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'All eight ring photographs load successfully')
+  const initialRingIndex = Number(await page.locator('.photo-ring-carousel').getAttribute('data-active-index'))
+  await page.waitForFunction((initial) => Number(document.querySelector('.photo-ring-carousel')?.getAttribute('data-active-index')) !== initial, initialRingIndex, { timeout: 6000 })
+  check(true, 'Photo ring advances automatically while visible')
+  await page.getByRole('button', { name: 'Pause automatic rotation' }).click()
+  const pausedRingIndex = await page.locator('.photo-ring-carousel').getAttribute('data-active-index')
+  await page.waitForTimeout(4100)
+  check(await page.locator('.photo-ring-carousel').getAttribute('data-active-index') === pausedRingIndex, 'Pause control stops automatic rotation')
+  await page.getByRole('button', { name: 'Next photo' }).click()
+  check(await page.locator('.photo-ring-carousel').getAttribute('data-active-index') !== pausedRingIndex, 'Next control changes the active photograph')
+  await page.getByRole('button', { name: 'Previous photo' }).click()
+  check(await page.locator('.photo-ring-carousel').getAttribute('data-active-index') === pausedRingIndex, 'Previous control returns to the prior photograph')
+  await page.getByRole('button', { name: 'Resume automatic rotation' }).click()
+  await page.waitForFunction((initial) => Number(document.querySelector('.photo-ring-carousel')?.getAttribute('data-active-index')) !== initial, Number(pausedRingIndex), { timeout: 6000 })
+  check(true, 'Resume control restarts automatic rotation')
   await noHorizontalOverflow(page, 'Desktop homepage')
   await screenshot(page, 'desktop-home')
   check(await page.locator('.featured-research').isVisible(), 'Homepage gives the main research project a distinct hierarchy')
@@ -100,6 +120,15 @@ try {
   await page.waitForURL('**/#/profile')
   await page.locator('.profile-intro').waitFor()
   check(await page.locator('.profile-intro').isVisible(), 'Primary profile CTA navigates to profile')
+  check(await page.locator('.profile-side-figure').count() === 6, 'Profile adds six section-specific documentary figures')
+  for (const image of await page.locator('.profile-side-figure img').all()) await image.scrollIntoViewIfNeeded()
+  await page.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img')].every((image) => image.complete && image.naturalWidth > 0))
+  check(await page.locator('.profile-side-figure img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size === 6), 'Profile side figures use six unique image sources')
+  check(await page.locator('.profile-side-figure').evaluateAll((figures) => figures.every((figure) => {
+    const content = figure.parentElement?.firstElementChild
+    if (!content) return false
+    return figure.getBoundingClientRect().left >= content.getBoundingClientRect().right - 1
+  })), 'Desktop side figures occupy a distinct right-hand evidence column')
   await page.locator('.speaking-evidence').scrollIntoViewIfNeeded()
   await page.waitForFunction(() => [...document.querySelectorAll('.speaking-gallery img')].every((image) => image.complete && image.naturalWidth > 0))
   check(await page.locator('.speaking-gallery figure').count() === 2, 'Profile renders both public-speaking photographs')
@@ -113,6 +142,7 @@ try {
   await page.locator('.activity-mosaic').screenshot({ path: join(qaDir, 'desktop-activity-mosaic.png') })
   check(await page.getByText('DOCUMENTARY PROJECT · IN PRODUCTION', { exact: true }).isVisible(), 'Documentary is labelled as in production')
   check(await page.getByText('The first interview, lasting more than 40 minutes with a Form 6 student at a Band 1 secondary school in Hong Kong, has been completed. The first episode is currently being edited.', { exact: true }).isVisible(), 'Documentary stage reflects the completed interview and current edit')
+  check(await page.getByRole('link', { name: 'Read selected research note' }).getAttribute('href') === '#/writing/public-toilet-policy-notes', 'Profile research record links to the selected research note')
   await page.evaluate(() => window.scrollTo(0, 0))
   const scrollBefore = await page.evaluate(() => window.scrollY)
   await page.getByRole('button', { name: 'Research', exact: true }).click()
@@ -126,13 +156,13 @@ try {
   await page.getByRole('link', { name: 'Writing', exact: true }).click()
   await page.waitForURL('**/#/writing')
   await page.locator('.essay-row').first().waitFor()
-  check(await page.locator('.essay-row').count() === 3, 'Writing archive renders all three essays')
+  check(await page.locator('.essay-row').count() === 4, 'Writing archive renders three essays and one research note')
   await page.getByLabel('Search essays').fill('Rousseau')
   check(await page.locator('.essay-row').count() === 1, 'Essay search filters by title, content metadata, and tags')
   await page.getByLabel('Search essays').fill('no-such-essay')
   check(await page.getByText('No essay matches those filters.').isVisible(), 'Empty search state is visible')
   await page.getByRole('button', { name: 'Reset all filters' }).click()
-  check(await page.locator('.essay-row').count() === 3, 'Reset restores the full essay archive')
+  check(await page.locator('.essay-row').count() === 4, 'Reset restores the full writing archive')
   await page.getByRole('button', { name: 'Identity', exact: true }).click()
   check(await page.locator('.essay-row').count() === 1, 'Theme filter selects identity essay')
   await page.getByLabel('Year', { exact: true }).selectOption('2026')
@@ -145,7 +175,16 @@ try {
   await page.locator('.essay-row h2 a').filter({ hasText: 'Physically Present, Digitally Unreadable' }).click()
   await page.waitForURL('**/#/writing/physically-present-digitally-unreadable')
   await page.locator('.article-body section').first().waitFor()
-  check(await page.locator('.article-body section').count() === 5, 'Essay page renders the complete five-section article')
+  check(await page.locator('.article-body section').count() === 5, 'Essay page renders the complete five-section English article')
+  await page.getByRole('button', { name: '中文原文', exact: true }).click()
+  check(await page.locator('h1').innerText() === '我在香港丢了一个钱包', 'Wallet essay switches to the Chinese original')
+  check(await page.locator('.article-body section').count() === 6, 'Wallet Chinese original retains all six body sections')
+  const walletChinese = await page.locator('.article-body').innerText()
+  check(!walletChinese.includes('问：') && !walletChinese.includes('解析：'), 'Wallet Chinese original excludes the AI dialogue and analysis')
+  await noHorizontalOverflow(page, 'Desktop Chinese essay')
+  await screenshot(page, 'desktop-article-chinese')
+  await page.getByRole('button', { name: 'English', exact: true }).click()
+  check(await page.locator('h1').innerText() === 'Physically Present, Digitally Unreadable', 'English switch restores the edited essay')
   await noHorizontalOverflow(page, 'Desktop essay')
   await screenshot(page, 'desktop-article')
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight * 0.65))
@@ -156,6 +195,31 @@ try {
   await page.waitForURL('**/#/writing/the-words-we-fill-with-power')
   await page.getByRole('heading', { name: 'The Words We Fill With Power', exact: true }).waitFor()
   check(await page.locator('h1').innerText() === 'The Words We Fill With Power', 'Article pagination opens the next essay')
+  await page.locator('.article-figure--portrait img').scrollIntoViewIfNeeded()
+  await page.waitForFunction(() => document.querySelector('.article-figure--portrait img')?.complete && document.querySelector('.article-figure--portrait img')?.naturalWidth > 0)
+  check(await page.locator('.article-figure--portrait img').getAttribute('src') === './images/rousseau-portrait.jpg', 'Rousseau portrait loads in the English article')
+  await page.getByRole('button', { name: '中文原文', exact: true }).click()
+  check(await page.locator('h1').innerText() === '祖国、公意、人民：政治的填空题', 'Rousseau essay includes its Chinese original')
+  check(await page.locator('.article-body section').count() === 5, 'Rousseau Chinese original retains all five sections')
+  await page.getByRole('button', { name: 'English', exact: true }).click()
+
+  await page.goto('http://127.0.0.1:4173/#/writing/belief-is-not-a-truth-test', { waitUntil: 'networkidle' })
+  await page.locator('.article-figure--portrait img').scrollIntoViewIfNeeded()
+  await page.waitForFunction(() => document.querySelector('.article-figure--portrait img')?.complete && document.querySelector('.article-figure--portrait img')?.naturalWidth > 0)
+  check(await page.locator('.article-figure--portrait img').getAttribute('src') === './images/hegel-portrait.jpg', 'Hegel portrait loads in the English article')
+  await page.getByRole('button', { name: '中文原文', exact: true }).click()
+  check(await page.locator('h1').innerText() === '“信则有，不信则无”：宗教还是哲学？', 'Hegel essay includes its Chinese original')
+  check(await page.locator('.article-body section').count() === 6, 'Hegel Chinese original retains all six sections')
+
+  await page.goto('http://127.0.0.1:4173/#/writing/public-toilet-policy-notes', { waitUntil: 'networkidle' })
+  check(await page.locator('h1').innerText() === 'When a Public Toilet Becomes a Policy Question', 'Research note is available as a dedicated reading page')
+  check(await page.locator('.article-body section').count() === 5, 'Research note separates observation, evidence, hypotheses, interpretation, and open questions')
+  check(await page.locator('.article-references a').count() === 2, 'Research note links two official documentary sources')
+  await page.locator('.article-figure--document').first().scrollIntoViewIfNeeded()
+  await page.waitForFunction(() => [...document.querySelectorAll('.article-figure--document img')].every((image) => image.complete && image.naturalWidth > 0))
+  check(await page.locator('.article-figure--document img').count() === 2, 'Research note renders both original policy screenshots')
+  await noHorizontalOverflow(page, 'Desktop research note')
+  await screenshot(page, 'desktop-research-note')
 
   const metrics = await page.evaluate(() => {
     const resources = performance.getEntriesByType('resource')
@@ -167,7 +231,7 @@ try {
   checks.push(`Performance sample: ${metrics.requests} requests, ${Math.round(metrics.transferredBytes / 1024)} KiB transferred`)
   await desktop.close()
 
-  const mobile = await browser.newContext({ viewport: { width: 375, height: 812 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true })
+  const mobile = await browser.newContext({ viewport: { width: 375, height: 812 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true, reducedMotion: 'reduce' })
   const mobilePage = await mobile.newPage()
   monitor(mobilePage, 'mobile')
   const mobileRoutes = [
@@ -175,6 +239,8 @@ try {
     ['/profile', 'mobile-profile'],
     ['/writing', 'mobile-writing'],
     ['/writing/physically-present-digitally-unreadable', 'mobile-article'],
+    ['/writing/the-words-we-fill-with-power', 'mobile-rousseau-article'],
+    ['/writing/public-toilet-policy-notes', 'mobile-research-note'],
   ]
   for (const [route, name] of mobileRoutes) {
     await mobilePage.goto(`http://127.0.0.1:4173/#${route}`, { waitUntil: 'networkidle' })
@@ -182,11 +248,24 @@ try {
     check(await mobilePage.locator('h1, h2').first().isVisible(), `Mobile ${route}: primary content is visible`)
     if (route === '/') {
       await mobilePage.locator('.home-experiences').scrollIntoViewIfNeeded()
-      await mobilePage.waitForFunction(() => [...document.querySelectorAll('.home-experience-grid img')].every((image) => image.complete && image.naturalWidth > 0))
-      check(await mobilePage.locator('.home-experience-grid img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Mobile homepage experience photographs load successfully')
+      await mobilePage.waitForFunction(() => [...document.querySelectorAll('.photo-ring-slide img')].every((image) => image.complete && image.naturalWidth > 0))
+      check(await mobilePage.locator('.photo-ring-slide img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Mobile photo ring loads all eight photographs')
+      check(await mobilePage.locator('.photo-ring-carousel').getAttribute('data-autoplay') === 'paused', 'Reduced motion disables ring autoplay on mobile')
+      const mobileRingIndex = await mobilePage.locator('.photo-ring-carousel').getAttribute('data-active-index')
+      await mobilePage.getByRole('button', { name: 'Next photo' }).click()
+      check(await mobilePage.locator('.photo-ring-carousel').getAttribute('data-active-index') !== mobileRingIndex, 'Mobile next control works with reduced motion')
+      check(await mobilePage.getByRole('button', { name: 'Pause automatic rotation' }).count() === 0, 'Reduced motion removes the unnecessary autoplay toggle')
       await mobilePage.locator('.home-experiences').screenshot({ path: join(qaDir, 'mobile-home-experiences.png') })
     }
     if (route === '/profile') {
+      for (const image of await mobilePage.locator('.profile-side-figure img').all()) await image.scrollIntoViewIfNeeded()
+      await mobilePage.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img')].every((image) => image.complete && image.naturalWidth > 0))
+      check(await mobilePage.locator('.profile-side-figure img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Mobile section-specific photographs load successfully')
+      check(await mobilePage.locator('.profile-side-figure').evaluateAll((figures) => figures.every((figure) => {
+        const content = figure.parentElement?.firstElementChild
+        if (!content) return false
+        return figure.getBoundingClientRect().top >= content.getBoundingClientRect().bottom - 1
+      })), 'Mobile side figures stack below their corresponding section content')
       await mobilePage.locator('.speaking-evidence').scrollIntoViewIfNeeded()
       await mobilePage.waitForFunction(() => [...document.querySelectorAll('.speaking-gallery img')].every((image) => image.complete && image.naturalWidth > 0))
       check(await mobilePage.locator('.speaking-gallery img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Mobile public-speaking photographs load successfully')
@@ -197,12 +276,55 @@ try {
       await mobilePage.locator('.activity-mosaic').screenshot({ path: join(qaDir, 'mobile-activity-mosaic.png') })
       await noHorizontalOverflow(mobilePage, 'Mobile activities mosaic')
     }
+    if (route === '/writing/physically-present-digitally-unreadable') {
+      await mobilePage.getByRole('button', { name: '中文原文', exact: true }).click()
+      check(await mobilePage.locator('h1').innerText() === '我在香港丢了一个钱包', 'Mobile language switch displays the wallet Chinese original')
+      await noHorizontalOverflow(mobilePage, 'Mobile Chinese wallet essay')
+      await screenshot(mobilePage, 'mobile-article-chinese')
+      await mobilePage.getByRole('button', { name: 'English', exact: true }).click()
+    }
+    if (route === '/writing/the-words-we-fill-with-power') {
+      await mobilePage.locator('.article-figure--portrait img').scrollIntoViewIfNeeded()
+      await mobilePage.waitForFunction(() => document.querySelector('.article-figure--portrait img')?.complete && document.querySelector('.article-figure--portrait img')?.naturalWidth > 0)
+      check(await mobilePage.locator('.article-figure--portrait img').count() === 1, 'Mobile Rousseau portrait loads successfully')
+      await mobilePage.getByRole('button', { name: '中文原文', exact: true }).click()
+      await noHorizontalOverflow(mobilePage, 'Mobile Chinese Rousseau essay')
+      await screenshot(mobilePage, 'mobile-rousseau-chinese')
+      await mobilePage.getByRole('button', { name: 'English', exact: true }).click()
+    }
+    if (route === '/writing/public-toilet-policy-notes') {
+      await mobilePage.locator('.article-figure--document').first().scrollIntoViewIfNeeded()
+      await mobilePage.waitForFunction(() => [...document.querySelectorAll('.article-figure--document img')].every((image) => image.complete && image.naturalWidth > 0))
+      check(await mobilePage.locator('.article-figure--document img').count() === 2, 'Mobile research screenshots load successfully')
+      await noHorizontalOverflow(mobilePage, 'Mobile research evidence')
+    }
     await screenshot(mobilePage, name)
   }
   await mobilePage.goto('http://127.0.0.1:4173/#/writing', { waitUntil: 'networkidle' })
   await mobilePage.getByLabel('Search essays').fill('Belief')
   check(await mobilePage.locator('.essay-row').count() === 1, 'Mobile search remains functional')
   await mobile.close()
+
+  for (const width of [768, 1024]) {
+    const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' })
+    const responsivePage = await context.newPage()
+    monitor(responsivePage, `profile-${width}`)
+    await responsivePage.goto('http://127.0.0.1:4173/#/profile', { waitUntil: 'networkidle' })
+    for (const image of await responsivePage.locator('.profile-side-figure img').all()) await image.scrollIntoViewIfNeeded()
+    await responsivePage.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img')].every((image) => image.complete && image.naturalWidth > 0))
+    await noHorizontalOverflow(responsivePage, `Profile at ${width}px`)
+    check(await responsivePage.locator('.profile-side-figure').evaluateAll((figures, viewportWidth) => figures.every((figure) => {
+      const content = figure.parentElement?.firstElementChild
+      if (!content) return false
+      const figureRect = figure.getBoundingClientRect()
+      const contentRect = content.getBoundingClientRect()
+      return viewportWidth > 1000
+        ? figureRect.left >= contentRect.right - 1
+        : figureRect.top >= contentRect.bottom - 1
+    }), width), `Profile evidence layout adapts correctly at ${width}px`)
+    await screenshot(responsivePage, `profile-${width}`)
+    await context.close()
+  }
 
   check(errors.length === 0, `Zero browser console errors (${errors.length})`)
   check(failedRequests.length === 0, `Zero failed HTTP requests (${failedRequests.length})`)

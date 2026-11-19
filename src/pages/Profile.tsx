@@ -22,6 +22,28 @@ const sections = [
   ['capabilities', 'Capabilities'],
 ]
 
+type SectionFigureProps = {
+  src: string
+  alt: string
+  width: number
+  height: number
+  title: string
+  caption: string
+  className?: string
+}
+
+function SectionFigure({ src, alt, width, height, title, caption, className = '' }: SectionFigureProps) {
+  return (
+    <figure className={`profile-side-figure ${className}`.trim()}>
+      <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+      <figcaption>
+        <span>{title}</span>
+        <p>{caption}</p>
+      </figcaption>
+    </figure>
+  )
+}
+
 export default function Profile() {
   return (
     <div className="page-shell">
@@ -57,58 +79,94 @@ export default function Profile() {
             <p className="section-intro">
               My interests sit across PPE, STS, public policy, political science, and sociology. These are the questions currently giving those fields a common direction.
             </p>
-            <div className="interest-list">
-              {academicInterests.map((interest) => (
-                <article key={interest.title}>
-                  <h3>{interest.title}</h3>
-                  <p className="interest-question">{interest.question}</p>
-                  <p>{interest.detail}</p>
-                </article>
-              ))}
+            <div className="profile-section-split">
+              <div className="interest-list">
+                {academicInterests.map((interest) => (
+                  <article key={interest.title}>
+                    <h3>{interest.title}</h3>
+                    <p className="interest-question">{interest.question}</p>
+                    <p>{interest.detail}</p>
+                  </article>
+                ))}
+              </div>
+              <SectionFigure
+                src="./images/profile-reading-collage.webp"
+                alt="A collage of books and reading notes spanning literature, philosophy, utopian studies, and artificial intelligence"
+                width={1080}
+                height={1440}
+                title="A reading collage"
+                caption="Philosophy, literature, and technology, gathered as an ongoing record of interests."
+              />
             </div>
           </section>
 
           <section id="research" className="profile-section">
             <h2>Looking closely at ordinary systems</h2>
-            <div className="research-list">
-              {researchProjects.map((project) => {
-                const isDocumentary = project.meta.includes('DOCUMENTARY')
-                return (
-                <article key={project.title} className="research-item">
-                  <p className="project-index">{isDocumentary ? 'Documentary 01 · Watch & listen' : 'Research 01 · Read the record'}</p>
-                  <h3>{project.title}</h3>
-                  <p className="item-meta">{project.meta}</p>
-                  <p>{project.summary}</p>
-                  <div className="research-detail">
-                    <strong>Research question</strong>
-                    <p>{project.question}</p>
-                  </div>
-                  <div className="research-detail">
-                    <strong>Current stage</strong>
-                    <p>{project.finding}</p>
-                  </div>
-                  <ul className="inline-tags" aria-label="Research methods and themes">
-                    {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
-                  </ul>
-                </article>
-                )
-              })}
+            <div className="profile-section-split profile-section-split--research">
+              <div className="research-list">
+                {researchProjects.map((project) => {
+                  const isDocumentary = project.meta.includes('DOCUMENTARY')
+                  return (
+                  <article key={project.title} className="research-item">
+                    <p className="project-index">{isDocumentary ? 'Documentary 01 · Watch & listen' : 'Research 01 · Read the record'}</p>
+                    <h3>{project.title}</h3>
+                    <p className="item-meta">{project.meta}</p>
+                    <p>{project.summary}</p>
+                    <div className="research-detail">
+                      <strong>Research question</strong>
+                      <p>{project.question}</p>
+                    </div>
+                    <div className="research-detail">
+                      <strong>Current stage</strong>
+                      <p>{project.finding}</p>
+                    </div>
+                    <ul className="inline-tags" aria-label="Research methods and themes">
+                      {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
+                    </ul>
+                    {project.articleSlug && (
+                      <Link to={`/writing/${project.articleSlug}`} className="text-link">
+                        Read selected research note <ArrowRight aria-hidden="true" size={18} />
+                      </Link>
+                    )}
+                  </article>
+                  )
+                })}
+              </div>
+              <SectionFigure
+                src="./images/profile-research-working-notes.webp"
+                alt="Working notes for the public-toilet policy study, including hypotheses about labour costs and annotated source excerpts"
+                width={1558}
+                height={1200}
+                title="Working notes"
+                caption="Hypotheses and source excerpts from the comparative public-toilet study."
+                className="profile-side-figure--sticky"
+              />
             </div>
           </section>
 
           <section id="learning" className="profile-section">
             <h2>Programs, projects & independent study</h2>
-            <div className="timeline">
-              {learningJourney.map((item) => (
-                <article key={`${item.period}-${item.title}`} className="timeline-item">
-                  <p className="timeline-period">{item.period}</p>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p className="item-subtitle">{item.subtitle}</p>
-                    <p>{item.description}</p>
-                  </div>
-                </article>
-              ))}
+            <div className="profile-section-split">
+              <div className="timeline">
+                {learningJourney.map((item) => (
+                  <article key={`${item.period}-${item.title}`} className="timeline-item">
+                    <p className="timeline-period">{item.period}</p>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p className="item-subtitle">{item.subtitle}</p>
+                      <p>{item.description}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <SectionFigure
+                src="./images/profile-risk-pilot-demo.webp"
+                alt="Risk-Pilot project sign, printed materials, and a laptop demonstration displayed among other student project stalls"
+                width={1080}
+                height={1440}
+                title="Risk-Pilot in demonstration"
+                caption="Project materials and a laptop demonstration from the X-Academy project."
+              />
             </div>
           </section>
 
@@ -117,18 +175,28 @@ export default function Profile() {
             <p className="section-intro">
               I understand leadership less as representing a community from the front than as listening carefully, organizing patiently, and taking responsibility when the work becomes difficult.
             </p>
-            <div className="leadership-list">
-              {leadership.map((item) => (
-                <article key={item.role}>
-                  <h3>{item.role}</h3>
-                  <p className="item-meta">{item.period}</p>
-                  <p className="item-subtitle">{item.organization}</p>
-                  <p>{item.description}</p>
-                  <ul className="contribution-list">
-                    {item.contributions.map((contribution) => <li key={contribution}>{contribution}</li>)}
-                  </ul>
-                </article>
-              ))}
+            <div className="profile-section-split">
+              <div className="leadership-list">
+                {leadership.map((item) => (
+                  <article key={item.role}>
+                    <h3>{item.role}</h3>
+                    <p className="item-meta">{item.period}</p>
+                    <p className="item-subtitle">{item.organization}</p>
+                    <p>{item.description}</p>
+                    <ul className="contribution-list">
+                      {item.contributions.map((contribution) => <li key={contribution}>{contribution}</li>)}
+                    </ul>
+                  </article>
+                ))}
+              </div>
+              <SectionFigure
+                src="./images/profile-student-activity-hosting.webp"
+                alt="ChunYin Shang holding a microphone while hosting a Halloween-themed activity with a room of students"
+                width={1706}
+                height={1279}
+                title="Hosting a student activity"
+                caption="A Halloween-themed event with participating students."
+              />
             </div>
 
             <section className="speaking-evidence" aria-labelledby="speaking-evidence-title">
@@ -271,37 +339,59 @@ export default function Profile() {
 
           <section id="education" className="profile-section">
             <h2>Formal education</h2>
-            <div className="education-list">
-              {education.map((item) => (
-                <article key={item.school}>
-                  <h3>{item.school}</h3>
-                  <p className="item-meta">{item.period}</p>
-                  <p>{item.credential}</p>
-                  <p>{item.detail}</p>
-                </article>
-              ))}
-            </div>
-            <dl className="education-stats" aria-label="Academic record">
-              {profile.stats.map((stat) => (
-                <div key={stat.label}>
-                  <dt>{stat.label}</dt>
-                  <dd>{stat.value}</dd>
+            <div className="profile-section-split">
+              <div className="education-record">
+                <div className="education-list">
+                  {education.map((item) => (
+                    <article key={item.school}>
+                      <h3>{item.school}</h3>
+                      <p className="item-meta">{item.period}</p>
+                      <p>{item.credential}</p>
+                      <p>{item.detail}</p>
+                    </article>
+                  ))}
                 </div>
-              ))}
-            </dl>
+                <dl className="education-stats" aria-label="Academic record">
+                  {profile.stats.map((stat) => (
+                    <div key={stat.label}>
+                      <dt>{stat.label}</dt>
+                      <dd>{stat.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <SectionFigure
+                src="./images/profile-teacher-discussion.webp"
+                alt="ChunYin Shang in an in-person exchange with a teacher while fellow students work nearby"
+                width={1440}
+                height={1080}
+                title="Learning through conversation"
+                caption="An in-person exchange with a teacher and fellow students."
+              />
+            </div>
           </section>
 
           <section id="capabilities" className="profile-section">
             <h2>What I bring into a room</h2>
-            <div className="capability-list">
-              {capabilities.map((group) => (
-                <div key={group.label}>
-                  <h3>{group.label}</h3>
-                  <ul>
-                    {group.items.map((item) => <li key={item}>{item}</li>)}
-                  </ul>
-                </div>
-              ))}
+            <div className="profile-section-split">
+              <div className="capability-list">
+                {capabilities.map((group) => (
+                  <div key={group.label}>
+                    <h3>{group.label}</h3>
+                    <ul>
+                      {group.items.map((item) => <li key={item}>{item}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <SectionFigure
+                src="./images/profile-bass-practice.webp"
+                alt="ChunYin Shang seated in a classroom with a bass guitar and a small amplifier"
+                width={1280}
+                height={1707}
+                title="Creative practice"
+                caption="A quiet bass practice session."
+              />
             </div>
           </section>
         </div>

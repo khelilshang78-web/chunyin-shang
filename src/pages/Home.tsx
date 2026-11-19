@@ -1,6 +1,8 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router'
 import { essays, researchProjects } from '../content'
+import { useReveal } from '../hooks/useReveal'
+import PhotoRing from '../components/PhotoRing'
 
 const currentWork = [
   {
@@ -17,6 +19,8 @@ const currentWork = [
 
 export default function Home() {
   const featuredResearch = researchProjects[0]
+  const researchReveal = useReveal<HTMLElement>()
+  const galleryReveal = useReveal<HTMLDivElement>()
 
   return (
     <main className="home-shell">
@@ -33,7 +37,10 @@ export default function Home() {
 
       <section className="home-opening" aria-labelledby="home-title">
         <div className="home-opening-copy">
-          <h1 id="home-title">How do institutions<br />shape <em>everyday life?</em></h1>
+          <h1 id="home-title">
+            <span className="hero-line"><span>How do institutions</span></span>
+            <span className="hero-line"><span>shape <em>everyday life?</em></span></span>
+          </h1>
           <div className="home-intro-row">
             <p className="home-intro">
               I’m ChunYin Shang, an international high school student based between Hangzhou and Hong Kong. I approach that question through PPE, STS, public policy, field observation, and writing.
@@ -49,18 +56,41 @@ export default function Home() {
           </div>
         </div>
 
-        <figure className="home-portrait">
-          <img
-            src="./images/mun-delegate-discussion.webp"
-            alt="ChunYin Shang seated behind a China nameplate, discussing a position with another Model United Nations delegate"
-            width="1800"
-            height="829"
-          />
-          <figcaption>
-            <span>YMUN · May 2025</span>
-            <p>Discussing a position with another delegate during a Model United Nations committee session.</p>
-          </figcaption>
-        </figure>
+        <div className="home-opening-gallery" aria-label="ChunYin Shang in public discussion">
+          <figure className="home-portrait">
+            <img
+              src="./images/mun-delegate-discussion.webp"
+              alt="ChunYin Shang seated behind a China nameplate, discussing a position with another Model United Nations delegate"
+              width="1800"
+              height="829"
+              fetchPriority="high"
+            />
+            <figcaption>
+              <span>YMUN · May 2025</span>
+              <p>Discussing a position with another delegate during a Model United Nations committee session.</p>
+            </figcaption>
+          </figure>
+
+          <figure className="home-opening-satellite home-opening-satellite--left">
+            <img
+              src="./images/model-united-nations-speech.jpg"
+              alt="ChunYin Shang speaking at a podium at Shanghai International Studies University"
+              width="1620"
+              height="1080"
+            />
+            <figcaption>Global Youth Shanghai Diplomats Summit · SISU</figcaption>
+          </figure>
+
+          <figure className="home-opening-satellite home-opening-satellite--right">
+            <img
+              src="./images/panel-discussion.webp"
+              alt="ChunYin Shang speaking into a microphone during a school panel discussion"
+              width="1279"
+              height="1706"
+            />
+            <figcaption>Panel discussion · SFLSHZ</figcaption>
+          </figure>
+        </div>
       </section>
 
       <section className="home-work" aria-labelledby="current-work-title">
@@ -69,7 +99,7 @@ export default function Home() {
           <p>One research question, followed by the reading and leadership work that help me test it from different directions.</p>
         </header>
 
-        <article className="featured-research" aria-labelledby="featured-research-title">
+        <article ref={researchReveal} className="featured-research reveal reveal-record" aria-labelledby="featured-research-title">
           <div className="featured-research-heading">
             <p className="project-index">Research 01 · Working paper</p>
             <h3 id="featured-research-title">{featuredResearch.title}</h3>
@@ -110,35 +140,8 @@ export default function Home() {
           <h2 id="experiences-title">Ideas, tested with other people</h2>
           <p>Public communication matters to me when it turns careful preparation into a conversation others can enter.</p>
         </header>
-        <div className="home-experience-grid">
-          <figure className="experience-primary">
-            <img
-              src="./images/china-un-presentation.jpg"
-              alt="ChunYin Shang presenting on China’s return to the United Nations at SFLSHZ"
-              width="1280"
-              height="853"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>
-              <span>Academic presentation · SFLSHZ</span>
-              <p>Connecting historical inquiry with public communication in a presentation on China’s return to the United Nations.</p>
-            </figcaption>
-          </figure>
-          <figure className="experience-secondary">
-            <img
-              src="./images/panel-discussion.webp"
-              alt="ChunYin Shang speaking into a microphone during a seated panel discussion"
-              width="1279"
-              height="1706"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>
-              <span>Panel discussion · SFLSHZ</span>
-              <p>Listening and responding in a seated discussion with fellow students.</p>
-            </figcaption>
-          </figure>
+        <div ref={galleryReveal} className="photo-ring-showcase reveal reveal-gallery">
+          <PhotoRing />
         </div>
         <Link to="/profile#activities" className="text-link experience-link">
           More experiences & photographs <ArrowRight aria-hidden="true" size={18} />

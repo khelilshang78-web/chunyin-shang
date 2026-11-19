@@ -10,6 +10,9 @@ export default function EssayPage() {
   const essayIndex = essays.findIndex((item) => item.slug === slug)
   const essay = essays[essayIndex]
   const [progress, setProgress] = useState(0)
+  const [languageSelection, setLanguageSelection] = useState<{ slug?: string; value: 'en' | 'zh' }>({ value: 'en' })
+  const language = languageSelection.slug === slug ? languageSelection.value : 'en'
+  const setLanguage = (value: 'en' | 'zh') => setLanguageSelection({ slug, value })
 
   useEffect(() => {
     const updateProgress = () => {
@@ -23,7 +26,7 @@ export default function EssayPage() {
       window.removeEventListener('scroll', updateProgress)
       window.removeEventListener('resize', updateProgress)
     }
-  }, [slug])
+  }, [slug, language])
 
   if (!essay) {
     return (
@@ -40,6 +43,19 @@ export default function EssayPage() {
 
   const previous = essayIndex > 0 ? essays[essayIndex - 1] : null
   const next = essayIndex < essays.length - 1 ? essays[essayIndex + 1] : null
+  const original = essay.original
+  const showOriginal = language === 'zh' && original
+  const title = showOriginal ? original.title : essay.title
+  const subtitle = showOriginal ? original.subtitle : essay.subtitle
+  const category = showOriginal ? original.category : essay.category
+  const sections = showOriginal ? original.sections : essay.sections
+  const note = showOriginal
+    ? essay.slug === 'physically-present-digitally-unreadable'
+      ? '个人随笔 · 中文正文，未收录原文后的问答部分。'
+      : '作者中文原文 · 首发于 PPE自习室。'
+    : essay.kind === 'research'
+      ? 'Research note · Selected excerpts and documentary evidence from a working paper.'
+      : 'Personal essay · Edited in English from the author’s original notes.'
 
   return (
     <div className="page-shell essay-page">
@@ -49,14 +65,24 @@ export default function EssayPage() {
         <article className="article-shell">
           <header className="article-header">
             <Link to="/writing" className="back-link"><ArrowLeft aria-hidden="true" size={18} /> All writing</Link>
-            <h1>{essay.title}</h1>
-            <p className="article-subtitle">{essay.subtitle}</p>
+            <h1 className={showOriginal ? 'article-title-chinese' : undefined}>{title}</h1>
+            {subtitle && <p className="article-subtitle">{subtitle}</p>}
             <div className="article-byline">
-              <span>{essay.category}</span>
-              <span>By ChunYin Shang</span>
+              <span>{category}</span>
+              <span>{showOriginal ? '作者：ChunYin Shang' : 'By ChunYin Shang'}</span>
               <span>{essay.year}</span>
-              <span>{essay.readingTime} min read</span>
+              <span>{showOriginal ? '中文原文' : `${essay.readingTime} min read`}</span>
             </div>
+            {original && (
+              <div className="article-language" role="group" aria-label="Article language">
+                <button type="button" className={language === 'en' ? 'is-active' : undefined} aria-pressed={language === 'en'} onClick={() => setLanguage('en')}>
+                  English
+                </button>
+                <button type="button" className={language === 'zh' ? 'is-active' : undefined} aria-pressed={language === 'zh'} onClick={() => setLanguage('zh')}>
+                  中文原文
+                </button>
+              </div>
+            )}
             <ul className="inline-tags" aria-label="Essay themes">
               {essay.tags.map((tag) => <li key={tag}>{tag}</li>)}
             </ul>
@@ -64,19 +90,35 @@ export default function EssayPage() {
 
           <div className="article-layout">
             <aside className="article-margin">
-              <p className="eyebrow">A note on the text</p>
-              <p>Personal essay · Edited in English from the author’s original notes.</p>
+              <p className="eyebrow">{showOriginal ? '原文说明' : 'A note on the text'}</p>
+              <p>{note}</p>
               {essay.sourceUrl && (
                 <a href={essay.sourceUrl} target="_blank" rel="noreferrer" className="text-link">
-                  Original Chinese publication <ArrowUpRight aria-hidden="true" size={16} />
+                  {showOriginal ? '微信公众号原始发布' : 'Original Chinese publication'} <ArrowUpRight aria-hidden="true" size={16} />
                 </a>
               )}
+              {essay.references && (
+                <div className="article-references">
+                  <p className="eyebrow">Documents</p>
+                  {essay.references.map((reference) => (
+                    <a key={reference.url} href={reference.url} target="_blank" rel="noreferrer" className="text-link">
+                      {reference.label} <ArrowUpRight aria-hidden="true" size={16} />
+                    </a>
+                  ))}
+                </div>
+              )}
             </aside>
-            <div className="article-body">
-              {essay.sections.map((section, index) => (
+            <div className={showOriginal ? 'article-body is-chinese' : 'article-body'}>
+              {sections.map((section, index) => (
                 <section key={section.heading ?? index}>
                   {section.heading && <h2>{section.heading}</h2>}
                   {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  {section.images?.map((image) => (
+                    <figure key={image.src} className={`article-figure article-figure--${image.layout ?? 'document'}`}>
+                      <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
+                      <figcaption>{image.caption}</figcaption>
+                    </figure>
+                  ))}
                   {section.quote && (
                     <blockquote>
                       <p>“{section.quote.text}”</p>

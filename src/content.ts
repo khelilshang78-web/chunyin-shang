@@ -1,6 +1,18 @@
+import { originalEssays, type OriginalEssay } from './originalEssays'
+
+export type EssayImage = {
+  src: string
+  alt: string
+  caption: string
+  width: number
+  height: number
+  layout?: 'portrait' | 'document'
+}
+
 export type EssaySection = {
   heading?: string
   paragraphs: string[]
+  images?: EssayImage[]
   quote?: {
     text: string
     attribution: string
@@ -16,8 +28,11 @@ export type Essay = {
   tags: string[]
   readingTime: number
   excerpt: string
+  kind?: 'essay' | 'research'
   sourceUrl?: string
+  references?: { label: string; url: string }[]
   sections: EssaySection[]
+  original?: OriginalEssay
 }
 
 export const profile = {
@@ -61,6 +76,7 @@ export const researchProjects = [
     summary: 'A comparative study of public-toilet provision and management, using field observation and policy-document analysis to investigate why hand dryers and paper provision differ across jurisdictions.',
     question: 'Why do similar everyday needs produce different ideas of what a public service ought to provide?',
     finding: 'The current working hypothesis contrasts a facility-and-engineering logic in Hong Kong with a service-and-livelihood logic in mainland Chinese cities. The project treats this as an argument to be tested, not a settled conclusion; hygiene, labour, environmental cost, and individual responsibility remain open dimensions.',
+    articleSlug: 'public-toilet-policy-notes',
     tags: ['Policy analysis', 'Field observation', 'Comparative research'],
   },
   {
@@ -154,7 +170,7 @@ export const capabilities = [
   { label: 'Beyond the Classroom', items: ['Piano — Performance Level 8', 'Badminton', 'Singing', 'Bass'] },
 ]
 
-export const essays: Essay[] = [
+const essayData: Essay[] = [
   {
     slug: 'physically-present-digitally-unreadable',
     title: 'Physically Present, Digitally Unreadable',
@@ -224,6 +240,16 @@ export const essays: Essay[] = [
           `While reading the chapter “Who Should Rule?” in Jonathan Wolff’s An Introduction to Political Philosophy, I stopped at the word “fatherland” in a passage from Rousseau. In Chinese, I was used to speaking of the motherland; in modern English, “the Fatherland” also carries historical associations that Rousseau could not have intended in 1755.`,
           `The apparent anachronism was really a problem of translation and historical layering. Rousseau wrote patrie, a word rooted in the Latin pater. Later generations filled related political vocabulary with new meanings. The word’s shell survived; its emotional and political contents changed.`,
         ],
+        images: [
+          {
+            src: './images/rousseau-portrait.jpg',
+            alt: 'Portrait of Jean-Jacques Rousseau',
+            caption: 'Jean-Jacques Rousseau (1712–1778)',
+            width: 868,
+            height: 777,
+            layout: 'portrait',
+          },
+        ],
       },
       {
         heading: 'The more disturbing sentence',
@@ -284,6 +310,16 @@ export const essays: Essay[] = [
           `Hegel’s suggestion that religion and philosophy can share content while differing in form offers one way to relate them. Religious traditions and philosophical inquiry both address existence, meaning, finitude, and how a person ought to live. But sharing questions does not erase differences in how claims are justified.`,
           `Religious truth is often grounded in revelation, scripture, or inherited authority. Philosophical truth claims are expected to remain open to argument and objection. Many religious traditions also contain profound practices of questioning, just as some philosophies function as ways of life. The boundary is therefore real but not mechanically absolute.`,
         ],
+        images: [
+          {
+            src: './images/hegel-portrait.jpg',
+            alt: 'Portrait of Georg Wilhelm Friedrich Hegel',
+            caption: 'Georg Wilhelm Friedrich Hegel (1770–1831)',
+            width: 1024,
+            height: 1134,
+            layout: 'portrait',
+          },
+        ],
       },
       {
         heading: 'The missing subject',
@@ -313,4 +349,82 @@ export const essays: Essay[] = [
       },
     ],
   },
+  {
+    slug: 'public-toilet-policy-notes',
+    title: 'When a Public Toilet Becomes a Policy Question',
+    subtitle: 'Hand dryers, free paper, and the boundary between public provision and individual responsibility',
+    year: '2026',
+    category: 'Research Note',
+    tags: ['Public Policy', 'Field Observation', 'Comparative Research'],
+    readingTime: 6,
+    excerpt: 'Selected notes from a comparative study of public-toilet provision in Hong Kong and mainland China, with original policy evidence and unresolved questions.',
+    kind: 'research',
+    references: [
+      { label: 'Hong Kong public-toilet standards', url: 'https://www.legco.gov.hk/yr19-20/chinese/pac/reports/73/app_14.pdf' },
+      { label: 'Legislative Council Report No. 73', url: 'https://www.legco.gov.hk/yr19-20/english/pac/reports/73/m_9a.pdf' },
+    ],
+    sections: [
+      {
+        heading: 'From an ordinary observation to a research question',
+        paragraphs: [
+          `This project began with a small observation rather than a settled claim. At Hong Kong public toilets I visited, including one at Southorn Playground, electric hand dryers were prominent. At mainland public toilets I visited, including one in Xixi Subdistrict, paper was more visible even when a dryer was also installed.`,
+          `Those encounters are not a representative sample, so they cannot by themselves establish a jurisdictional difference. They did, however, produce a useful question: why might similar everyday needs lead institutions to provide different combinations of equipment, consumables, and services?`,
+        ],
+      },
+      {
+        heading: 'What the official standards establish',
+        paragraphs: [
+          `The Hong Kong handbook makes electric hand dryers a standard fitting in communal areas and recommends sensor-controlled operation near wash basins. The same standards distinguish toilet-paper holders inside individual compartments from jumbo-roll holders in communal areas, stating that the latter should not be installed.`,
+          `These clauses establish a documented design choice. They do not, on their own, explain why that choice was made. The next step is to test possible explanations against cost, labour, environmental policy, institutional purpose, and international benchmarking.`,
+        ],
+        images: [
+          {
+            src: './images/research-hk-hand-dryer.png',
+            alt: 'Excerpt from Hong Kong public-toilet standards specifying electric hand dryers in communal areas',
+            caption: 'Original research excerpt · Hong Kong standard features for public toilets, electric hand dryers',
+            width: 592,
+            height: 402,
+            layout: 'document',
+          },
+          {
+            src: './images/research-hk-paper-holder.png',
+            alt: 'Excerpt stating that jumbo-roll paper holders should not be installed in communal areas',
+            caption: 'Original research excerpt · Jumbo-roll paper holders in communal areas',
+            width: 809,
+            height: 121,
+            layout: 'document',
+          },
+        ],
+      },
+      {
+        heading: 'Five hypotheses, tested rather than assumed',
+        paragraphs: [
+          `Raw-material scarcity was the first hypothesis, but it is not a sufficient explanation. Paper is traded globally, and Hong Kong public toilets already procure toilet paper. The absence of paper hand towels therefore cannot simply be inferred from the cost of local papermaking.`,
+          `Operating cost remains relevant, but the important cost may be labour rather than electricity alone. Paper requires replenishment, transportation, storage, and waste removal; a dryer replaces some recurring inputs with a capital installation. This is a plausible mechanism to investigate, not yet a quantified conclusion.`,
+          `Environmental policy also requires a chronological test. Hong Kong’s Public Toilet Refurbishment Programme had operated annually since 2000, while the Waste Blueprint for Hong Kong 2035 was announced in 2021. Dryer installation therefore cannot simply be attributed to the later waste-reduction agenda, even if it subsequently fitted that discourse.`,
+          `A fourth hypothesis concerns institutional scope. A configuration built around basin, soap, and dryer defines a closed sequence of hand-washing. Needs beyond that sequence, such as wiping one’s face, are left to the user. By contrast, free-paper provision can express a broader promise of public service, while also creating a waste-management problem.`,
+          `Finally, international benchmarking has direct documentary support: Hong Kong studied European auto-cleansing toilets and Singapore’s Smart Toilet System. That helps explain where technical routes came from, but not why two jurisdictions diverged, because mainland cities also adopt international models.`,
+        ],
+      },
+      {
+        heading: 'A working interpretation, not a final answer',
+        paragraphs: [
+          `The current working hypothesis contrasts a facility-and-engineering logic in Hong Kong with a service-and-livelihood logic in the mainland cases studied. In the former, a core function is guaranteed through infrastructure and some derivative needs become the user’s responsibility. In the latter, free paper can serve as visible evidence that a public service is adequately provided, with technology and management then used to limit waste.`,
+          `This interpretation is a comparison of institutional tendencies, not a claim that every toilet in either place works the same way. Nor does it establish which model is superior. It identifies a boundary that now needs broader evidence and clearer measures.`,
+        ],
+      },
+      {
+        heading: 'What remains open',
+        paragraphs: [
+          `A serious comparison would need to add government expenditure, procurement, replenishment labour, individual spending on pocket tissues, waste, and environmental cost. Hygiene evidence must also be considered independently: an option that costs less or produces less waste is not automatically the option with the better public-health outcome.`,
+          `The larger question is therefore not simply “dryer or paper?” It is where the boundary between collective provision and individual responsibility should lie, which costs each arrangement makes visible, and which costs it transfers elsewhere. That is the question this working note will continue to test.`,
+        ],
+      },
+    ],
+  },
 ]
+
+export const essays: Essay[] = essayData.map((essay) => ({
+  ...essay,
+  original: originalEssays[essay.slug],
+}))
