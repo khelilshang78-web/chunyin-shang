@@ -80,7 +80,11 @@ try {
 
   await page.goto('http://127.0.0.1:4173/#/', { waitUntil: 'networkidle' })
   check((await page.title()).includes('ChunYin Shang'), 'Homepage title identifies ChunYin Shang')
-  check(await page.locator('.home-portrait img').evaluate((image) => image.complete && image.naturalWidth > 0), 'Homepage portrait loads successfully')
+  check(await page.locator('.home-portrait img').evaluate((image) => image.complete && image.naturalWidth > 0), 'Homepage panoramic photograph loads successfully')
+  await page.locator('.home-experiences').scrollIntoViewIfNeeded()
+  await page.waitForFunction(() => [...document.querySelectorAll('.home-experience-grid img')].every((image) => image.complete && image.naturalWidth > 0))
+  check(await page.locator('.home-experience-grid figure').count() === 2, 'Homepage renders two supporting experience photographs')
+  check(await page.locator('.home-experience-grid img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Both homepage experience photographs load successfully')
   await noHorizontalOverflow(page, 'Desktop homepage')
   await screenshot(page, 'desktop-home')
 
@@ -167,6 +171,12 @@ try {
     await mobilePage.goto(`http://127.0.0.1:4173/#${route}`, { waitUntil: 'networkidle' })
     await noHorizontalOverflow(mobilePage, `Mobile ${route}`)
     check(await mobilePage.locator('h1, h2').first().isVisible(), `Mobile ${route}: primary content is visible`)
+    if (route === '/') {
+      await mobilePage.locator('.home-experiences').scrollIntoViewIfNeeded()
+      await mobilePage.waitForFunction(() => [...document.querySelectorAll('.home-experience-grid img')].every((image) => image.complete && image.naturalWidth > 0))
+      check(await mobilePage.locator('.home-experience-grid img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Mobile homepage experience photographs load successfully')
+      await mobilePage.locator('.home-experiences').screenshot({ path: join(qaDir, 'mobile-home-experiences.png') })
+    }
     if (route === '/profile') {
       await mobilePage.locator('.speaking-evidence').scrollIntoViewIfNeeded()
       await mobilePage.waitForFunction(() => [...document.querySelectorAll('.speaking-gallery img')].every((image) => image.complete && image.naturalWidth > 0))

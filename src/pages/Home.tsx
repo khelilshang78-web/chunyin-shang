@@ -36,37 +36,34 @@ export default function Home() {
 
       <section className="home-opening" aria-labelledby="home-title">
         <div className="home-opening-copy">
-          <h1 id="home-title"><span>How do institutions</span><span>shape <em>everyday life?</em></span></h1>
-          <p className="home-intro">
-            I’m ChunYin Shang, an international high school student based between Hangzhou and Hong Kong. I approach that question through PPE, STS, public policy, field observation, and writing.
-          </p>
-          <div className="home-actions">
-            <Link to="/profile" className="panel-link" aria-label="Explore ChunYin Shang's profile">
-              Explore my profile <ArrowUpRight aria-hidden="true" />
-            </Link>
-            <Link to="/writing" className="text-link muted-link" aria-label="Read ChunYin Shang's essays">
-              Read my essays <ArrowRight aria-hidden="true" size={18} />
-            </Link>
+          <h1 id="home-title">How do institutions<br />shape <em>everyday life?</em></h1>
+          <div className="home-intro-row">
+            <p className="home-intro">
+              I’m ChunYin Shang, an international high school student based between Hangzhou and Hong Kong. I approach that question through PPE, STS, public policy, field observation, and writing.
+            </p>
+            <div className="home-actions">
+              <Link to="/profile" className="panel-link" aria-label="Explore ChunYin Shang's profile">
+                Explore my profile <ArrowUpRight aria-hidden="true" />
+              </Link>
+              <Link to="/writing" className="text-link muted-link" aria-label="Read ChunYin Shang's essays">
+                Read my essays <ArrowRight aria-hidden="true" size={18} />
+              </Link>
+            </div>
           </div>
         </div>
 
         <figure className="home-portrait">
           <img
-            src="./images/china-un-presentation.jpg"
-            alt="ChunYin Shang presenting on China’s return to the United Nations at SFLSHZ"
-            width="1280"
-            height="853"
+            src="./images/mun-delegate-discussion.webp"
+            alt="ChunYin Shang seated behind a China nameplate, discussing a position with another Model United Nations delegate"
+            width="1800"
+            height="829"
           />
           <figcaption>
-            <span>In practice</span>
-            <p>Presenting on China’s return to the United Nations at SFLSHZ.</p>
+            <span>In committee</span>
+            <p>Discussing a position with another delegate during a Model United Nations session.</p>
           </figcaption>
         </figure>
-
-        <aside className="home-field-note">
-          <span>Current inquiry</span>
-          <p>Why do similar everyday needs produce different ideas of what a public service ought to provide?</p>
-        </aside>
       </section>
 
       <section className="home-work" aria-labelledby="current-work-title">
@@ -83,6 +80,46 @@ export default function Home() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="home-experiences" aria-labelledby="experiences-title">
+        <header className="home-section-heading">
+          <h2 id="experiences-title">Ideas, tested with other people</h2>
+          <p>Public communication matters to me when it turns careful preparation into a conversation others can enter.</p>
+        </header>
+        <div className="home-experience-grid">
+          <figure className="experience-primary">
+            <img
+              src="./images/china-un-presentation.jpg"
+              alt="ChunYin Shang presenting on China’s return to the United Nations at SFLSHZ"
+              width="1280"
+              height="853"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              <span>Academic presentation · SFLSHZ</span>
+              <p>Connecting historical inquiry with public communication in a presentation on China’s return to the United Nations.</p>
+            </figcaption>
+          </figure>
+          <figure className="experience-secondary">
+            <img
+              src="./images/panel-discussion.webp"
+              alt="ChunYin Shang speaking into a microphone during a seated panel discussion"
+              width="1279"
+              height="1706"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              <span>Panel discussion · SFLSHZ</span>
+              <p>Listening and responding in a seated discussion with fellow students.</p>
+            </figcaption>
+          </figure>
+        </div>
+        <Link to="/profile#activities" className="text-link experience-link">
+          More experiences & photographs <ArrowRight aria-hidden="true" size={18} />
+        </Link>
       </section>
 
       <section className="home-writing" aria-labelledby="selected-writing-title">

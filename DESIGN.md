@@ -1,188 +1,103 @@
 ---
 name: "ChunYin Shang"
-description: "A two-city editorial profile connecting personal inquiry, authentic evidence, and long-form writing."
+description: "A monochrome editorial portfolio grounded in personal inquiry, authentic photography, and long-form writing."
 colors:
-  field-blue: "#a8d0e6"
-  field-red: "#F2482D"
-  field-paper: "#e7e7e7"
-  near-black: "#111111"
-  text-secondary: "#35444b"
-  text-on-blue: "#24353c"
-  border-subtle: "#a5afaa"
+  paper: "#fafafa"
+  ink: "#0a0a0a"
+  muted: "#555555"
+  line: "#e5e5e5"
+  soft: "#f2f2f2"
 typography:
-  display:
-    fontFamily: "Times New Roman, Times, serif"
-    fontSize: "clamp(3.8rem, 6.65vw, 6rem)"
-    fontWeight: 400
-    lineHeight: 0.88
-    letterSpacing: "-0.04em"
-  headline:
-    fontFamily: "Times New Roman, Times, serif"
-    fontSize: "clamp(3rem, 5.4vw, 5.5rem)"
-    fontWeight: 400
-    lineHeight: 1.05
-    letterSpacing: "-0.04em"
-  body:
-    fontFamily: "Times New Roman, Times, serif"
-    fontSize: "16px"
-    fontWeight: 400
-    lineHeight: 1.6
-  longform:
-    fontFamily: "Times New Roman, Times, serif"
-    fontSize: "1.13rem"
-    fontWeight: 400
-    lineHeight: 1.78
-  label:
-    fontFamily: "Times New Roman, Times, serif"
-    fontSize: "0.72rem"
-    fontWeight: 600
-    lineHeight: 1.4
-    letterSpacing: "0.14em"
+  family: "Times New Roman, Times, serif"
+  body: "17px / 1.6; 16px on mobile"
+  longform: "1.13rem / 1.78; 70ch maximum"
+  label: "0.72rem / 600 / uppercase / 0.11em tracking"
 rounded:
-  square: "0"
-  circle: "50%"
+  default: "0"
+  archive-arrow: "50%"
 spacing:
   page-gutter: "40px"
   mobile-gutter: "20px"
-  section-space: "96px"
-  mobile-section-space: "64px"
-components:
-  home-primary-action:
-    backgroundColor: "{colors.near-black}"
-    textColor: "{colors.field-paper}"
-    rounded: "{rounded.square}"
-    padding: "10px 16px"
-  home-primary-action-hover:
-    backgroundColor: "{colors.field-paper}"
-    textColor: "{colors.near-black}"
-    rounded: "{rounded.square}"
-    padding: "10px 16px"
-  archive-arrow:
-    backgroundColor: transparent
-    textColor: "{colors.near-black}"
-    rounded: "{rounded.circle}"
-    width: "44px"
-    height: "44px"
-  reading-progress:
-    backgroundColor: "{colors.field-red}"
-    height: "3px"
+  mobile-breakpoint: "760px"
 ---
 
 # Design System: ChunYin Shang
 
-## Overview
+## Direction
 
-**Creative North Star: "Two Cities, One Inquiry"**
+A restrained, print-like editorial site: regular-weight serif headlines, generous white space, thin rules, square corners, and authentic documentary photography. Keep every route in the same visual language. Use hierarchy, spacing, and ruled lists rather than cards, shadows, gradients, decorative color, or extra typefaces.
 
-The site connects life between Hangzhou and Hong Kong through two flat editorial fields: sky blue and vermilion. The homepage puts the governing question and authentic public-speaking evidence in the same first viewport; grey-white space then gives research, experience, and writing room to breathe. The result should feel direct, academically credible, personal, and printed rather than templated.
+## Palette and typography
 
-The visual system is deliberately economical: one serif family, hard colour fields, sharp rules, real photographs, and almost no ornament. Extend the same language to Profile, Writing, and Essay pages instead of inventing a separate visual identity for each route.
+- **Paper `#fafafa`**: page background, header, and text on black.
+- **Ink `#0a0a0a`**: primary text, major rules, focus, progress, primary action, contact, and footer.
+- **Muted `#555555`**: introductions, metadata, captions, and secondary copy.
+- **Line `#e5e5e5`**: secondary dividers and control borders.
+- **Soft `#f2f2f2`**: Current Work background, image loading surface, and pagination hover.
 
-**Key Characteristics:**
-- Equal blue/red colour split on the desktop opening, with content allowed to cross the divide.
-- Times New Roman everywhere; roman type by default and italic used as a deliberate emphasis.
-- Flat colour, near-black one-pixel rules, square corners, and no decorative shadows.
-- Authentic photographs with factual captions; no stock, generated, or fictional evidence.
+Use **Times New Roman**, with Times and generic serif fallbacks, for all headings, body copy, navigation, controls, labels, and captions. Headings use weight 400, tight tracking, and responsive clamps. Labels are small, semibold, uppercase, and letter-spaced. Italic is limited to deliberate emphasis, such as the homepage question and archive-title hover.
 
-## Colors
+Default geometry is square with one-pixel rules. The circular 44 px archive arrow is the exception. Global keyboard focus is a 2 px ink outline with a 4 px offset; preserve visible focus and minimum 44 px interactive targets.
 
-The palette is a small set of flat editorial fields, not a general-purpose UI ramp.
+## Shared chrome
 
-### Primary
-- **Sky Blue** (`field-blue`): homepage left field, shared navigation, Profile identity rail, Writing hero, and Essay header.
-- **Vermilion** (`field-red`): homepage right field, Profile contents rail, contact/footer bands, reading progress, selection, focus, and active accents.
+The homepage has its own static, rule-bound header. Profile, Writing, and Essay use the shared sticky header. Both use a compact wordmark and Profile, Writing, and Contact links; shared active links receive a simple underline. Inner-page footers and the homepage contact band are black with paper-colored text, a compact location line, and an email link.
 
-### Neutral
-- **Grey White** (`field-paper`): main page and reading surfaces, homepage inquiry strip, and current-work section.
-- **Near Black** (`near-black`): primary text, rules, image borders, and the primary homepage action.
-- **Secondary Ink** (`text-secondary`, `text-on-blue`): supporting copy; preserve the darker blue-field variant where already used.
-- **Subtle Rule** (`border-subtle`): secondary dividers only; major section boundaries use near black.
+## Homepage
 
-**The Hard-Stop Rule.** The opening uses a 50% blue / 50% red hard-stop split. Do not turn this into a decorative gradient, soften it into beige, or add extra accent colours.
+Preserve this sequence:
 
-## Typography
+1. **Question and introduction** — “How do institutions shape everyday life?” with an italic emphasis, concise introduction, and profile/writing actions.
+2. **Panoramic MUN photograph** — a wide `2.15 / 1` crop with a factual two-part caption.
+3. **Current Work** — a soft-grey section with three rule-led entries for research, reading/writing, and student leadership.
+4. **Experience** — two authentic images in an asymmetric grid: a large `3 / 2` presentation image and a narrower, offset `4 / 5` panel-discussion image, each captioned, followed by a Profile activities link.
+5. **Selected writing** — full-width ruled essay rows with category/year, title, excerpt, and arrow; link to the complete archive.
+6. **Contact** — a compact black band with location and email.
 
-**Display, Body, and Label Font:** Times New Roman, with Times and generic serif fallbacks. Use it for navigation, controls, metadata, captions, headings, and body copy alike.
+Keep the opening copy and captions constrained to readable measures while allowing the photograph and major section headings to carry the editorial scale.
 
-**Character:** Large, regular-weight headlines create the editorial voice. Tight headline spacing contrasts with relaxed body leading. Labels are small, semibold, uppercase, and letter-spaced without changing typeface.
+## Profile
 
-### Hierarchy
-- **Homepage Display:** use the `display` token; keep the question on two explicit lines and its second-line phrase in italic.
-- **Section Headline:** use the `headline` token for major homepage statements; route heroes use their existing responsive clamps rather than enlarging body text.
-- **Body:** 16 px / 1.6 globally; introductory copy stays compact, generally within 43–58 characters.
-- **Long-form:** use `longform`, with a maximum article-body width of 70ch. Section headings remain regular weight.
-- **Label:** use `label` for eyebrows, categories, indices, and metadata.
+Use **one editorial column**, not sticky side rails:
 
-**The Italic Accent Rule.** Roman is the default. Italic is reserved for the key phrase in the homepage question and the selected-writing title hover; do not italicize whole pages, navigation, or every heading.
+- A compact identity header pairs a 180 px `4 / 5` portrait with name, preferred name, and location.
+- A horizontal section index sits between identity and content. Its buttons scroll to Direction, Research, Learning, Leadership, Activities, Education, and Capabilities.
+- The main record is centered at a maximum width of 1180 px. Use large section statements, readable introductions, ruled lists, timelines, and research details rather than cards.
+- Leadership includes a two-image public-speaking gallery. **Beyond the classroom** uses exactly six captioned photographs in an asymmetric 12-column mosaic, mixing wide and portrait crops. Each figure includes a concise title, general factual category, and description.
 
-## Layout
+## Writing archive and long-form reading
 
-### Homepage opening
-- Desktop header is 80 px high; the opening fills `calc(100svh - 80px)` and uses a 12-column grid with 24 px column gaps and 40 px side gutters.
-- The background split is exactly half blue and half red. Copy occupies columns 1–8; the photograph occupies columns 8–12. Their overlap at column 8 is intentional and makes the composition cross the colour divide.
-- The opening headline is two lines, with the italic phrase crossing toward the photograph. Actions sit below the introduction.
-- A full-width grey-white Current Inquiry strip closes the opening. Below it, Current Work is grey white, Selected Writing is blue, and Contact is red.
+### Archive
 
-### Authentic photography
-- The homepage source photograph is 1280 × 853 (3:2), rendered as a 4:5 portrait crop with `object-fit: cover` and object position `54% center`. Preserve the crop rather than stretching the image.
-- Desktop photograph width is at most 580 px, height at most 62svh, with a one-pixel near-black border and a factual two-part caption.
-- On entry, `clip-path` animates from `inset(18% 0 0 0)` to `inset(0)` while scale moves from 0.97 to 1 over 900 ms with `cubic-bezier(0.26, 1, 0.48, 1)`.
-- Disable this reveal under `prefers-reduced-motion: reduce`; keep the complete photograph visible.
+Use a two-column hero above a transparent, rule-led tool area. Search matches title, subtitle, excerpt, category, and tags; theme and year filters combine with the query. Show a live result count and a resettable empty state. Essay rows remain linear, with year/reading time, title, category, subtitle, excerpt, tags, and a circular arrow link—never a card grid.
 
-### Profile, Writing, and Essay
-- **Profile:** desktop uses three columns—blue sticky identity rail, grey-white main record, red sticky contents rail. At 1100 px the contents rail disappears; at 760 px identity and content stack and sticky positioning is removed.
-- **Profile activities:** the Beyond the classroom section uses six authentic photographs in an asymmetric 12-column editorial mosaic. Wide MUN, school-event, summer-program, and football images alternate with 4:5 panel and piano crops. Every figure has a concise title, a general factual category, and a caption; do not infer a specific event, date, or award from appearance alone. At 760 px the mosaic becomes one column with 40 px separation.
-- **Writing:** blue two-column hero above a grey-white archive. Search, filters, metadata, and essay rows remain linear and rule-led rather than becoming cards.
-- **Essay:** blue title header, then a centred reading grid no wider than 1200 px. Desktop uses a narrow margin note and a 70ch article column; mobile stacks them. Previous/next navigation splits in two on desktop and stacks on mobile.
-- Shared footers remain compact red bands with near-black text and a top rule.
+### Essay
 
-### Mobile and 375 px verification
-- The principal mobile breakpoint is 760 px; 375 px is a required verification width, not a separate breakpoint. Keep the 320 px minimum canvas.
-- At 375 px, use 20 px gutters. The homepage becomes one blue column: question, actions, photograph, then Current Inquiry. Do not preserve a squeezed 50/50 split.
-- The photograph becomes a full-bleed red panel (`width: calc(100% + 40px)`, negative 20 px side margins), retaining 20 px internal padding and the 4:5 crop without the desktop height cap.
-- Homepage display type uses `clamp(2.85rem, 12.6vw, 4.5rem)` and 0.92 line height. Section headings and archive rows stack; metadata moves above titles.
-- Home navigation stays compact with 16 px gaps; the preferred name is hidden. Shared navigation hides Contact, while Profile and Writing remain available.
-- Preserve minimum 44 px interactive targets, wrap or stack filter and footer controls, and check that long titles and the email address do not cause horizontal scrolling.
+- A fixed 3 px ink bar tracks reading progress.
+- The header contains an archive back link, large title, subtitle, byline metadata, and tags.
+- Desktop reading uses a narrow margin note beside a **70ch** article column; the margin note may link to the original Chinese publication when supplied.
+- Body copy is `1.13rem / 1.78`; sections have clear spacing, and quotes use a simple ink left rule with a citation.
+- Newer/older essay pagination splits into two columns on desktop. At the oldest essay, the next link returns to the archive. Unknown slugs show a simple not-found state with an archive link.
 
-## Elevation & Depth
+## Photography and content integrity
 
-The system is flat: no card shadows, floating panels, or ambient elevation. Depth comes from colour-field changes, sticky desktop rails, the intentional copy/photo overlap, and the single photographic reveal. Do not add shadows to make content feel important.
+Use only authentic, supplied photographs in their **natural color**, with responsive `object-fit: cover` crops and accurate alt text. Captions provide context without overpowering the image. Do not add color overlays, stylized filters, decorative frames, or shadow treatments.
 
-## Shapes
+**Never substitute stock, AI-generated, or placeholder photographs. Never invent facts, events, dates, awards, publications, outcomes, testimonials, or other evidence.** Keep captions and metadata factual; do not infer specifics from appearance alone. Lazy-load below-the-fold documentary images and retain explicit dimensions where provided.
 
-Use square corners and one-pixel rules as the default geometry. Major dividers are near black; secondary dividers may use the subtle rule token. The circular 44 px archive arrow is a deliberate exception, not permission to round every control. Image clipping belongs only to the established homepage reveal.
+## Responsive behavior
 
-## Components
+The principal mobile breakpoint is **760 px**, with a 320 px minimum canvas and 20 px gutters. Verify at 375 px.
 
-### Navigation
-- Shared headers are blue, sticky, and rule-bound; homepage navigation is part of the split opening on desktop.
-- Active shared-navigation links retain near-black text and gain a vermilion underline. Keep labels in Times New Roman and preserve keyboard focus.
+- Homepage introduction, section headings, work entries, experience grid, essay rows, contact, and footer stack. Metadata moves above essay titles.
+- The MUN image becomes full bleed and changes to a `4 / 3` crop; its caption retains 20 px side padding. The secondary experience image becomes a 78%-width, right-aligned portrait.
+- Shared navigation hides the secondary wordmark and Contact; keep navigation compact and usable. The homepage retains its own compact navigation.
+- Profile identity shrinks to a 104 px portrait. The horizontal section index becomes a single-row, horizontally scrollable strip. Multi-column records, speaking gallery, capability list, and six-photo mosaic stack; mosaic images use simpler landscape or portrait ratios with 40 px separation.
+- Archive filters stack. Essay metadata becomes inline above the title. Article margin note and body stack, and pagination becomes one column.
+- Wrap or stack controls and ensure long titles and email addresses do not create horizontal page scrolling.
 
-### Links and actions
-- The primary homepage action is a square near-black rectangle; hover reverses it to grey white with near-black text.
-- Secondary links are underlined text links. Standard hover motion is 200 ms with `cubic-bezier(.23,1,.32,1)`; arrow movement is only 3 px horizontally and -3 px vertically.
-- Selected Writing titles become italic on hover. Do not replace this with a card lift or shadow.
+## Motion and reduced motion
 
-### Search and filters
-- Search and filters remain transparent and rule-led. Active filters use a two-pixel vermilion underline; search focus uses a two-pixel vermilion outline with a 3 px offset.
-- Global keyboard focus uses a two-pixel vermilion outline with a 4 px offset. Never remove it without an equivalent visible replacement.
+Motion is restrained. Only the homepage MUN photograph uses the `image-unmask` entrance: an 800 ms reveal from a 16% bottom clip and 3 px blur to the fully visible, sharp image, using `cubic-bezier(0.16, 1, 0.3, 1)`. Link hover uses small opacity or arrow shifts; do not add parallax, card lifts, or broad scroll animation.
 
-### Reading
-- Essay progress is a fixed three-pixel vermilion bar at the top. Article quotes use a near-black left rule, not a coloured card.
-- Pagination hover uses the blue field. Reduced-motion mode disables smooth scrolling and collapses transition durations.
-
-## Do's and Don'ts
-
-### Do:
-- **Do** preserve the dual-city concept as two flat fields and carry the blue / red / grey-white rhythm through every route.
-- **Do** use the final token values in this file and the end of `src/index.css`; earlier warm-paper declarations are superseded legacy layers.
-- **Do** use only the real images in `public/images/` with accurate alt text, provenance, and captions.
-- **Do** keep new sections editorial, spacious, keyboard accessible, and readable at 375 px.
-- **Do** check the actual cascade after editing: later rules currently define the shipping design.
-
-### Don't:
-- **Don't** reintroduce a generic beige / cream template, card grid, decorative gradient, glass effect, or shadow-heavy interface.
-- **Don't** introduce another font family or make italics the default heading style.
-- **Don't** substitute stock, AI-generated, placeholder, or uncaptioned imagery for authentic evidence.
-- **Don't** invent awards, publications, testimonials, project outcomes, interviews, or other visual/content proof.
-- **Don't** force the desktop split, sticky rails, or multi-column reading layout into mobile widths.
+Run the image reveal only under `prefers-reduced-motion: no-preference`. Under `prefers-reduced-motion: reduce`, disable CSS smooth scrolling and reduce animation and transition durations to `0.01ms`, leaving content immediately visible and usable.
