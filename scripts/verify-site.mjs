@@ -84,12 +84,15 @@ try {
 
   await page.getByRole('link', { name: "Explore ChunYin Shang's profile" }).click()
   await page.waitForURL('**/#/profile')
+  await page.locator('.profile-intro').waitFor()
   check(await page.locator('.profile-intro').isVisible(), 'Primary profile CTA navigates to profile')
   await page.locator('.speaking-evidence').scrollIntoViewIfNeeded()
   await page.waitForFunction(() => [...document.querySelectorAll('.speaking-gallery img')].every((image) => image.complete && image.naturalWidth > 0))
   check(await page.locator('.speaking-gallery figure').count() === 2, 'Profile renders both public-speaking photographs')
   check(await page.locator('.speaking-gallery img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Both public-speaking photographs load successfully')
   check(await page.getByText('hosted by Shanghai International Studies University', { exact: false }).isVisible(), 'MUN caption identifies the event host accurately')
+  check(await page.getByText('DOCUMENTARY PROJECT · IN PRODUCTION', { exact: true }).isVisible(), 'Documentary is labelled as in production')
+  check(await page.getByText('The first interview, lasting more than 40 minutes with a Form 6 student at a Band 1 secondary school in Hong Kong, has been completed. The first episode is currently being edited.', { exact: true }).isVisible(), 'Documentary stage reflects the completed interview and current edit')
   await page.evaluate(() => window.scrollTo(0, 0))
   const scrollBefore = await page.evaluate(() => window.scrollY)
   await page.getByRole('button', { name: 'Research', exact: true }).click()
@@ -102,6 +105,7 @@ try {
 
   await page.getByRole('link', { name: 'Writing', exact: true }).click()
   await page.waitForURL('**/#/writing')
+  await page.locator('.essay-row').first().waitFor()
   check(await page.locator('.essay-row').count() === 3, 'Writing archive renders all three essays')
   await page.getByLabel('Search essays').fill('Rousseau')
   check(await page.locator('.essay-row').count() === 1, 'Essay search filters by title, content metadata, and tags')
@@ -120,6 +124,7 @@ try {
 
   await page.locator('.essay-row h2 a').filter({ hasText: 'Physically Present, Digitally Unreadable' }).click()
   await page.waitForURL('**/#/writing/physically-present-digitally-unreadable')
+  await page.locator('.article-body section').first().waitFor()
   check(await page.locator('.article-body section').count() === 5, 'Essay page renders the complete five-section article')
   await noHorizontalOverflow(page, 'Desktop essay')
   await screenshot(page, 'desktop-article')
@@ -129,6 +134,7 @@ try {
   check(progressTransform !== 'scaleX(0)' && progressTransform !== '', 'Reading progress responds to scroll position')
   await page.getByRole('link', { name: /Older essay/ }).click()
   await page.waitForURL('**/#/writing/the-words-we-fill-with-power')
+  await page.getByRole('heading', { name: 'The Words We Fill With Power', exact: true }).waitFor()
   check(await page.locator('h1').innerText() === 'The Words We Fill With Power', 'Article pagination opens the next essay')
 
   const metrics = await page.evaluate(() => {

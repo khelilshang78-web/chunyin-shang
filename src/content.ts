@@ -65,10 +65,10 @@ export const researchProjects = [
   },
   {
     title: 'Growing Up Between Hong Kong and the Mainland',
-    meta: 'Documentary proposal · Director & Writer · 2026–Present',
-    summary: 'A fact-based short-film proposal about teenagers growing up between Hong Kong and mainland China. The proposal examines identity-document services, access to public education, and digital-payment platforms as everyday points of contact with public administration.',
+    meta: 'DOCUMENTARY PROJECT · IN PRODUCTION',
+    summary: 'A fact-based documentary project about teenagers growing up between Hong Kong and mainland China. The project examines identity-document services, access to public education, and digital-payment platforms as everyday points of contact with public administration.',
     question: 'Can ordinary administrative encounters reveal something larger about identity and belonging?',
-    finding: 'The project is currently in development. Its next stage is to test the proposal through interviews, verifiable personal accounts, and careful ethical review.',
+    finding: 'The first interview, lasting more than 40 minutes with a Form 6 student at a Band 1 secondary school in Hong Kong, has been completed. The first episode is currently being edited.',
     tags: ['Documentary', 'Identity', 'Public administration'],
   },
 ]
