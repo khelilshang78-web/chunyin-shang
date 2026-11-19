@@ -94,8 +94,8 @@ export default function Writing() {
                     <span>{essay.readingTime} min read</span>
                   </div>
                   <div>
-                    <p className="essay-category">{essay.category}</p>
                     <h2><Link to={`/writing/${essay.slug}`}>{essay.title}</Link></h2>
+                    <p className="essay-category">{essay.category}</p>
                     <p className="essay-subtitle">{essay.subtitle}</p>
                     <p className="essay-excerpt">{essay.excerpt}</p>
                     <ul className="inline-tags" aria-label="Essay themes">

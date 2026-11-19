@@ -29,10 +29,10 @@ export default function Profile() {
         <aside className="profile-identity">
           <div className="identity-sticky">
             <img src="./images/chunyin-shang.jpg" alt="ChunYin Shang" className="profile-photo" />
-            <p className="eyebrow">Personal profile</p>
             <h1>{profile.name}</h1>
             <p className="preferred-name">Also known as {profile.preferredName}</p>
             <p className="identity-location">{profile.location}</p>
+            <p className="eyebrow">Personal profile</p>
           </div>
         </aside>
 
@@ -72,8 +72,8 @@ export default function Profile() {
             <div className="research-list">
               {researchProjects.map((project) => (
                 <article key={project.title} className="research-item">
-                  <p className="item-meta">{project.meta}</p>
                   <h3>{project.title}</h3>
+                  <p className="item-meta">{project.meta}</p>
                   <p>{project.summary}</p>
                   <div className="research-detail">
                     <strong>Research question</strong>
@@ -115,8 +115,8 @@ export default function Profile() {
             <div className="leadership-list">
               {leadership.map((item) => (
                 <article key={item.role}>
-                  <p className="item-meta">{item.period}</p>
                   <h3>{item.role}</h3>
+                  <p className="item-meta">{item.period}</p>
                   <p className="item-subtitle">{item.organization}</p>
                   <p>{item.description}</p>
                   <ul className="contribution-list">
@@ -141,8 +141,8 @@ export default function Profile() {
                     decoding="async"
                   />
                   <figcaption>
-                    <p className="photo-meta">Model United Nations · 2025</p>
                     <h4>Delivering a committee speech</h4>
+                    <p className="photo-meta">Model United Nations · 2025</p>
                     <p>Speaking as a student delegate at a session hosted by Shanghai International Studies University, with country positions and committee motions displayed behind the podium.</p>
                   </figcaption>
                 </figure>
@@ -156,8 +156,8 @@ export default function Profile() {
                     decoding="async"
                   />
                   <figcaption>
-                    <p className="photo-meta">Academic presentation · SFLSHZ</p>
                     <h4>China’s return to the United Nations</h4>
+                    <p className="photo-meta">Academic presentation · SFLSHZ</p>
                     <p>Presenting at Shanghai Foreign Language School Affiliated to SISU, Hangzhou, connecting historical inquiry with public communication.</p>
                   </figcaption>
                 </figure>
@@ -170,8 +170,8 @@ export default function Profile() {
             <div className="education-list">
               {education.map((item) => (
                 <article key={item.school}>
-                  <p className="item-meta">{item.period}</p>
                   <h3>{item.school}</h3>
+                  <p className="item-meta">{item.period}</p>
                   <p>{item.credential}</p>
                   <p>{item.detail}</p>
                 </article>

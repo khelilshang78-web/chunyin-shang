@@ -68,6 +68,8 @@ async function noHorizontalOverflow(page, label) {
 }
 
 async function screenshot(page, name) {
+  await page.evaluate(() => window.scrollTo(0, 0))
+  await page.waitForTimeout(150)
   await page.screenshot({ path: join(qaDir, `${name}.png`), fullPage: true })
 }
 

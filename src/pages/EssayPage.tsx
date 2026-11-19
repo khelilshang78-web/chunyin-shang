@@ -30,8 +30,8 @@ export default function EssayPage() {
       <div className="page-shell">
         <SiteHeader />
         <main className="not-found">
-          <p className="eyebrow">Essay not found</p>
           <h1>This note is not in the archive.</h1>
+          <p className="eyebrow">Essay not found</p>
           <Link to="/writing" className="text-link"><ArrowLeft aria-hidden="true" size={18} /> Return to all writing</Link>
         </main>
       </div>
@@ -49,10 +49,10 @@ export default function EssayPage() {
         <article className="article-shell">
           <header className="article-header">
             <Link to="/writing" className="back-link"><ArrowLeft aria-hidden="true" size={18} /> All writing</Link>
-            <p className="article-category">{essay.category}</p>
             <h1>{essay.title}</h1>
             <p className="article-subtitle">{essay.subtitle}</p>
             <div className="article-byline">
+              <span>{essay.category}</span>
               <span>By ChunYin Shang</span>
               <span>{essay.year}</span>
               <span>{essay.readingTime} min read</span>

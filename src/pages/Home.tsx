@@ -36,7 +36,7 @@ export default function Home() {
 
       <section className="home-opening" aria-labelledby="home-title">
         <div className="home-opening-copy">
-          <h1 id="home-title">How do institutions<br />shape everyday life?</h1>
+          <h1 id="home-title"><span>How do institutions</span><span>shape <em>everyday life?</em></span></h1>
           <p className="home-intro">
             I’m ChunYin Shang, an international high school student based between Hangzhou and Hong Kong. I approach that question through PPE, STS, public policy, field observation, and writing.
           </p>
