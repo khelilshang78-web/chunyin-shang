@@ -32,7 +32,7 @@ Use the name ChunYin Shang (Khelil), the locations Hangzhou and Hong Kong, and T
 
 ## Evidence on Hand
 
-Three complete essays, a comparative public-toilet research project, documentary status and subject matter, education and academic records, learning programs, student leadership, and two genuine public-speaking photographs in `public/images/`. Do not invent awards, outcomes, publications, interviews, or testimonials.
+Three complete essays, a comparative public-toilet research project, documentary status and subject matter, education and academic records, learning programs, student leadership, two genuine public-speaking photographs, and six selected activity photographs in `public/images/`. Activity captions remain deliberately general unless the exact event has been verified. Do not invent awards, outcomes, publications, interviews, testimonials, or event attribution.
 
 ## Product Principles
 

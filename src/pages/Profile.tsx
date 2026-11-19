@@ -17,6 +17,7 @@ const sections = [
   ['research', 'Research'],
   ['learning', 'Learning'],
   ['leadership', 'Leadership'],
+  ['activities', 'Activities'],
   ['education', 'Education'],
   ['capabilities', 'Capabilities'],
 ]
@@ -163,6 +164,105 @@ export default function Profile() {
                 </figure>
               </div>
             </section>
+          </section>
+
+          <section id="activities" className="profile-section activities-section" aria-labelledby="activities-title">
+            <h2 id="activities-title">Beyond the classroom</h2>
+            <p className="section-intro">
+              Debate, summer programs, music, and sport keep my education connected to other people—through negotiation, performance, teamwork, and shared responsibility.
+            </p>
+            <div className="activity-mosaic">
+              <figure>
+                <img
+                  src="./images/mun-delegate-discussion.webp"
+                  alt="ChunYin Shang seated behind a China nameplate, discussing a position with another Model United Nations delegate"
+                  width="1800"
+                  height="829"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>
+                  <h3>Negotiation, not just speeches</h3>
+                  <p className="photo-meta">Model United Nations</p>
+                  <p>Discussing a position with another delegate during a committee session.</p>
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="./images/panel-discussion.webp"
+                  alt="ChunYin Shang speaking into a microphone during a seated panel discussion"
+                  width="1279"
+                  height="1706"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>
+                  <h3>Listening and responding</h3>
+                  <p className="photo-meta">Panel discussion · SFLSHZ</p>
+                  <p>Contributing to a seated discussion with fellow students.</p>
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="./images/summer-program-group.webp"
+                  alt="ChunYin Shang with a group of peers during a summer learning program"
+                  width="1432"
+                  height="1110"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>
+                  <h3>Learning in a cohort</h3>
+                  <p className="photo-meta">Summer learning program</p>
+                  <p>Sharing the experience with a peer group.</p>
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="./images/school-event-speaking.webp"
+                  alt="ChunYin Shang speaking on stage with a fellow student during a school event"
+                  width="1440"
+                  height="981"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>
+                  <h3>Sharing the stage</h3>
+                  <p className="photo-meta">School event</p>
+                  <p>Speaking on stage with a fellow student.</p>
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="./images/piano-performance.webp"
+                  alt="ChunYin Shang performing piano on stage at a school concert"
+                  width="1080"
+                  height="1440"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>
+                  <h3>Performance and discipline</h3>
+                  <p className="photo-meta">Piano</p>
+                  <p>Performing at a school concert.</p>
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="./images/football-team.webp"
+                  alt="ChunYin Shang posing with football teammates on the school pitch"
+                  width="1440"
+                  height="1080"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>
+                  <h3>Part of a team</h3>
+                  <p className="photo-meta">Football</p>
+                  <p>With teammates on the school pitch.</p>
+                </figcaption>
+              </figure>
+            </div>
           </section>
 
           <section id="education" className="profile-section">

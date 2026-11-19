@@ -131,6 +131,7 @@ The palette is a small set of flat editorial fields, not a general-purpose UI ra
 
 ### Profile, Writing, and Essay
 - **Profile:** desktop uses three columns—blue sticky identity rail, grey-white main record, red sticky contents rail. At 1100 px the contents rail disappears; at 760 px identity and content stack and sticky positioning is removed.
+- **Profile activities:** the Beyond the classroom section uses six authentic photographs in an asymmetric 12-column editorial mosaic. Wide MUN, school-event, summer-program, and football images alternate with 4:5 panel and piano crops. Every figure has a concise title, a general factual category, and a caption; do not infer a specific event, date, or award from appearance alone. At 760 px the mosaic becomes one column with 40 px separation.
 - **Writing:** blue two-column hero above a grey-white archive. Search, filters, metadata, and essay rows remain linear and rule-led rather than becoming cards.
 - **Essay:** blue title header, then a centred reading grid no wider than 1200 px. Desktop uses a narrow margin note and a 70ch article column; mobile stacks them. Previous/next navigation splits in two on desktop and stacks on mobile.
 - Shared footers remain compact red bands with near-black text and a top rule.

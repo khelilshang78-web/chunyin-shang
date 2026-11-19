@@ -2674,3 +2674,135 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Activities: an editorial contact sheet, with each photograph tied to a real context. */
+.activities-section .section-intro {
+  margin-bottom: 0;
+}
+
+.activity-mosaic {
+  display: grid;
+  margin-top: 40px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 36px 20px;
+}
+
+.activity-mosaic figure {
+  min-width: 0;
+}
+
+.activity-mosaic figure:nth-child(1) {
+  grid-column: 1 / 9;
+}
+
+.activity-mosaic figure:nth-child(2) {
+  grid-column: 9 / 13;
+}
+
+.activity-mosaic figure:nth-child(3) {
+  grid-column: 1 / 6;
+}
+
+.activity-mosaic figure:nth-child(4) {
+  grid-column: 6 / 13;
+}
+
+.activity-mosaic figure:nth-child(5) {
+  grid-column: 1 / 5;
+}
+
+.activity-mosaic figure:nth-child(6) {
+  grid-column: 5 / 13;
+}
+
+.activity-mosaic img {
+  width: 100%;
+  border: 1px solid #111111;
+  background: #d5d5d5;
+  object-fit: cover;
+}
+
+.activity-mosaic figure:nth-child(1) img {
+  aspect-ratio: 16 / 9;
+}
+
+.activity-mosaic figure:nth-child(2) img,
+.activity-mosaic figure:nth-child(5) img {
+  aspect-ratio: 4 / 5;
+}
+
+.activity-mosaic figure:nth-child(2) img {
+  object-position: center 70%;
+}
+
+.activity-mosaic figure:nth-child(3) img {
+  aspect-ratio: 4 / 3;
+}
+
+.activity-mosaic figure:nth-child(4) img,
+.activity-mosaic figure:nth-child(6) img {
+  aspect-ratio: 16 / 10;
+}
+
+.activity-mosaic figure:nth-child(5) img {
+  object-position: center 45%;
+}
+
+.activity-mosaic figure:nth-child(6) img {
+  object-position: center 65%;
+}
+
+.activity-mosaic figcaption {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #a5afaa;
+}
+
+.activity-mosaic h3 {
+  font-size: 1.18rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.activity-mosaic .photo-meta {
+  margin-top: 6px;
+  color: #35444b;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.activity-mosaic figcaption > p:last-child {
+  margin-top: 8px;
+  color: #35444b;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 760px) {
+  .activity-mosaic {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .activity-mosaic figure:nth-child(n) {
+    grid-column: 1;
+  }
+
+  .activity-mosaic figure:nth-child(1) img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .activity-mosaic figure:nth-child(3) img,
+  .activity-mosaic figure:nth-child(4) img,
+  .activity-mosaic figure:nth-child(6) img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .activity-mosaic figcaption > p:last-child {
+    font-size: 0.9rem;
+  }
+}
