@@ -48,22 +48,24 @@ The homepage has its own static, rule-bound header. Profile, Writing, and Essay 
 Preserve this sequence:
 
 1. **Question and introduction** — “How do institutions shape everyday life?” with an italic emphasis, concise introduction, and profile/writing actions.
-2. **Panoramic MUN photograph** — a wide `2.15 / 1` crop with a factual two-part caption.
-3. **Current Work** — a soft-grey section with three rule-led entries for research, reading/writing, and student leadership.
+2. **Panoramic MUN photograph** — a wide `2.15 / 1` crop with a factual two-part caption headed **“YMUN · May 2025.”**
+3. **Current Work** — a soft-grey section led by **Research 01 · Working paper**, followed by two smaller ruled entries for reading/writing and student leadership. The featured research is visually primary, not equal in weight to the supporting entries.
 4. **Experience** — two authentic images in an asymmetric grid: a large `3 / 2` presentation image and a narrower, offset `4 / 5` panel-discussion image, each captioned, followed by a Profile activities link.
-5. **Selected writing** — full-width ruled essay rows with category/year, title, excerpt, and arrow; link to the complete archive.
+5. **Selected writing** — full-width ruled essay rows with **“Read · Essay”** and year metadata, title, excerpt, and arrow; link to the complete archive.
 6. **Contact** — a compact black band with location and email.
 
-Keep the opening copy and captions constrained to readable measures while allowing the photograph and major section headings to carry the editorial scale.
+Feature Research 01 in a two-column, ink-ruled record: index, title, summary, and **View research record** link on the left; **Research question**, **Methods**, and **Status** (`Independent research · 2026`) on the right. The link targets `/profile#research`. Keep opening copy and captions constrained to readable measures while allowing the photograph and major section headings to carry the editorial scale.
 
 ## Profile
 
 Use **one editorial column**, not sticky side rails:
 
 - A compact identity header pairs a 180 px `4 / 5` portrait with name, preferred name, and location.
-- A horizontal section index sits between identity and content. Its buttons scroll to Direction, Research, Learning, Leadership, Activities, Education, and Capabilities.
+- A horizontal section index sits between identity and content. Its buttons smooth-scroll to Direction, Research, Learning, Leadership, Activities, Education, and Capabilities without rewriting the URL.
+- Navigation is hash-aware across routes: `/profile#research` and `/profile#activities` scroll directly to their section starts; route changes without a matching hash reset to the top. Preserve section scroll margins and global scroll padding so targets clear the sticky header.
 - The main record is centered at a maximum width of 1180 px. Use large section statements, readable introductions, ruled lists, timelines, and research details rather than cards.
-- Leadership includes a two-image public-speaking gallery. **Beyond the classroom** uses exactly six captioned photographs in an asymmetric 12-column mosaic, mixing wide and portrait crops. Each figure includes a concise title, general factual category, and description.
+- Keep the two research-area content types distinct: **Research 01 · Read the record** for the working paper and **Documentary 01 · Watch & listen** for the documentary. Both retain title, source metadata, summary, research question, current stage, and methods/themes tags; do not relabel the documentary as Research 01.
+- Leadership includes a two-image public-speaking gallery. **Beyond the classroom** uses exactly six captioned photographs in an asymmetric 12-column mosaic, mixing wide and portrait crops. Each figure includes a concise title, precise factual category, and description.
 
 ## Writing archive and long-form reading
 
@@ -83,13 +85,13 @@ Use a two-column hero above a transparent, rule-led tool area. Search matches ti
 
 Use only authentic, supplied photographs in their **natural color**, with responsive `object-fit: cover` crops and accurate alt text. Captions provide context without overpowering the image. Do not add color overlays, stylized filters, decorative frames, or shadow treatments.
 
-**Never substitute stock, AI-generated, or placeholder photographs. Never invent facts, events, dates, awards, publications, outcomes, testimonials, or other evidence.** Keep captions and metadata factual; do not infer specifics from appearance alone. Lazy-load below-the-fold documentary images and retain explicit dimensions where provided.
+**Never substitute stock, AI-generated, or placeholder photographs. Never invent facts, events, dates, awards, publications, outcomes, testimonials, or other evidence.** Keep captions and metadata factual; do not infer specifics from appearance alone. Preserve these exact event facts on their corresponding images: **“YMUN · May 2025”** for committee negotiation, **“Global Youth Shanghai Diplomats Summit · SISU”** for the committee speech, **“HSYLC · Summer program”** for the Harvard Summit for Young Leaders in China, and **“Football · Top 8 in Fuyang, Hangzhou”** for the team photograph. Lazy-load below-the-fold documentary images and retain explicit dimensions where provided.
 
 ## Responsive behavior
 
 The principal mobile breakpoint is **760 px**, with a 320 px minimum canvas and 20 px gutters. Verify at 375 px.
 
-- Homepage introduction, section headings, work entries, experience grid, essay rows, contact, and footer stack. Metadata moves above essay titles.
+- Homepage introduction, section headings, featured research record, supporting work entries, experience grid, essay rows, contact, and footer stack. Metadata moves above essay titles.
 - The MUN image becomes full bleed and changes to a `4 / 3` crop; its caption retains 20 px side padding. The secondary experience image becomes a 78%-width, right-aligned portrait.
 - Shared navigation hides the secondary wordmark and Contact; keep navigation compact and usable. The homepage retains its own compact navigation.
 - Profile identity shrinks to a 104 px portrait. The horizontal section index becomes a single-row, horizontally scrollable strip. Multi-column records, speaking gallery, capability list, and six-photo mosaic stack; mosaic images use simpler landscape or portrait ratios with 40 px separation.

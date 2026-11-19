@@ -71,8 +71,11 @@ export default function Profile() {
           <section id="research" className="profile-section">
             <h2>Looking closely at ordinary systems</h2>
             <div className="research-list">
-              {researchProjects.map((project) => (
+              {researchProjects.map((project) => {
+                const isDocumentary = project.meta.includes('DOCUMENTARY')
+                return (
                 <article key={project.title} className="research-item">
+                  <p className="project-index">{isDocumentary ? 'Documentary 01 · Watch & listen' : 'Research 01 · Read the record'}</p>
                   <h3>{project.title}</h3>
                   <p className="item-meta">{project.meta}</p>
                   <p>{project.summary}</p>
@@ -88,7 +91,8 @@ export default function Profile() {
                     {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
                   </ul>
                 </article>
-              ))}
+                )
+              })}
             </div>
           </section>
 
@@ -143,8 +147,8 @@ export default function Profile() {
                   />
                   <figcaption>
                     <h4>Delivering a committee speech</h4>
-                    <p className="photo-meta">Model United Nations · 2025</p>
-                    <p>Speaking as a student delegate at a session hosted by Shanghai International Studies University, with country positions and committee motions displayed behind the podium.</p>
+                    <p className="photo-meta">Global Youth Shanghai Diplomats Summit · SISU</p>
+                    <p>Speaking as a student delegate at the summit hosted by Shanghai International Studies University, with country positions and committee motions displayed behind the podium.</p>
                   </figcaption>
                 </figure>
                 <figure>
@@ -182,9 +186,9 @@ export default function Profile() {
                   decoding="async"
                 />
                 <figcaption>
-                  <h3>Negotiation, not just speeches</h3>
-                  <p className="photo-meta">Model United Nations</p>
-                  <p>Discussing a position with another delegate during a committee session.</p>
+                  <h3>Committee negotiation</h3>
+                  <p className="photo-meta">YMUN · May 2025</p>
+                  <p>Discussing a position with another delegate during a Model United Nations committee session.</p>
                 </figcaption>
               </figure>
               <figure>
@@ -212,9 +216,9 @@ export default function Profile() {
                   decoding="async"
                 />
                 <figcaption>
-                  <h3>Learning in a cohort</h3>
-                  <p className="photo-meta">Summer learning program</p>
-                  <p>Sharing the experience with a peer group.</p>
+                  <h3>Harvard Summit for Young Leaders in China</h3>
+                  <p className="photo-meta">HSYLC · Summer program</p>
+                  <p>Learning alongside a cohort of peers during the summer program.</p>
                 </figcaption>
               </figure>
               <figure>
@@ -228,7 +232,7 @@ export default function Profile() {
                 />
                 <figcaption>
                   <h3>Sharing the stage</h3>
-                  <p className="photo-meta">School event</p>
+                  <p className="photo-meta">School event · SFLSHZ</p>
                   <p>Speaking on stage with a fellow student.</p>
                 </figcaption>
               </figure>
@@ -242,9 +246,9 @@ export default function Profile() {
                   decoding="async"
                 />
                 <figcaption>
-                  <h3>Performance and discipline</h3>
-                  <p className="photo-meta">Piano</p>
-                  <p>Performing at a school concert.</p>
+                  <h3>Piano performance</h3>
+                  <p className="photo-meta">School concert</p>
+                  <p>Performing piano on stage at a school concert.</p>
                 </figcaption>
               </figure>
               <figure>
@@ -257,8 +261,8 @@ export default function Profile() {
                   decoding="async"
                 />
                 <figcaption>
-                  <h3>Part of a team</h3>
-                  <p className="photo-meta">Football</p>
+                  <h3>Football team</h3>
+                  <p className="photo-meta">Football · Top 8 in Fuyang, Hangzhou</p>
                   <p>With teammates on the school pitch.</p>
                 </figcaption>
               </figure>

@@ -1,26 +1,23 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router'
-import { essays } from '../content'
+import { essays, researchProjects } from '../content'
 
 const currentWork = [
   {
-    title: 'Public Toilet Policies: Hong Kong and Mainland China',
-    meta: 'Independent research · Working paper',
-    description: 'Comparing field observation and policy documents to understand how everyday public services take shape.',
-  },
-  {
     title: 'Political philosophy, read against lived experience',
-    meta: 'Independent reading & writing',
+    meta: 'Essay series · Independent reading & writing',
     description: 'Reading Jonathan Wolff and writing through questions of authority, identity, belief, and the general will.',
   },
   {
     title: 'Turning student concerns into workable proposals',
-    meta: 'Student Council President · SFLSHZ',
+    meta: 'Leadership · Student Council President, SFLSHZ',
     description: 'Building a clearer events calendar and routes for student concerns to reach school decision-makers.',
   },
 ]
 
 export default function Home() {
+  const featuredResearch = researchProjects[0]
+
   return (
     <main className="home-shell">
       <header className="home-header">
@@ -60,8 +57,8 @@ export default function Home() {
             height="829"
           />
           <figcaption>
-            <span>In committee</span>
-            <p>Discussing a position with another delegate during a Model United Nations session.</p>
+            <span>YMUN · May 2025</span>
+            <p>Discussing a position with another delegate during a Model United Nations committee session.</p>
           </figcaption>
         </figure>
       </section>
@@ -69,8 +66,34 @@ export default function Home() {
       <section className="home-work" aria-labelledby="current-work-title">
         <header className="home-section-heading">
           <h2 id="current-work-title">What I’m working on</h2>
-          <p>Research, independent reading, and student leadership—three ways of testing the same interests in different settings.</p>
+          <p>One research question, followed by the reading and leadership work that help me test it from different directions.</p>
         </header>
+
+        <article className="featured-research" aria-labelledby="featured-research-title">
+          <div className="featured-research-heading">
+            <p className="project-index">Research 01 · Working paper</p>
+            <h3 id="featured-research-title">{featuredResearch.title}</h3>
+            <p>{featuredResearch.summary}</p>
+            <Link to="/profile#research" className="text-link">
+              View research record <ArrowUpRight aria-hidden="true" size={18} />
+            </Link>
+          </div>
+          <dl className="featured-research-record">
+            <div>
+              <dt>Research question</dt>
+              <dd>{featuredResearch.question}</dd>
+            </div>
+            <div>
+              <dt>Methods</dt>
+              <dd>{featuredResearch.tags.join(' · ')}</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Independent research · 2026</dd>
+            </div>
+          </dl>
+        </article>
+
         <div className="current-work-list">
           {currentWork.map((item) => (
             <article key={item.title}>
@@ -132,7 +155,7 @@ export default function Home() {
         <div className="home-writing-list">
           {essays.map((essay) => (
             <Link to={`/writing/${essay.slug}`} key={essay.slug} className="home-essay-link">
-              <span className="home-essay-meta">{essay.category}<br />{essay.year}</span>
+              <span className="home-essay-meta">Read · Essay<br />{essay.year}</span>
               <span className="home-essay-copy">
                 <strong>{essay.title}</strong>
                 <span>{essay.excerpt}</span>
