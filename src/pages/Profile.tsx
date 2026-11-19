@@ -38,7 +38,6 @@ export default function Profile() {
 
         <div className="profile-content">
           <section className="profile-intro" aria-labelledby="intro-title">
-            <p className="eyebrow">Student · Researcher · Student leader</p>
             <h2 id="intro-title">Learning how institutions shape the lives they are meant to serve.</h2>
             <p>{profile.introduction}</p>
             <p>{profile.approach}</p>
@@ -52,17 +51,7 @@ export default function Profile() {
             </div>
           </section>
 
-          <section className="stats-row" aria-label="Academic snapshot">
-            {profile.stats.map((stat) => (
-              <div key={stat.label}>
-                <strong>{stat.value}</strong>
-                <span>{stat.label}</span>
-              </div>
-            ))}
-          </section>
-
           <section id="direction" className="profile-section">
-            <p className="section-number">01 / Academic direction</p>
             <h2>Questions before labels</h2>
             <p className="section-intro">
               My interests sit across PPE, STS, public policy, political science, and sociology. These are the questions currently giving those fields a common direction.
@@ -79,7 +68,6 @@ export default function Profile() {
           </section>
 
           <section id="research" className="profile-section">
-            <p className="section-number">02 / Research & inquiry</p>
             <h2>Looking closely at ordinary systems</h2>
             <div className="research-list">
               {researchProjects.map((project) => (
@@ -104,7 +92,6 @@ export default function Profile() {
           </section>
 
           <section id="learning" className="profile-section">
-            <p className="section-number">03 / Learning journey</p>
             <h2>Programs, projects & independent study</h2>
             <div className="timeline">
               {learningJourney.map((item) => (
@@ -121,7 +108,6 @@ export default function Profile() {
           </section>
 
           <section id="leadership" className="profile-section">
-            <p className="section-number">04 / Leadership & contribution</p>
             <h2>Responsibility, made visible</h2>
             <p className="section-intro">
               I understand leadership less as representing a community from the front than as listening carefully, organizing patiently, and taking responsibility when the work becomes difficult.
@@ -142,7 +128,6 @@ export default function Profile() {
 
             <section className="speaking-evidence" aria-labelledby="speaking-evidence-title">
               <div className="speaking-evidence-heading">
-                <p className="item-meta">In practice</p>
                 <h3 id="speaking-evidence-title">Public speaking in context</h3>
               </div>
               <div className="speaking-gallery">
@@ -181,7 +166,6 @@ export default function Profile() {
           </section>
 
           <section id="education" className="profile-section">
-            <p className="section-number">05 / Education</p>
             <h2>Formal education</h2>
             <div className="education-list">
               {education.map((item) => (
@@ -193,10 +177,17 @@ export default function Profile() {
                 </article>
               ))}
             </div>
+            <dl className="education-stats" aria-label="Academic record">
+              {profile.stats.map((stat) => (
+                <div key={stat.label}>
+                  <dt>{stat.label}</dt>
+                  <dd>{stat.value}</dd>
+                </div>
+              ))}
+            </dl>
           </section>
 
           <section id="capabilities" className="profile-section">
-            <p className="section-number">06 / Capabilities & interests</p>
             <h2>What I bring into a room</h2>
             <div className="capability-list">
               {capabilities.map((group) => (

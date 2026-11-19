@@ -34,8 +34,7 @@ export default function Writing() {
       <SiteHeader />
       <main className="writing-shell">
         <header className="writing-hero">
-          <p className="eyebrow">Essays · Notes · Intellectual inquiries</p>
-          <h1>Writing from<br />the middle of things.</h1>
+          <h1>Essays &<br />observations</h1>
           <p>
             I write to test an idea, not to perform certainty. These essays begin with ordinary encounters—a temple visit, a translated word, a lost wallet—and follow the questions they open.
           </p>
@@ -83,7 +82,7 @@ export default function Writing() {
 
         <section className="essay-archive" aria-live="polite" aria-label="Essay archive">
           <div className="archive-heading">
-            <p className="eyebrow">Archive</p>
+            <h2>Full archive</h2>
             <p>{filteredEssays.length} {filteredEssays.length === 1 ? 'essay' : 'essays'}</p>
           </div>
           {filteredEssays.length > 0 ? (
