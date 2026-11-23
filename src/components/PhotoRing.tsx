@@ -3,33 +3,11 @@ import { ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react'
 
 const photos = [
   {
-    file: 'model-united-nations-speech.jpg',
-    title: 'Delivering a committee speech',
-    meta: 'Global Youth Shanghai Diplomats Summit · SISU',
-    description: 'Speaking as a student delegate at the summit hosted by Shanghai International Studies University.',
-    alt: 'ChunYin Shang delivering a Model United Nations committee speech at a wooden podium',
-  },
-  {
     file: 'china-un-presentation.jpg',
     title: 'China’s return to the United Nations',
     meta: 'Academic presentation · SFLSHZ',
     description: 'Connecting historical inquiry with public communication in a presentation at school.',
     alt: 'ChunYin Shang presenting on China’s return to the United Nations at SFLSHZ',
-  },
-  {
-    file: 'mun-delegate-discussion.webp',
-    title: 'Committee negotiation',
-    meta: 'YMUN · May 2025',
-    description: 'Discussing a position with another delegate during a Model United Nations committee session.',
-    alt: 'ChunYin Shang seated behind a China nameplate, discussing a position with another Model United Nations delegate',
-  },
-  {
-    file: 'panel-discussion.webp',
-    title: 'Listening and responding',
-    meta: 'Panel discussion · SFLSHZ',
-    description: 'Contributing to a seated discussion with fellow students.',
-    alt: 'ChunYin Shang speaking into a microphone during a seated panel discussion',
-    objectPosition: 'center top',
   },
   {
     file: 'summer-program-group.webp',

@@ -143,8 +143,8 @@ export default function Home() {
         <div ref={galleryReveal} className="photo-ring-showcase reveal reveal-gallery">
           <PhotoRing />
         </div>
-        <Link to="/profile#activities" className="text-link experience-link">
-          More experiences & photographs <ArrowRight aria-hidden="true" size={18} />
+        <Link to="/profile#leadership" className="text-link experience-link">
+          More about leadership & learning <ArrowRight aria-hidden="true" size={18} />
         </Link>
       </section>
 
