@@ -174,33 +174,33 @@ const essayData: Essay[] = [
   {
     slug: 'physically-present-digitally-unreadable',
     title: 'Physically Present, Digitally Unreadable',
-    subtitle: 'A lost wallet, Simmel’s stranger, and the ethics of administrative repair',
+    subtitle: 'A lost wallet, Hobbes, Simmel, and the fear of becoming unreadable',
     year: '2026',
     category: 'Political Philosophy',
     tags: ['Identity', 'Technology', 'Belonging'],
     readingTime: 7,
-    excerpt: 'Losing my documents did not place me outside the state. It revealed how completely I depended on the state’s ability to recognize me.',
+    excerpt: 'Losing my documents did not put me outside the state. It made me realize how much I depended on the state being able to recognize me.',
     sections: [
       {
-        heading: 'An unexpected thought experiment',
+        heading: 'Was this Hobbes’s “state of nature”?',
         paragraphs: [
-          `When I lost my wallet in Hong Kong, it contained my identity card, passport, and bank cards. My first instinct was to ask whether I had entered Hobbes’s “state of nature.” The comparison felt dramatic enough to match my anxiety, but it quickly became clear that it was a category mistake.`,
-          `The state was not absent. It was intensely present: I could file an electronic police report, apply for replacement documents, and wait for administrative procedures to restore what I had lost. My problem was not that common power had disappeared. It was that I had temporarily lost the means of calling upon it.`,
+          `When I lost my wallet in Hong Kong, my identity card, passport, and bank cards were all inside. For a moment, I actually wondered whether I had fallen into Hobbes’s “state of nature.” The idea was dramatic enough to match my panic, but the more I thought about it, the more it seemed like a category mistake.`,
+          `The state had not disappeared. If anything, it was everywhere: I could file an electronic police report, apply for replacement documents, and wait for the administrative process to fix what had gone wrong. My problem was not that common power had vanished. I had simply lost, for a while, my ability to call on it.`,
         ],
       },
       {
-        heading: 'Administrative anxiety is not natural fear',
+        heading: 'My anxiety was administrative, not natural',
         paragraphs: [
-          `Hobbes’s state of nature describes the absence of a common authority, property, law, and reliable social bonds. My situation contained the opposite conditions. The police still worked, my family and teachers remained present, and the law continued to protect me. I was not surrounded by potential enemies; I was surrounded by systems that could not immediately verify me.`,
-          `That distinction changed the question. I was not asking how society emerges from disorder. I was asking what happens to a person when an orderly society cannot read them.`,
+          `Hobbes’s state of nature has no common authority, no property or law, and no social bonds you can rely on. My life still had all of those things. The police were working, my family and teachers were still there, and the law still protected me. I was not surrounded by possible enemies. I was surrounded by systems that could not immediately confirm who I was.`,
+          `That helped me understand my own fear. It was administrative anxiety, not a fear for my survival. I was not asking how society emerges from disorder. I wanted to know something more immediate: what happens to a person when an orderly society suddenly cannot read them?`,
         ],
       },
       {
-        heading: 'From the stranger to a failed query',
+        heading: 'A stranger the system could not read',
         paragraphs: [
-          `Georg Simmel’s “The Stranger” offered a better starting point. The stranger is not simply a wanderer who arrives today and leaves tomorrow. The stranger is near in space but distant in social membership—inside the group, yet never fully absorbed by it.`,
-          `I was born in Hong Kong and hold a Hong Kong identity card, but I grew up and study in Hangzhou. My language, friendships, and everyday routines belong largely to a mainland ecosystem. Losing my documents intensified that already ambiguous position. I became not only a stranger, but a temporarily unreadable one.`,
-          `At a turnstile or a login screen, the system does not encounter a whole person with a history and an explanation. It encounters a match or a mismatch. Physically, I remained present; digitally, I had become a failed query.`,
+          `Simmel’s “The Stranger” gave me a better way to think about it. His stranger is not just someone who arrives today and leaves tomorrow. The stranger is physically close but socially distant: part of the group’s life, yet never completely absorbed into it.`,
+          `I was born in Hong Kong and have a Hong Kong identity card, but I grew up and now study in Hangzhou. Most of my everyday language, friendships, and routines belong to a mainland ecosystem. Losing my documents made that in-between position much harder to ignore. I was already a kind of stranger; now I was a stranger the system could not read.`,
+          `A turnstile or a login screen does not meet a whole person with a history and an explanation. It gets a match or a mismatch. I was still standing there in person, but digitally I had become a failed query.`,
         ],
         quote: {
           text: 'The stranger is an element of the group itself… but his position is determined by the fact that he does not belong to it from the beginning.',
@@ -208,17 +208,17 @@ const essayData: Essay[] = [
         },
       },
       {
-        heading: 'The privilege of being repairable',
+        heading: 'I had a way back. Not everyone does.',
         paragraphs: [
-          `My disruption was temporary because institutions had a repair protocol for people like me. That realization carries an uncomfortable implication: not everyone’s exclusion is temporary. Refugees, undocumented workers, and people failed by welfare or identity systems may be structurally unreadable rather than momentarily mismatched.`,
-          `My experience therefore did not make me an authority on exclusion. It gave me a small, reversible glimpse of a much larger problem—and revealed the privilege of being able to return to legibility.`,
+          `My problem was temporary because institutions had a way to fix it for people like me. Once I realized that, it was hard not to think about the people whose exclusion does not end. Refugees, undocumented workers, and people failed by welfare or identity systems may be structurally unreadable, not just temporarily mismatched.`,
+          `Losing my wallet did not make me an authority on exclusion. It gave me a small, reversible glimpse of a much bigger problem, and it made me notice a privilege I had not seen before: I had a way to become readable again.`,
         ],
       },
       {
-        heading: 'The question I want to keep pursuing',
+        heading: 'The question I am still thinking about',
         paragraphs: [
-          `My first responses were technocratic: perhaps behavioural scoring, risk-based pricing, or predictive prevention could make administrative systems more efficient. Further reflection made those solutions look less innocent. Each new patch could also give institutions more power to classify, predict, and correct people while leaving them fewer ways to contest the classification.`,
-          `I do not claim to have a final answer. The question I want to pursue is how institutions can be both efficient and humane: how they can repair errors without turning dignity into a privilege, and how the people at the margins can remain visible as persons rather than cases.`,
+          `At first, I thought about technical fixes: perhaps behavioural scoring, risk-based pricing, or predictive prevention could make administrative systems more efficient. But the more I thought about them, the less innocent they seemed. Each new patch could also give institutions more power to classify, predict, and correct people, while leaving those people with fewer ways to challenge what the system had decided about them.`,
+          `I do not have a final answer, and I do not want to pretend that I do. I want to keep thinking about how institutions can be both efficient and humane: how they can repair errors without turning dignity into a privilege, and how people at the margins can remain visible as people rather than cases.`,
         ],
       },
     ],
@@ -226,19 +226,19 @@ const essayData: Essay[] = [
   {
     slug: 'the-words-we-fill-with-power',
     title: 'The Words We Fill With Power',
-    subtitle: 'Rousseau, the general will, and who gets to speak for the people',
+    subtitle: 'How looking up “fatherland” led me to ask who gets to speak for the general will',
     year: '2026',
     category: 'Political Philosophy',
     tags: ['Rousseau', 'Democracy', 'Language'],
     readingTime: 8,
-    excerpt: 'A single translated word led me into a larger question: if the general will is always right, who has the authority to say what it is?',
+    excerpt: 'I stopped at one word in a chapter about democracy: “fatherland.” Looking it up led me to a much bigger question: if the general will is always right, who gets to say what it is?',
     sourceUrl: 'https://mp.weixin.qq.com/s/-oPMi_PTK_IuWt-m4aSxLQ',
     sections: [
       {
-        heading: 'A word in the margin',
+        heading: 'The word that made me stop',
         paragraphs: [
-          `While reading the chapter “Who Should Rule?” in Jonathan Wolff’s An Introduction to Political Philosophy, I stopped at the word “fatherland” in a passage from Rousseau. In Chinese, I was used to speaking of the motherland; in modern English, “the Fatherland” also carries historical associations that Rousseau could not have intended in 1755.`,
-          `The apparent anachronism was really a problem of translation and historical layering. Rousseau wrote patrie, a word rooted in the Latin pater. Later generations filled related political vocabulary with new meanings. The word’s shell survived; its emotional and political contents changed.`,
+          `I was reading Jonathan Wolff’s An Introduction to Political Philosophy late one evening when I reached the chapter “Who Should Rule?” In a passage from Rousseau, one word made me stop: “fatherland.” It wasn’t that I didn’t understand it. I just couldn’t see why it felt so wrong. In Chinese, I was used to thinking of my country as a mother. In modern English, “the Fatherland” also brings wartime Germany to mind. Then I saw the date: Rousseau, 1755. How could someone writing in 1755 use a word that sounded like 1939?`,
+          `For a moment, I wondered whether I had found a prediction or a bizarre coincidence. The answer was neither. Rousseau had written patrie, a French word rooted in the Latin pater, meaning “father.” Translating it as “fatherland” made etymological sense. The wartime associations came later. The word still looked the same, but people had kept changing what it carried.`,
         ],
         images: [
           {
@@ -252,17 +252,17 @@ const essayData: Essay[] = [
         ],
       },
       {
-        heading: 'The more disturbing sentence',
+        heading: 'The sentence that bothered me more',
         paragraphs: [
-          `The passage’s deeper difficulty was not “fatherland.” It was the suggestion that children raised as citizens would learn “never to want anything but what the society wants.” A chapter about democracy suddenly seemed to contain a manual for manufacturing agreement.`,
-          `For Rousseau, however, legitimate rule by the people requires more than counting private preferences. Citizens must be capable of asking what is good for the community, not merely what they individually want. Civic education is therefore not an ornamental addition to his politics; it helps create the people who are supposed to rule.`,
+          `As strange as “fatherland” seemed, it wasn’t what bothered me most. This was: children raised as citizens would learn “never to want anything but what the society wants.” I was reading a chapter about democracy. So why did it contain a sentence that sounded like a manual for totalitarianism?`,
+          `The more I read, the harder it was to dismiss that sentence. Rousseau wasn’t only asking how to count people’s wishes. He was asking what kind of people could rule themselves. For him, citizens had to be able to ask what was good for the community, not just what they wanted as individuals. Civic education was how those citizens were formed. Before the people could rule, they first had to become a people.`,
         ],
       },
       {
-        heading: 'Will of all, general will',
+        heading: 'What I want vs. what’s good for us',
         paragraphs: [
-          `Rousseau distinguishes the will of all from the general will. The will of all aggregates private interests: everyone asks, “What do I want?” The general will points toward the common good: “What is good for us as a political community?” A unanimous vote can still express the will of all if every voter is pursuing only private advantage.`,
-          `This distinction gives democracy a demanding moral purpose. It also creates an opening for abuse. If a vote can fail to express the general will, someone may claim the authority to correct the vote in the name of a truth that only they can see.`,
+          `This is where Rousseau’s distinction between the will of all and the general will started to matter to me. The will of all adds up private interests: everyone asks, “What do I want?” The general will asks something different: “What is good for us as a political community?” Even a unanimous vote can express only the will of all if everyone is thinking about private advantage.`,
+          `I could see why that distinction mattered. Democracy should be about more than getting what I happen to want. But the same idea opened a door I couldn’t ignore. If a vote can fail to express the general will, someone can claim to see the “real” general will better than the voters themselves—and correct them in its name.`,
         ],
         quote: {
           text: 'The general will is always right, but the judgment which guides it is not always enlightened.',
@@ -270,18 +270,18 @@ const essayData: Essay[] = [
         },
       },
       {
-        heading: 'The blank that invites power',
+        heading: 'Who gets to fill in the general will?',
         paragraphs: [
-          `The danger appears when three claims are placed together: the general will is right; the people can be deceived; and the current vote may not express the real general will. Politics then contains a powerful blank space—someone must say who has correctly interpreted the people.`,
-          `Later critics saw how easily that space could be filled by coercive authority. J. L. Talmon connected aspects of Rousseau’s legacy to totalitarian democracy, while Isaiah Berlin examined how the language of forcing people to be free could turn autonomy into its opposite. Defenders respond that the general will is meant to restrain private domination and majority tyranny, not license a ruler’s whim.`,
-          `The argument cannot be closed by calling Rousseau either a prophet of freedom or a source of tyranny. The harder task is to ask what institutions could prevent any person or group from monopolizing the meaning of the common good.`,
+          `Put three claims next to each other and the danger becomes hard to ignore: the general will is always right; the people can be deceived; and a particular vote may not express the real general will. That leaves a blank at the center of politics. Someone has to say what the general will actually is. But whoever claims to fill in that blank can speak in the name of the people—even against what the people have just voted for.`,
+          `Later critics showed where that could lead. J. L. Talmon linked parts of Rousseau’s legacy to totalitarian democracy, and Isaiah Berlin examined how “forcing people to be free” could turn freedom into its opposite. Rousseau’s defenders answer that the general will is meant to restrain private domination and majority tyranny, not give a ruler permission to do whatever they want.`,
+          `I don’t think calling Rousseau either a prophet of freedom or a source of tyranny settles the argument. The question I’m left with is harder: what institutions can stop any person or group from claiming the common good as theirs alone?`,
         ],
       },
       {
-        heading: 'Words do not walk by themselves',
+        heading: 'The blanks do not fill themselves',
         paragraphs: [
-          `I began by thinking that an eighteenth-century word had somehow predicted twentieth-century disaster. The direction of influence was less mysterious and more troubling: each generation reinterprets the language it inherits.`,
-          `“Fatherland,” “the people,” and “the general will” are not empty of history, but neither do they possess a single, self-executing meaning. Their political force depends on who interprets them, which institutions restrain that interpretation, and whether dissenters remain part of the people. Words do not move toward domination by themselves; people and institutions carry them there.`,
+          `When I first saw “fatherland,” I thought I had found an eighteenth-century word predicting a twentieth-century disaster. Now I think I had the direction backwards. It wasn’t the word carrying history toward disaster. Each generation had been taking the language it inherited and filling it with new meanings.`,
+          `“Fatherland,” “the people,” and “the general will” all carry history, but none has a single meaning that simply applies itself. Their political force depends on who interprets them, which institutions restrain that interpretation, and whether dissenters still count as part of the people. That was what I had missed at first: the blanks do not fill themselves. People fill them in. Words do not become dangerous all by themselves; people and institutions can make them dangerous.`,
         ],
       },
     ],
@@ -289,26 +289,26 @@ const essayData: Essay[] = [
   {
     slug: 'belief-is-not-a-truth-test',
     title: 'Belief Is Not a Truth Test',
-    subtitle: 'Religion, philosophy, and the missing subject of a familiar saying',
+    subtitle: 'What a sentence with no subject can reveal about existence and truth',
     year: '2026',
     category: 'Philosophy & Religion',
     tags: ['Belief', 'Truth', 'Hegel'],
     readingTime: 8,
-    excerpt: '“It exists if you believe; it does not if you do not.” The saying sounds complete until I ask what, exactly, is supposed to exist.',
+    excerpt: '“It exists if you believe; it does not if you do not.” It sounds like a complete answer until I start asking: what is “it,” and whose belief are we talking about?',
     sourceUrl: 'https://mp.weixin.qq.com/s/rSsYOqv-nqYPG7KvoZjRBA',
     sections: [
       {
-        heading: 'A temple and a familiar sentence',
+        heading: 'A temple, a memory, and a question',
         paragraphs: [
-          `As a child visiting Lingyin Temple in Hangzhou, I followed my family through incense, chanting, and ritual gestures whose meanings I did not yet understand. My grandmother explained the practice with a simple phrase: sincerity makes it efficacious.`,
-          `Years later, after encountering Hegel’s account of religion and philosophy, I returned to that memory with a new question. Does “It exists if you believe; it does not if you do not” belong to religion, or is it already a philosophical claim?`,
+          `When I was little, my family took me to Lingyin Temple in Hangzhou. I followed them through the incense and chanting, copying gestures I did not understand. My grandmother bent down and told me, “If your heart is sincere, it will work.” At the time, that was enough of a reason for me to bow.`,
+          `Years later, after watching a video about Hegel, I found myself thinking about that day again. Does “It exists if you believe; it does not if you do not” belong to religion, or is it already philosophy? I’m not sure it fits neatly into either one.`,
         ],
       },
       {
-        heading: 'Same questions, different disciplines',
+        heading: 'The same questions, asked in different forms',
         paragraphs: [
-          `Hegel’s suggestion that religion and philosophy can share content while differing in form offers one way to relate them. Religious traditions and philosophical inquiry both address existence, meaning, finitude, and how a person ought to live. But sharing questions does not erase differences in how claims are justified.`,
-          `Religious truth is often grounded in revelation, scripture, or inherited authority. Philosophical truth claims are expected to remain open to argument and objection. Many religious traditions also contain profound practices of questioning, just as some philosophies function as ways of life. The boundary is therefore real but not mechanically absolute.`,
+          `Hegel gives me one way into this question: religion and philosophy can have the same content but take different forms. Both ask why we exist, what life means, and how we should live. But asking the same questions does not mean they defend their answers in the same way.`,
+          `Religious truth often arrives as something already given—through revelation, scripture, or inherited authority. Philosophical claims, on the other hand, are supposed to stay open to argument and objection. That distinction helps, but I don’t think it makes a clean wall. Many religious traditions make room for serious questioning, and some philosophies are ways of life too.`,
         ],
         images: [
           {
@@ -322,17 +322,17 @@ const essayData: Essay[] = [
         ],
       },
       {
-        heading: 'The missing subject',
+        heading: 'First, what is “it”?',
         paragraphs: [
-          `The saying itself does not identify what exists or disappears through belief. It has the form “For X, if I believe, X exists; if I do not believe, X does not.” Before classifying the sentence, I have to test what happens when different subjects fill that blank.`,
-          `If X is the comfort produced by prayer, the saying may describe something real: reassurance can depend on the believer’s trust. If X is God, the argument changes completely; a divine being whose existence depended on individual belief would be a very different kind of object.`,
+          `The saying never tells us what “it” is. What exists when I believe, and what disappears when I don’t? It is less like a finished statement than a fill-in-the-blank question: “For X, if I believe, X exists; if I do not believe, X does not.” Before deciding whether it is religious or philosophical, I need to see what happens when I put different things in place of X.`,
+          `If X is the comfort that prayer brings, the sentence can be true. That calm may depend on trusting the prayer. But if X is God, everything changes. A God whose existence depended on my belief would not be independent of me at all. That sounds more like a psychological effect than like God.`,
         ],
       },
       {
-        heading: 'A probe for different kinds of reality',
+        heading: 'Putting different things into X',
         paragraphs: [
-          `Money makes the distinction sharper. One person’s refusal to believe in a currency does not cancel a rent payment. Money works because belief is collective and institutional, not because an individual can choose whether it exists. Borders, diplomas, and sovereignty similarly depend on shared recognition backed by practices and institutions.`,
-          `Human rights expose a philosophical disagreement. Constructivists can emphasize recognition and institutions; moral realists can insist that rights do not disappear when people stop acknowledging them. The same sentence therefore becomes a probe: it helps reveal whether we are discussing psychological experience, social construction, or a truth claim independent of belief.`,
+          `Try money. If I personally stop believing in a currency, my rent does not disappear. Money works because belief is shared and backed by institutions, not because any one person can decide whether it exists. Here the saying almost needs to become “If we believe, it exists.” Borders, diplomas, and sovereignty are similar: they depend on shared recognition and the practices that hold it in place.`,
+          `Human rights are harder. Constructivists can say that rights exist because people recognize them and build institutions around them. Moral realists can answer that rights cannot simply vanish when people stop acknowledging them—otherwise, what would “universal” even mean? Once X changes, the saying leads me into a real philosophical disagreement instead of giving me an answer. That is why it feels more like a probe: it helps me ask whether I am talking about a psychological experience, a social construction, or a truth that does not depend on belief.`,
         ],
         quote: {
           text: 'Some things depend on our recognition; others stand whether we recognize them or not. The difficulty is deciding which kind of thing we are facing.',
@@ -340,11 +340,11 @@ const essayData: Essay[] = [
         },
       },
       {
-        heading: 'Leaving room for doubt',
+        heading: 'Leaving room for doubt—and for “as if”',
         paragraphs: [
-          `A claim becomes philosophically weaker when every failure is explained by insufficient belief. If disagreement is always evidence that the critic lacks faith, the claim has protected itself from examination rather than answered the criticism.`,
-          `The Confucian phrase “Sacrifice as if present; sacrifice to the spirits as if the spirits were present” suggests another possibility. The word “as if” preserves both seriousness and uncertainty. One need not pretend to possess certainty in order to treat a ritual with care.`,
-          `The saying belongs neither wholly to religion nor wholly to philosophy. Its value is diagnostic: it forces me to ask what kind of existence is at stake, whose belief matters, and whether the claim permits itself to be tested. Making those distinctions may be one of philosophy’s most practical forms of protection.`,
+          `One thing that makes me uneasy is when belief becomes the explanation for every failure. If something goes wrong and the answer is always “You did not believe enough,” no result can ever count against the claim. And if disagreement only proves that the critic lacks faith, the claim is not answering doubt. It is protecting itself from doubt. That is where the philosophical problem starts for me.`,
+          `There is another possibility in the Confucian phrase “Sacrifice as if present; sacrifice to the spirits as if the spirits were present.” I like the small space opened by “as if.” It lets me remain unsure whether the spirits are present and still take the ritual seriously. I do not have to pretend to be certain in order to treat what I am doing with care.`,
+          `So I don’t think the saying belongs completely to either religion or philosophy. Its value is that it makes me stop and ask: What kind of existence are we talking about? Whose belief matters? And can the claim ever be tested? I still don’t have a final answer for every case. But learning to tell the difference between what depends on our belief and what stands without it might be one of the most useful protections philosophy can offer.`,
         ],
       },
     ],

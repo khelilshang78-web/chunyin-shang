@@ -85,6 +85,7 @@ Use a two-column hero above a transparent, rule-led tool area on neutral paper. 
 
 - A fixed 3 px ink bar tracks reading progress.
 - English is the default edited reading version. All three personal/philosophical essays provide an **English / 中文原文** switch with native, keyboard-accessible buttons. The wallet essay’s Chinese version contains the personal body only, excluding the subsequent AI dialogue.
+- English translations use a natural, first-person student voice: direct sentences, concrete memories, visible curiosity, and room for uncertainty. Preserve philosophical precision without forced slang, grand conclusions, textbook-like exposition, or an artificially aged tone.
 - The header contains an archive back link, large title, subtitle, byline metadata, and tags. Chinese titles use a CJK serif fallback after Times New Roman; Chinese body copy is never italicized.
 - Desktop reading uses a narrow margin note beside a **70ch** article column; the margin note may link to the original Chinese publication or official research documents.
 - Rousseau and Hegel portraits appear as inline documentary figures in both language versions of their respective articles. The research note includes two original policy screenshots, separates observation, documented evidence, hypotheses, working interpretation, and unresolved questions, and never presents the working hypothesis as settled.
