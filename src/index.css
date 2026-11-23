@@ -751,17 +751,17 @@ input { caret-color: var(--ink); }
   .profile-section#research { margin: 80px 0 0; padding: 48px 0; }
 }
 
-.photo-ring-carousel { max-width: 1380px; margin: 0 auto; }
+.photo-ring-carousel { max-width: 1180px; margin: 0 auto; }
 .photo-ring-viewport {
-  --ring-card-width: min(42vw, 560px);
-  --ring-card-height: 350px;
-  --ring-radius: 650px;
+  --ring-card-width: min(36vw, 460px);
+  --ring-card-height: 300px;
+  --ring-radius: 520px;
   position: relative;
   display: grid;
-  height: 490px;
+  height: 420px;
   place-items: center;
   overflow: hidden;
-  perspective: 1500px;
+  perspective: 1300px;
 }
 .photo-ring {
   position: relative;
@@ -788,9 +788,9 @@ input { caret-color: var(--ink); }
   pointer-events: none;
   user-select: none;
 }
-.photo-ring-caption { max-width: 700px; min-height: 156px; margin: 0 auto; text-align: center; }
+.photo-ring-caption { max-width: 620px; min-height: 146px; margin: 0 auto; text-align: center; }
 .photo-ring-position { margin-bottom: 12px; color: #bdbdbd; font-size: 0.75rem; letter-spacing: 0.12em; }
-.photo-ring-caption h3 { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 400; line-height: 1.1; text-wrap: balance; }
+.photo-ring-caption h3 { font-size: clamp(1.7rem, 2.6vw, 2.4rem); font-weight: 400; line-height: 1.1; text-wrap: balance; }
 .photo-ring-meta { margin: 12px 0 8px; color: var(--paper); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; }
 .photo-ring-caption > p:last-child { color: #bdbdbd; font-size: 0.9rem; }
 .photo-ring-controls { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
@@ -809,14 +809,14 @@ input { caret-color: var(--ink); }
 
 @media (max-width: 760px) {
   .photo-ring-viewport {
-    --ring-card-width: 64vw;
-    --ring-card-height: 190px;
-    --ring-radius: 280px;
-    height: 300px;
-    perspective: 900px;
+    --ring-card-width: 58vw;
+    --ring-card-height: 170px;
+    --ring-radius: 230px;
+    height: 260px;
+    perspective: 800px;
   }
-  .photo-ring-caption { min-height: 190px; }
-  .photo-ring-caption h3 { font-size: 1.8rem; }
+  .photo-ring-caption { min-height: 180px; }
+  .photo-ring-caption h3 { font-size: 1.65rem; }
   .photo-ring-caption > p:last-child { font-size: 0.86rem; }
 }
 

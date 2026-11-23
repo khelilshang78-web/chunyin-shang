@@ -29,7 +29,7 @@ const photos = [
     meta: 'School concert',
     description: 'Performing piano on stage at a school concert.',
     alt: 'ChunYin Shang performing piano on stage at a school concert',
-    objectPosition: 'center top',
+    objectPosition: 'center 48%',
   },
   {
     file: 'football-team.webp',
@@ -88,7 +88,7 @@ export default function PhotoRing() {
     const spin = (now: number) => {
       const elapsed = Math.min(now - previousTime, 64)
       previousTime = now
-      angleRef.current += elapsed * 0.007
+      angleRef.current += elapsed * 0.01
       if (ringRef.current) {
         ringRef.current.style.transform = `translateZ(calc(-1 * var(--ring-radius))) rotateY(${-angleRef.current}deg)`
       }
