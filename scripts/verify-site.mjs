@@ -83,20 +83,32 @@ try {
   check((await page.title()).includes('ChunYin Shang'), 'Homepage title identifies ChunYin Shang')
   check(await page.locator('.home-opening-gallery img').count() === 3, 'Homepage opening composes three authentic activity photographs')
   check(await page.locator('.home-opening-gallery img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'All three homepage opening photographs load successfully')
+  check(await page.locator('.home-portrait img').getAttribute('src') === './images/mun-kenya-home.webp', 'Homepage main photograph is the cropped Kenya committee portrait')
+  check(await page.locator('.home-portrait').getByText('Berkeley MUN China', { exact: true }).isVisible(), 'Kenya portrait carries the accurate Berkeley MUN China caption')
   check(await page.locator('.home-opening-gallery').getByText('Global Youth Shanghai Diplomats Summit · SISU', { exact: true }).isVisible(), 'Homepage opening retains the precise SISU summit caption')
   check(await page.locator('.home-opening-gallery').getByText('Panel discussion · SFLSHZ', { exact: true }).isVisible(), 'Homepage opening identifies the school panel discussion')
   await page.locator('.home-experiences').scrollIntoViewIfNeeded()
   await page.waitForFunction(() => [...document.querySelectorAll('.photo-ring-slide img')].every((image) => image.complete && image.naturalWidth > 0))
-  check(await page.locator('.photo-ring-slide').count() === 7, 'Photo ring renders seven activity photographs without repeating the opening gallery')
+  check(await page.locator('.photo-ring-slide').count() === 6, 'Photo ring renders six activity photographs without repeating the opening gallery')
   const ringImageSources = await page.locator('.photo-ring-slide img').evaluateAll((images) => images.map((image) => image.getAttribute('src')))
-  check(new Set(ringImageSources).size === 7, 'Photo ring uses seven unique image sources')
-  check(ringImageSources.some((source) => source?.endsWith('kindergarten-english-reading.webp')) && ringImageSources.some((source) => source?.endsWith('halloween-student-event.webp')), 'Photo ring includes kindergarten reading and the tightly cropped Halloween portrait')
-  check(await page.locator('.photo-ring-slide img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'All seven ring photographs load successfully')
+  const expectedRingOrder = [
+    'piano-performance.webp',
+    'football-team.webp',
+    'summer-program-group.webp',
+    'china-un-presentation.jpg',
+    'school-event-speaking.webp',
+    'halloween-student-event.webp',
+  ].map((file) => `./images/${file}`)
+  check(JSON.stringify(ringImageSources) === JSON.stringify(expectedRingOrder), 'Photo ring follows the requested six-photograph order')
+  check(new Set(ringImageSources).size === 6, 'Photo ring uses six unique image sources')
+  check(!ringImageSources.some((source) => source?.endsWith('kindergarten-english-reading.webp')), 'Kindergarten reading moves from the ring into Student Council leadership')
+  check(await page.locator('.photo-ring-slide img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'All six ring photographs load successfully')
   check(await page.locator('img[src$="piano-performance.webp"]').evaluate((image) => image.style.objectPosition) === 'center 48%', 'Piano crop centers the performer instead of the stage backdrop')
   check(await page.locator('.photo-ring-viewport').evaluate((element) => getComputedStyle(element).getPropertyValue('--ring-card-height').trim()) === '300px', 'Desktop photo ring uses the compact card size')
   const homepageImageSources = await page.locator('img').evaluateAll((images) => images.map((image) => image.getAttribute('src')))
-  check(new Set(homepageImageSources).size === 10, 'Homepage uses ten photographs exactly once')
-  check(await page.locator('.photo-ring-controls').count() === 0, 'Photo ring removes all bottom navigation and autoplay buttons')
+  check(new Set(homepageImageSources).size === 9, 'Homepage uses nine photographs exactly once')
+  check(await page.locator('.photo-ring-controls').count() === 1 && await page.locator('.photo-ring-controls button').count() === 2, 'Photo ring restores only previous and next controls')
+  check(await page.getByRole('button', { name: /autoplay|pause rotation|play rotation/i }).count() === 0, 'Photo ring has no autoplay toggle')
   const initialRingIndex = Number(await page.locator('.photo-ring-carousel').getAttribute('data-active-index'))
   await page.waitForFunction((initial) => Number(document.querySelector('.photo-ring-carousel')?.getAttribute('data-active-index')) !== initial, initialRingIndex, { timeout: 6000 })
   check(true, 'Photo ring advances automatically while visible')
@@ -112,11 +124,17 @@ try {
   await page.mouse.move(0, 0)
   await page.waitForFunction((initial) => Number(document.querySelector('.photo-ring-carousel')?.getAttribute('data-active-index')) !== initial, Number(pausedRingIndex), { timeout: 6000 })
   check(true, 'Leaving the photograph resumes automatic rotation')
-  const clickablePhotoBox = await page.locator('.photo-ring-slide.is-active .photo-ring-expand').boundingBox()
-  if (!clickablePhotoBox) throw new Error('Clickable photograph has no pointer area')
-  await page.mouse.click(clickablePhotoBox.x + clickablePhotoBox.width / 2, clickablePhotoBox.y + clickablePhotoBox.height / 2)
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.waitForFunction(() => document.querySelector('.photo-ring-carousel')?.getAttribute('data-autoplay') === 'paused')
+  const beforeNext = Number(await page.locator('.photo-ring-carousel').getAttribute('data-active-index'))
+  await page.getByRole('button', { name: 'Next photograph' }).click()
+  check(Number(await page.locator('.photo-ring-carousel').getAttribute('data-active-index')) === (beforeNext + 1) % 6, 'Next arrow advances exactly one photograph')
+  await page.getByRole('button', { name: 'Previous photograph' }).click()
+  check(Number(await page.locator('.photo-ring-carousel').getAttribute('data-active-index')) === beforeNext, 'Previous arrow returns to the preceding photograph')
+  await page.locator('.photo-ring-slide.is-active .photo-ring-expand').click()
   check(await page.getByRole('dialog').isVisible(), 'Clicking a photograph opens the enlarged view')
   check(await page.locator('.photo-lightbox-content img').evaluate((image) => image.complete && image.naturalWidth > 0), 'Enlarged photograph loads successfully')
+  await page.locator('.photo-lightbox').screenshot({ path: join(qaDir, 'desktop-photo-lightbox.png') })
   check(await page.locator('.photo-ring-carousel').getAttribute('data-autoplay') === 'paused', 'Enlarged view pauses background rotation')
   await page.keyboard.press('Tab')
   check(await page.getByRole('button', { name: 'Close enlarged photograph' }).evaluate((button) => button === document.activeElement), 'Dialog keeps keyboard focus on its close control')
@@ -137,17 +155,21 @@ try {
   await page.waitForURL('**/#/profile')
   await page.locator('.profile-intro').waitFor()
   check(await page.locator('.profile-intro').isVisible(), 'Primary profile CTA navigates to profile')
-  check(await page.locator('.profile-side-figure').count() === 6, 'Profile adds six section-specific documentary figures')
-  for (const image of await page.locator('.profile-side-figure img').all()) await image.scrollIntoViewIfNeeded()
-  await page.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img')].every((image) => image.complete && image.naturalWidth > 0))
+  check(await page.locator('.profile-side-figure').count() === 6, 'Profile retains six section-specific right-column documentary figures')
+  check(await page.locator('.leadership-inline-figure').count() === 4, 'Leadership adds one Student Council and three MUN inline figures')
+  for (const image of await page.locator('.profile-side-figure img, .leadership-inline-figure img').all()) await image.scrollIntoViewIfNeeded()
+  await page.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img, .leadership-inline-figure img')].every((image) => image.complete && image.naturalWidth > 0))
   check(await page.locator('.profile-side-figure img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size === 6), 'Profile side figures use six unique image sources')
+  check(await page.locator('.leadership-inline-figure img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size === 4), 'Leadership inline figures use four unique image sources')
+  check(await page.locator('.leadership-mun-gallery .leadership-inline-figure').count() === 3, 'Delegate & Bloc Leader contains all three MUN photographs')
+  check(await page.locator('.leadership-inline-figure img[src$="kindergarten-english-reading.webp"]').count() === 1, 'Student Council contains the kindergarten English reading photograph')
   check(await page.locator('.profile-side-figure').evaluateAll((figures) => figures.every((figure) => {
     const content = figure.parentElement?.firstElementChild
     if (!content) return false
     return figure.getBoundingClientRect().left >= content.getBoundingClientRect().right - 1
   })), 'Desktop side figures occupy a distinct right-hand evidence column')
   const profileImageSources = await page.locator('img').evaluateAll((images) => images.map((image) => image.getAttribute('src')))
-  check(new Set(profileImageSources).size === 7, 'Profile uses seven photographs exactly once')
+  check(new Set(profileImageSources).size === 11, 'Profile uses eleven photographs exactly once')
   check(profileImageSources.every((source) => !homepageImageSources.includes(source)), 'Homepage and Profile share no repeated photographs')
   check(await page.getByText('DOCUMENTARY PROJECT · IN PRODUCTION', { exact: true }).isVisible(), 'Documentary is labelled as in production')
   check(await page.getByText('The first interview, lasting more than 40 minutes with a Form 6 student at a Band 1 secondary school in Hong Kong, has been completed. The first episode is currently being edited.', { exact: true }).isVisible(), 'Documentary stage reflects the completed interview and current edit')
@@ -258,9 +280,14 @@ try {
     if (route === '/') {
       await mobilePage.locator('.home-experiences').scrollIntoViewIfNeeded()
       await mobilePage.waitForFunction(() => [...document.querySelectorAll('.photo-ring-slide img')].every((image) => image.complete && image.naturalWidth > 0))
-      check(await mobilePage.locator('.photo-ring-slide img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Mobile photo ring loads all seven photographs')
+      check(await mobilePage.locator('.photo-ring-slide img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Mobile photo ring loads all six photographs')
       check(await mobilePage.locator('.photo-ring-carousel').getAttribute('data-autoplay') === 'paused', 'Reduced motion disables ring autoplay on mobile')
-      check(await mobilePage.locator('.photo-ring-controls').count() === 0, 'Mobile photo ring has no bottom controls')
+      check(await mobilePage.locator('.photo-ring-controls button').count() === 2, 'Mobile photo ring provides previous and next controls')
+      const mobileInitialIndex = Number(await mobilePage.locator('.photo-ring-carousel').getAttribute('data-active-index'))
+      await mobilePage.getByRole('button', { name: 'Next photograph' }).click()
+      check(Number(await mobilePage.locator('.photo-ring-carousel').getAttribute('data-active-index')) === (mobileInitialIndex + 1) % 6, 'Mobile Next arrow advances one photograph')
+      await mobilePage.getByRole('button', { name: 'Previous photograph' }).click()
+      check(Number(await mobilePage.locator('.photo-ring-carousel').getAttribute('data-active-index')) === mobileInitialIndex, 'Mobile Previous arrow returns to the initial photograph')
       await mobilePage.locator('.photo-ring-slide.is-active .photo-ring-expand').click()
       check(await mobilePage.getByRole('dialog').isVisible(), 'Tapping the mobile photograph opens its enlarged view')
       await noHorizontalOverflow(mobilePage, 'Mobile enlarged photograph')
@@ -269,9 +296,10 @@ try {
       await mobilePage.locator('.home-experiences').screenshot({ path: join(qaDir, 'mobile-home-experiences.png') })
     }
     if (route === '/profile') {
-      for (const image of await mobilePage.locator('.profile-side-figure img').all()) await image.scrollIntoViewIfNeeded()
-      await mobilePage.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img')].every((image) => image.complete && image.naturalWidth > 0))
-      check(await mobilePage.locator('.profile-side-figure img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Mobile section-specific photographs load successfully')
+      for (const image of await mobilePage.locator('.profile-side-figure img, .leadership-inline-figure img').all()) await image.scrollIntoViewIfNeeded()
+      await mobilePage.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img, .leadership-inline-figure img')].every((image) => image.complete && image.naturalWidth > 0))
+      check(await mobilePage.locator('.profile-side-figure img, .leadership-inline-figure img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'Mobile section and leadership photographs load successfully')
+      check(await mobilePage.locator('.leadership-mun-gallery').evaluate((gallery) => getComputedStyle(gallery).gridTemplateColumns.split(' ').length === 1), 'Mobile MUN gallery stacks in one column')
       check(await mobilePage.locator('.profile-side-figure').evaluateAll((figures) => figures.every((figure) => {
         const content = figure.parentElement?.firstElementChild
         if (!content) return false
@@ -314,8 +342,8 @@ try {
     const responsivePage = await context.newPage()
     monitor(responsivePage, `profile-${width}`)
     await responsivePage.goto('http://127.0.0.1:4173/#/profile', { waitUntil: 'networkidle' })
-    for (const image of await responsivePage.locator('.profile-side-figure img').all()) await image.scrollIntoViewIfNeeded()
-    await responsivePage.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img')].every((image) => image.complete && image.naturalWidth > 0))
+    for (const image of await responsivePage.locator('.profile-side-figure img, .leadership-inline-figure img').all()) await image.scrollIntoViewIfNeeded()
+    await responsivePage.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img, .leadership-inline-figure img')].every((image) => image.complete && image.naturalWidth > 0))
     await noHorizontalOverflow(responsivePage, `Profile at ${width}px`)
     check(await responsivePage.locator('.profile-side-figure').evaluateAll((figures, viewportWidth) => figures.every((figure) => {
       const content = figure.parentElement?.firstElementChild

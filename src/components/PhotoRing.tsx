@@ -1,42 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, X } from 'lucide-react'
 
 const photos = [
-  {
-    file: 'china-un-presentation.jpg',
-    title: 'China’s return to the United Nations',
-    meta: 'Academic presentation · SFLSHZ',
-    description: 'Connecting historical inquiry with public communication in a presentation at school.',
-    alt: 'ChunYin Shang presenting on China’s return to the United Nations at SFLSHZ',
-  },
-  {
-    file: 'summer-program-group.webp',
-    title: 'Harvard Summit for Young Leaders in China',
-    meta: 'HSYLC · Summer program',
-    description: 'Learning alongside a cohort of peers during the summer program.',
-    alt: 'ChunYin Shang with a group of peers during a summer learning program',
-  },
-  {
-    file: 'kindergarten-english-reading.webp',
-    title: 'Reading with younger students',
-    meta: 'Student Council · Kindergarten English reading',
-    description: 'Organizing a student council visit to read English books with children at the school’s kindergarten.',
-    alt: 'Student council members reading English books with kindergarten children at school',
-  },
-  {
-    file: 'school-event-speaking.webp',
-    title: 'Sharing the stage',
-    meta: 'School event · SFLSHZ',
-    description: 'Speaking on stage with a fellow student.',
-    alt: 'ChunYin Shang speaking on stage with a fellow student during a school event',
-  },
-  {
-    file: 'halloween-student-event.webp',
-    title: 'Halloween with fellow students',
-    meta: 'Student community · Halloween event',
-    description: 'Sharing the school’s Halloween celebration with fellow students.',
-    alt: 'ChunYin Shang and a fellow student in costume at a school Halloween event',
-  },
   {
     file: 'piano-performance.webp',
     title: 'Piano performance',
@@ -51,6 +16,34 @@ const photos = [
     meta: 'Football · Top 8 in Fuyang, Hangzhou',
     description: 'With teammates on the school pitch.',
     alt: 'ChunYin Shang posing with football teammates on the school pitch',
+  },
+  {
+    file: 'summer-program-group.webp',
+    title: 'Harvard Summit for Young Leaders in China',
+    meta: 'HSYLC · Summer program',
+    description: 'Learning alongside a cohort of peers during the summer program.',
+    alt: 'ChunYin Shang with a group of peers during a summer learning program',
+  },
+  {
+    file: 'china-un-presentation.jpg',
+    title: 'China’s return to the United Nations',
+    meta: 'Academic presentation · SFLSHZ',
+    description: 'Connecting historical inquiry with public communication in a presentation at school.',
+    alt: 'ChunYin Shang presenting on China’s return to the United Nations at SFLSHZ',
+  },
+  {
+    file: 'school-event-speaking.webp',
+    title: 'Hosting a school event',
+    meta: 'School event · SFLSHZ',
+    description: 'Hosting a school event on stage with a fellow student.',
+    alt: 'ChunYin Shang hosting a school event on stage with a fellow student',
+  },
+  {
+    file: 'halloween-student-event.webp',
+    title: 'Halloween with fellow students',
+    meta: 'Student community · Halloween event',
+    description: 'Sharing the school’s Halloween celebration with fellow students.',
+    alt: 'ChunYin Shang and a fellow student in costume at a school Halloween event',
   },
 ]
 
@@ -78,6 +71,16 @@ export default function PhotoRing() {
   const closeLightbox = useCallback(() => {
     setEnlargedIndex(null)
     requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }))
+  }, [])
+
+  const move = useCallback((direction: number) => {
+    const nextIndex = (activeIndexRef.current + direction + photos.length) % photos.length
+    angleRef.current = nextIndex * step
+    activeIndexRef.current = nextIndex
+    setActiveIndex(nextIndex)
+    if (ringRef.current) {
+      ringRef.current.style.transform = `translateZ(calc(-1 * var(--ring-radius))) rotateY(${-angleRef.current}deg)`
+    }
   }, [])
 
   useEffect(() => {
@@ -206,6 +209,15 @@ export default function PhotoRing() {
           <h3>{activePhoto.title}</h3>
           <p className="photo-ring-meta">{activePhoto.meta}</p>
           <p>{activePhoto.description}</p>
+        </div>
+
+        <div className="photo-ring-controls" aria-label="Photograph navigation">
+          <button type="button" onClick={() => move(-1)} aria-label="Previous photograph">
+            <ArrowLeft aria-hidden="true" size={20} />
+          </button>
+          <button type="button" onClick={() => move(1)} aria-label="Next photograph">
+            <ArrowRight aria-hidden="true" size={20} />
+          </button>
         </div>
       </div>
 

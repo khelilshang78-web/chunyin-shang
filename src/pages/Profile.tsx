@@ -43,6 +43,18 @@ function SectionFigure({ src, alt, width, height, title, caption, className = ''
   )
 }
 
+function LeadershipFigure({ src, alt, width, height, title, caption }: SectionFigureProps) {
+  return (
+    <figure className="leadership-inline-figure">
+      <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+      <figcaption>
+        <span>{title}</span>
+        <p>{caption}</p>
+      </figcaption>
+    </figure>
+  )
+}
+
 export default function Profile() {
   return (
     <div className="page-shell">
@@ -185,6 +197,44 @@ export default function Profile() {
                     <ul className="contribution-list">
                       {item.contributions.map((contribution) => <li key={contribution}>{contribution}</li>)}
                     </ul>
+                    {item.role === 'Student Council President' && (
+                      <LeadershipFigure
+                        src="./images/kindergarten-english-reading.webp"
+                        alt="Student council members reading English books with kindergarten children at school"
+                        width={1200}
+                        height={800}
+                        title="Reading with younger students"
+                        caption="A student council visit to read English books with children at the school’s kindergarten."
+                      />
+                    )}
+                    {item.role === 'Delegate & Bloc Leader' && (
+                      <div className="leadership-mun-gallery" aria-label="Model United Nations conference photographs">
+                        <LeadershipFigure
+                          src="./images/mun-delegate-discussion.webp"
+                          alt="ChunYin Shang seated behind a China nameplate, discussing a position with another Model United Nations delegate"
+                          width={1800}
+                          height={829}
+                          title="Yale MUN China"
+                          caption="Discussing a position with another delegate."
+                        />
+                        <LeadershipFigure
+                          src="./images/mun-delegate-bloc-leader-02.jpg"
+                          alt="ChunYin Shang with fellow Model United Nations delegates behind country nameplates including China"
+                          width={1316}
+                          height={1002}
+                          title="Yale MUN China"
+                          caption="With fellow delegates and partner delegations."
+                        />
+                        <LeadershipFigure
+                          src="./images/mun-delegate-bloc-leader-03.jpg"
+                          alt="ChunYin Shang with participating delegates at the 2025 Global Youth Shanghai Diplomats Summit"
+                          width={1620}
+                          height={1080}
+                          title="Global Youth Shanghai Diplomats Summit · SISU"
+                          caption="With participating delegates at the 2025 summit."
+                        />
+                      </div>
+                    )}
                   </article>
                 ))}
               </div>

@@ -59,15 +59,15 @@ export default function Home() {
         <div className="home-opening-gallery" aria-label="ChunYin Shang in public discussion">
           <figure className="home-portrait">
             <img
-              src="./images/mun-delegate-discussion.webp"
-              alt="ChunYin Shang seated behind a China nameplate, discussing a position with another Model United Nations delegate"
-              width="1800"
-              height="829"
+              src="./images/mun-kenya-home.webp"
+              alt="ChunYin Shang representing Kenya during a Berkeley MUN China committee session"
+              width="620"
+              height="715"
               fetchPriority="high"
             />
             <figcaption>
-              <span>YMUN · May 2025</span>
-              <p>Discussing a position with another delegate during a Model United Nations committee session.</p>
+              <span>Berkeley MUN China</span>
+              <p>Representing Kenya during a committee working session.</p>
             </figcaption>
           </figure>
 
