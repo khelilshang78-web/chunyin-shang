@@ -793,19 +793,49 @@ input { caret-color: var(--ink); }
 .photo-ring-caption h3 { font-size: clamp(1.7rem, 2.6vw, 2.4rem); font-weight: 400; line-height: 1.1; text-wrap: balance; }
 .photo-ring-meta { margin: 12px 0 8px; color: var(--paper); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; }
 .photo-ring-caption > p:last-child { color: #bdbdbd; font-size: 0.9rem; }
-.photo-ring-controls { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
-.photo-ring-controls button {
+.photo-ring-expand {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: zoom-in;
+}
+.photo-ring-expand:focus-visible { outline: 2px solid var(--paper); outline-offset: -6px; }
+.photo-lightbox {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  padding: 64px 40px 32px;
+  background: rgba(16, 16, 16, 0.97);
+  color: var(--paper);
+}
+.photo-lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 24px;
   display: grid;
   width: 44px;
   height: 44px;
   place-items: center;
-  border: 1px solid #555555;
+  border: 1px solid #666666;
   border-radius: 50%;
-  background: transparent;
+  background: var(--ink);
   color: var(--paper);
   transition: background-color 180ms ease, color 180ms ease;
 }
-.photo-ring-controls button:hover { background: var(--paper); color: var(--ink); }
+.photo-lightbox-close:hover { background: var(--paper); color: var(--ink); }
+.photo-lightbox-close:focus-visible { outline-color: var(--paper); }
+.photo-lightbox-content { display: grid; max-width: 1200px; justify-items: center; gap: 16px; }
+.photo-lightbox-content img { width: auto; max-width: 100%; height: auto; max-height: calc(100dvh - 190px); object-fit: contain; }
+.photo-lightbox-content figcaption { text-align: center; }
+.photo-lightbox-content h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 400; line-height: 1.15; }
+.photo-lightbox-content figcaption p { margin-top: 8px; color: #bdbdbd; font-size: 0.78rem; }
 
 @media (max-width: 760px) {
   .photo-ring-viewport {
@@ -818,6 +848,9 @@ input { caret-color: var(--ink); }
   .photo-ring-caption { min-height: 180px; }
   .photo-ring-caption h3 { font-size: 1.65rem; }
   .photo-ring-caption > p:last-child { font-size: 0.86rem; }
+  .photo-lightbox { padding: 72px 16px 24px; }
+  .photo-lightbox-close { top: 12px; right: 16px; }
+  .photo-lightbox-content img { max-height: calc(100dvh - 210px); }
 }
 
 @media (hover: none) {

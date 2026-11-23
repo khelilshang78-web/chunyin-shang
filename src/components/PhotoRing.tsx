@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { X } from 'lucide-react'
 
 const photos = [
   {
@@ -58,19 +58,27 @@ const step = 360 / photos.length
 
 export default function PhotoRing() {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [pausedByUser, setPausedByUser] = useState(false)
   const [hovered, setHovered] = useState(false)
   const [focusPaused, setFocusPaused] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const [inView, setInView] = useState(() => !('IntersectionObserver' in window))
   const [pageVisible, setPageVisible] = useState(true)
+  const [enlargedIndex, setEnlargedIndex] = useState<number | null>(null)
   const angleRef = useRef(0)
   const activeIndexRef = useRef(0)
   const viewportRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   const activePhoto = photos[activeIndex]
-  const paused = pausedByUser || hovered || focusPaused || reducedMotion
+  const enlargedPhoto = enlargedIndex === null ? null : photos[enlargedIndex]
+  const paused = hovered || focusPaused || reducedMotion || enlargedIndex !== null
+
+  const closeLightbox = useCallback(() => {
+    setEnlargedIndex(null)
+    requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }))
+  }, [])
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -117,95 +125,112 @@ export default function PhotoRing() {
     return () => cancelAnimationFrame(frame)
   }, [paused, inView, pageVisible])
 
-  const move = (direction: number) => {
-    const nextStep = Math.round(angleRef.current / step) + direction
-    angleRef.current = nextStep * step
-    if (ringRef.current) {
-      ringRef.current.style.transform = `translateZ(calc(-1 * var(--ring-radius))) rotateY(${-angleRef.current}deg)`
+  useEffect(() => {
+    if (enlargedIndex === null) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    closeButtonRef.current?.focus()
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeLightbox()
+      if (event.key === 'Tab') {
+        event.preventDefault()
+        closeButtonRef.current?.focus()
+      }
     }
-    const nextIndex = ((nextStep % photos.length) + photos.length) % photos.length
-    activeIndexRef.current = nextIndex
-    setActiveIndex(nextIndex)
-  }
-  const previous = () => move(-1)
-  const next = () => move(1)
-  const toggleAutoplay = () => {
-    setPausedByUser((value) => !value)
-    setHovered(false)
-    setFocusPaused(false)
-  }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [enlargedIndex, closeLightbox])
 
   return (
-    <div
-      className="photo-ring-carousel"
-      role="region"
-      aria-roledescription="carousel"
-      aria-label="Experiences in photographs"
-      data-active-index={activeIndex}
-      data-autoplay={paused || !inView || !pageVisible ? 'paused' : 'playing'}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocusCapture={() => setFocusPaused(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setFocusPaused(false)
-      }}
-      onKeyDown={(event) => {
-        if (event.key === 'ArrowLeft') {
-          event.preventDefault()
-          previous()
-        }
-        if (event.key === 'ArrowRight') {
-          event.preventDefault()
-          next()
-        }
-      }}
-    >
-      <div ref={viewportRef} className="photo-ring-viewport">
-        <div
-          ref={ringRef}
-          className="photo-ring"
-          style={{ transform: 'translateZ(calc(-1 * var(--ring-radius))) rotateY(0deg)' }}
-        >
-          {photos.map((photo, index) => (
-            <figure
-              key={photo.file}
-              className={`photo-ring-slide${index === activeIndex ? ' is-active' : ''}`}
-              style={{ transform: `rotateY(${index * step}deg) translateZ(var(--ring-radius))` }}
-              aria-hidden={index !== activeIndex}
-            >
-              <img
-                src={`./images/${photo.file}`}
-                alt={photo.alt}
-                loading={index < 2 ? 'eager' : 'lazy'}
-                decoding="async"
-                draggable={false}
-                style={{ objectPosition: photo.objectPosition ?? 'center' }}
-              />
-            </figure>
-          ))}
+    <>
+      <div
+        className="photo-ring-carousel"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Experiences in photographs"
+        data-active-index={activeIndex}
+        data-autoplay={paused || !inView || !pageVisible ? 'paused' : 'playing'}
+      >
+        <div ref={viewportRef} className="photo-ring-viewport">
+          <div
+            ref={ringRef}
+            className="photo-ring"
+            style={{ transform: 'translateZ(calc(-1 * var(--ring-radius))) rotateY(0deg)' }}
+          >
+            {photos.map((photo, index) => (
+              <figure
+                key={photo.file}
+                className={`photo-ring-slide${index === activeIndex ? ' is-active' : ''}`}
+                style={{ transform: `rotateY(${index * step}deg) translateZ(var(--ring-radius))` }}
+                aria-hidden={index !== activeIndex}
+              >
+                <button
+                  type="button"
+                  className="photo-ring-expand"
+                  aria-label={`Enlarge photograph: ${photo.title}`}
+                  tabIndex={index === activeIndex ? 0 : -1}
+                  onClick={(event) => {
+                    triggerRef.current = event.currentTarget
+                    setEnlargedIndex(index)
+                  }}
+                  onMouseEnter={() => {
+                    if (index === activeIndex) setHovered(true)
+                  }}
+                  onMouseLeave={() => {
+                    if (index === activeIndex) setHovered(false)
+                  }}
+                  onFocus={(event) => {
+                    if (index === activeIndex && event.currentTarget.matches(':focus-visible')) setFocusPaused(true)
+                  }}
+                  onBlur={() => setFocusPaused(false)}
+                >
+                  <img
+                    src={`./images/${photo.file}`}
+                    alt={photo.alt}
+                    loading={index < 2 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    draggable={false}
+                    style={{ objectPosition: photo.objectPosition ?? 'center' }}
+                  />
+                </button>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        <div className="photo-ring-caption" aria-live={paused ? 'polite' : 'off'} aria-atomic="true">
+          <p className="photo-ring-position">{String(activeIndex + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}</p>
+          <h3>{activePhoto.title}</h3>
+          <p className="photo-ring-meta">{activePhoto.meta}</p>
+          <p>{activePhoto.description}</p>
         </div>
       </div>
 
-      <div className="photo-ring-caption" aria-live={paused ? 'polite' : 'off'} aria-atomic="true">
-        <p className="photo-ring-position">{String(activeIndex + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}</p>
-        <h3>{activePhoto.title}</h3>
-        <p className="photo-ring-meta">{activePhoto.meta}</p>
-        <p>{activePhoto.description}</p>
-      </div>
-
-      <div className="photo-ring-controls" aria-label="Photo carousel controls">
-        <button type="button" onClick={previous} aria-label="Previous photo">
-          <ArrowLeft aria-hidden="true" size={20} />
-        </button>
-        {!reducedMotion && (
-          <button type="button" onClick={toggleAutoplay} aria-label={pausedByUser ? 'Resume automatic rotation' : 'Pause automatic rotation'}>
-            {pausedByUser ? <Play aria-hidden="true" size={18} /> : <Pause aria-hidden="true" size={18} />}
+      {enlargedPhoto && (
+        <div
+          className="photo-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="photo-lightbox-title"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) closeLightbox()
+          }}
+        >
+          <button ref={closeButtonRef} type="button" className="photo-lightbox-close" onClick={closeLightbox} aria-label="Close enlarged photograph">
+            <X aria-hidden="true" size={24} />
           </button>
-        )}
-        <button type="button" onClick={next} aria-label="Next photo">
-          <ArrowRight aria-hidden="true" size={20} />
-        </button>
-      </div>
-    </div>
+          <figure className="photo-lightbox-content">
+            <img src={`./images/${enlargedPhoto.file}`} alt={enlargedPhoto.alt} />
+            <figcaption>
+              <h3 id="photo-lightbox-title">{enlargedPhoto.title}</h3>
+              <p>{enlargedPhoto.meta}</p>
+            </figcaption>
+          </figure>
+        </div>
+      )}
+    </>
   )
 }
