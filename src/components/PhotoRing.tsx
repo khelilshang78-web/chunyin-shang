@@ -17,11 +17,25 @@ const photos = [
     alt: 'ChunYin Shang with a group of peers during a summer learning program',
   },
   {
+    file: 'kindergarten-english-reading.webp',
+    title: 'Reading with younger students',
+    meta: 'Student Council · Kindergarten English reading',
+    description: 'Organizing a student council visit to read English books with children at the school’s kindergarten.',
+    alt: 'Student council members reading English books with kindergarten children at school',
+  },
+  {
     file: 'school-event-speaking.webp',
     title: 'Sharing the stage',
     meta: 'School event · SFLSHZ',
     description: 'Speaking on stage with a fellow student.',
     alt: 'ChunYin Shang speaking on stage with a fellow student during a school event',
+  },
+  {
+    file: 'halloween-student-event.webp',
+    title: 'Halloween with fellow students',
+    meta: 'Student community · Halloween event',
+    description: 'Sharing the school’s Halloween celebration with fellow students.',
+    alt: 'ChunYin Shang and a fellow student in costume at a school Halloween event',
   },
   {
     file: 'piano-performance.webp',
