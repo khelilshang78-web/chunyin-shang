@@ -230,14 +230,6 @@ export default function Profile() {
                           caption="Discussing a position with another delegate."
                         />
                         <LeadershipFigure
-                          src="./images/mun-delegate-bloc-leader-02.jpg"
-                          alt="ChunYin Shang with fellow Model United Nations delegates behind country nameplates including China"
-                          width={1316}
-                          height={1002}
-                          title="Yale MUN China"
-                          caption="With fellow delegates and partner delegations."
-                        />
-                        <LeadershipFigure
                           src="./images/mun-delegate-bloc-leader-03.jpg"
                           alt="ChunYin Shang with participating delegates at the 2025 Global Youth Shanghai Diplomats Summit"
                           width={1620}

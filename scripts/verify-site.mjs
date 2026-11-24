@@ -86,8 +86,8 @@ try {
   check(await page.locator('.home-portrait img').getAttribute('src') === './images/mun-kenya-home.webp', 'Homepage main photograph is the cropped Kenya committee portrait')
   check(await page.locator('.home-portrait img').evaluate((image) => {
     const rect = image.getBoundingClientRect()
-    return Math.abs(rect.width / rect.height - 1.65) < 0.02 && rect.height < 700
-  }), 'Homepage main photograph returns to a smaller landscape crop')
+    return Math.abs(rect.width / rect.height - 1.65) < 0.02 && rect.width <= 820 && rect.height < 500
+  }), 'Homepage main photograph uses a compact landscape group-discussion crop')
   check(await page.locator('.home-portrait').getByText('Berkeley MUN China', { exact: true }).isVisible(), 'Kenya portrait carries the accurate Berkeley MUN China caption')
   check(await page.locator('.home-opening-gallery').getByText('Global Youth Shanghai Diplomats Summit · SISU', { exact: true }).isVisible(), 'Homepage opening retains the precise SISU summit caption')
   check(await page.locator('.home-opening-gallery').getByText('Panel discussion · SFLSHZ', { exact: true }).isVisible(), 'Homepage opening identifies the school panel discussion')
@@ -160,12 +160,14 @@ try {
   await page.locator('.profile-intro').waitFor()
   check(await page.locator('.profile-intro').isVisible(), 'Primary profile CTA navigates to profile')
   check(await page.locator('.profile-side-figure').count() === 5, 'Profile retains five non-leadership right-column documentary figures')
-  check(await page.locator('.leadership-inline-figure').count() === 5, 'Leadership groups two Student Council and three MUN photographs')
+  check(await page.locator('.leadership-inline-figure').count() === 4, 'Leadership groups two Student Council and two MUN photographs')
   for (const image of await page.locator('.profile-side-figure img, .leadership-inline-figure img').all()) await image.scrollIntoViewIfNeeded()
   await page.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img, .leadership-inline-figure img')].every((image) => image.complete && image.naturalWidth > 0))
   check(await page.locator('.profile-side-figure img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size === 5), 'Profile side figures use five unique image sources')
-  check(await page.locator('.leadership-inline-figure img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size === 5), 'Leadership evidence uses five unique image sources')
-  check(await page.locator('.leadership-mun-gallery .leadership-inline-figure').count() === 3, 'Delegate & Bloc Leader contains all three MUN photographs')
+  check(await page.locator('.leadership-inline-figure img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size === 4), 'Leadership evidence uses four unique image sources')
+  check(await page.locator('.leadership-mun-gallery .leadership-inline-figure').count() === 2, 'Delegate & Bloc Leader contains the two retained MUN photographs')
+  check(await page.locator('img[src$="mun-delegate-bloc-leader-02.jpg"]').count() === 0, 'The requested Yale MUN partner-delegation photograph is removed')
+  check(await page.getByText('With fellow delegates and partner delegations.', { exact: true }).count() === 0, 'The removed photograph caption no longer appears')
   check(await page.locator('.leadership-inline-figure img[src$="kindergarten-english-reading.webp"]').count() === 1, 'Student Council contains the kindergarten English reading photograph')
   check(await page.locator('.profile-side-figure').evaluateAll((figures) => figures.every((figure) => {
     const content = figure.parentElement?.firstElementChild
@@ -178,7 +180,7 @@ try {
     return Boolean(copy && evidence && evidence.left >= copy.right - 1)
   })), 'Every leadership photograph group sits to the right of its corresponding text')
   const profileImageSources = await page.locator('img').evaluateAll((images) => images.map((image) => image.getAttribute('src')))
-  check(new Set(profileImageSources).size === 11, 'Profile uses eleven photographs exactly once')
+  check(new Set(profileImageSources).size === 10, 'Profile uses ten photographs exactly once')
   check(profileImageSources.every((source) => !homepageImageSources.includes(source)), 'Homepage and Profile share no repeated photographs')
   check(await page.getByText('DOCUMENTARY PROJECT · IN PRODUCTION', { exact: true }).isVisible(), 'Documentary is labelled as in production')
   check(await page.getByText('The first interview, lasting more than 40 minutes with a Form 6 student at a Band 1 secondary school in Hong Kong, has been completed. The first episode is currently being edited.', { exact: true }).isVisible(), 'Documentary stage reflects the completed interview and current edit')

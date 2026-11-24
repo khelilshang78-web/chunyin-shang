@@ -60,14 +60,14 @@ export default function Home() {
           <figure className="home-portrait">
             <img
               src="./images/mun-kenya-home.webp"
-              alt="ChunYin Shang representing Kenya during a Berkeley MUN China committee session"
-              width="620"
-              height="715"
+              alt="ChunYin Shang working on a laptop while fellow Berkeley MUN China delegates gather around for a committee discussion"
+              width="1340"
+              height="812"
               fetchPriority="high"
             />
             <figcaption>
               <span>Berkeley MUN China</span>
-              <p>Representing Kenya during a committee working session.</p>
+              <p>Working through a committee discussion with fellow delegates.</p>
             </figcaption>
           </figure>
 
