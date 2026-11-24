@@ -186,10 +186,10 @@ export default function Profile() {
             <p className="section-intro">
               I understand leadership less as representing a community from the front than as listening carefully, organizing patiently, and taking responsibility when the work becomes difficult.
             </p>
-            <div className="profile-section-split">
-              <div className="leadership-list">
-                {leadership.map((item) => (
-                  <article key={item.role}>
+            <div className="leadership-list">
+              {leadership.map((item) => (
+                <article key={item.role} className="leadership-entry">
+                  <div className="leadership-entry-copy">
                     <h3>{item.role}</h3>
                     <p className="item-meta">{item.period}</p>
                     <p className="item-subtitle">{item.organization}</p>
@@ -197,15 +197,27 @@ export default function Profile() {
                     <ul className="contribution-list">
                       {item.contributions.map((contribution) => <li key={contribution}>{contribution}</li>)}
                     </ul>
+                  </div>
+                  <div className="leadership-entry-evidence">
                     {item.role === 'Student Council President' && (
-                      <LeadershipFigure
-                        src="./images/kindergarten-english-reading.webp"
-                        alt="Student council members reading English books with kindergarten children at school"
-                        width={1200}
-                        height={800}
-                        title="Reading with younger students"
-                        caption="A student council visit to read English books with children at the school’s kindergarten."
-                      />
+                      <>
+                        <LeadershipFigure
+                          src="./images/kindergarten-english-reading.webp"
+                          alt="Student council members reading English books with kindergarten children at school"
+                          width={1200}
+                          height={800}
+                          title="Reading with younger students"
+                          caption="A student council visit to read English books with children at the school’s kindergarten."
+                        />
+                        <LeadershipFigure
+                          src="./images/profile-student-activity-hosting.webp"
+                          alt="ChunYin Shang holding a microphone while hosting a Halloween-themed activity with a room of students"
+                          width={1706}
+                          height={1279}
+                          title="Hosting a student activity"
+                          caption="A Halloween-themed event with participating students."
+                        />
+                      </>
                     )}
                     {item.role === 'Delegate & Bloc Leader' && (
                       <div className="leadership-mun-gallery" aria-label="Model United Nations conference photographs">
@@ -235,17 +247,9 @@ export default function Profile() {
                         />
                       </div>
                     )}
-                  </article>
-                ))}
-              </div>
-              <SectionFigure
-                src="./images/profile-student-activity-hosting.webp"
-                alt="ChunYin Shang holding a microphone while hosting a Halloween-themed activity with a room of students"
-                width={1706}
-                height={1279}
-                title="Hosting a student activity"
-                caption="A Halloween-themed event with participating students."
-              />
+                  </div>
+                </article>
+              ))}
             </div>
           </section>
 

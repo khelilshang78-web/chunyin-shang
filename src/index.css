@@ -393,20 +393,21 @@ input { caret-color: var(--ink); }
 .timeline-item { display: grid; grid-template-columns: minmax(130px, 0.45fr) minmax(0, 1.55fr); gap: 32px; padding: 32px 0; border-bottom: 1px solid var(--line); }
 .timeline-period { color: var(--muted); font-size: 0.8rem; }
 .item-subtitle { margin: 4px 0 12px; color: var(--muted); font-size: 0.85rem; }
-.timeline-item div > p:last-child, .leadership-list article > p:not(.item-meta):not(.item-subtitle) { max-width: 70ch; }
+.timeline-item div > p:last-child, .leadership-entry-copy > p:not(.item-meta):not(.item-subtitle) { max-width: 70ch; }
 .leadership-list article, .education-list article { padding: 34px 0; border-bottom: 1px solid var(--line); }
+.leadership-entry { display: grid; gap: 40px; }
+.leadership-entry-copy, .leadership-entry-evidence { min-width: 0; }
+.leadership-entry-evidence { display: grid; align-content: start; gap: 32px; }
 .leadership-list h3, .education-list h3 { margin-top: 12px; font-size: 1.9rem; }
-.leadership-list article > .item-meta, .education-list article > .item-meta { margin: 8px 0 12px; }
+.leadership-entry-copy > .item-meta, .education-list article > .item-meta { margin: 8px 0 12px; }
 .contribution-list { display: grid; gap: 12px; margin-top: 24px; padding-left: 20px; }
 .contribution-list li { max-width: 70ch; padding-left: 4px; }
-.leadership-inline-figure { min-width: 0; margin: 32px 0 0; }
+.leadership-inline-figure { min-width: 0; margin: 0; }
 .leadership-inline-figure img { display: block; width: 100%; height: auto; background: var(--soft); }
 .leadership-inline-figure figcaption { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--ink); }
 .leadership-inline-figure figcaption > span { display: block; font-size: 0.92rem; line-height: 1.4; }
 .leadership-inline-figure figcaption > p { margin-top: 6px; color: var(--muted); font-size: 0.78rem; line-height: 1.55; }
-.leadership-mun-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; margin-top: 32px; }
-.leadership-mun-gallery .leadership-inline-figure { margin: 0; }
-.leadership-mun-gallery .leadership-inline-figure:first-child { grid-column: 1 / -1; }
+.leadership-mun-gallery { display: grid; gap: 32px; }
 .education-list article > p:last-child { margin-top: 8px; color: var(--muted); }
 .education-stats { display: flex; flex-wrap: wrap; gap: 16px 32px; margin-top: 32px; padding: 24px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
 .education-stats div { display: flex; align-items: baseline; gap: 12px; }
@@ -499,7 +500,7 @@ input { caret-color: var(--ink); }
 }
 
 @media (min-width: 1001px) {
-  .profile-section-split { grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.8fr); gap: 56px; }
+  .profile-section-split, .leadership-entry { grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.8fr); gap: 56px; }
   .profile-section-split .interest-list article { grid-template-columns: minmax(140px, 0.7fr) minmax(0, 1.3fr); gap: 24px; }
   .profile-section-split .interest-list article > p:last-child { grid-column: 2; }
   .profile-side-figure--sticky { position: sticky; top: 96px; }
@@ -637,7 +638,7 @@ input { caret-color: var(--ink); }
 .home-portrait {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
   min-width: 0;
   grid-column: 2;
   grid-row: 1;
@@ -646,7 +647,7 @@ input { caret-color: var(--ink); }
   border-top: 1px solid #4a4a4a;
   border-bottom: 1px solid #4a4a4a;
 }
-.home-portrait img { aspect-ratio: 1 / 1; object-position: center 45%; }
+.home-portrait img { aspect-ratio: 1.65 / 1; object-position: center 30%; }
 .home-portrait figcaption { padding: 0 4px; color: #b5b5b5; }
 .home-portrait figcaption span { color: var(--paper); }
 .home-opening-satellite { min-width: 0; }
@@ -874,8 +875,6 @@ input { caret-color: var(--ink); }
   .photo-ring-caption { min-height: 180px; }
   .photo-ring-caption h3 { font-size: 1.65rem; }
   .photo-ring-caption > p:last-child { font-size: 0.86rem; }
-  .leadership-mun-gallery { grid-template-columns: minmax(0, 1fr); }
-  .leadership-mun-gallery .leadership-inline-figure:first-child { grid-column: auto; }
   .photo-lightbox { padding: 72px 16px 24px; }
   .photo-lightbox-close { top: 12px; right: 16px; }
   .photo-lightbox-content img { max-height: calc(100dvh - 210px); }

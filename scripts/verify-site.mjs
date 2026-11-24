@@ -84,6 +84,10 @@ try {
   check(await page.locator('.home-opening-gallery img').count() === 3, 'Homepage opening composes three authentic activity photographs')
   check(await page.locator('.home-opening-gallery img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'All three homepage opening photographs load successfully')
   check(await page.locator('.home-portrait img').getAttribute('src') === './images/mun-kenya-home.webp', 'Homepage main photograph is the cropped Kenya committee portrait')
+  check(await page.locator('.home-portrait img').evaluate((image) => {
+    const rect = image.getBoundingClientRect()
+    return Math.abs(rect.width / rect.height - 1.65) < 0.02 && rect.height < 700
+  }), 'Homepage main photograph returns to a smaller landscape crop')
   check(await page.locator('.home-portrait').getByText('Berkeley MUN China', { exact: true }).isVisible(), 'Kenya portrait carries the accurate Berkeley MUN China caption')
   check(await page.locator('.home-opening-gallery').getByText('Global Youth Shanghai Diplomats Summit · SISU', { exact: true }).isVisible(), 'Homepage opening retains the precise SISU summit caption')
   check(await page.locator('.home-opening-gallery').getByText('Panel discussion · SFLSHZ', { exact: true }).isVisible(), 'Homepage opening identifies the school panel discussion')
@@ -155,12 +159,12 @@ try {
   await page.waitForURL('**/#/profile')
   await page.locator('.profile-intro').waitFor()
   check(await page.locator('.profile-intro').isVisible(), 'Primary profile CTA navigates to profile')
-  check(await page.locator('.profile-side-figure').count() === 6, 'Profile retains six section-specific right-column documentary figures')
-  check(await page.locator('.leadership-inline-figure').count() === 4, 'Leadership adds one Student Council and three MUN inline figures')
+  check(await page.locator('.profile-side-figure').count() === 5, 'Profile retains five non-leadership right-column documentary figures')
+  check(await page.locator('.leadership-inline-figure').count() === 5, 'Leadership groups two Student Council and three MUN photographs')
   for (const image of await page.locator('.profile-side-figure img, .leadership-inline-figure img').all()) await image.scrollIntoViewIfNeeded()
   await page.waitForFunction(() => [...document.querySelectorAll('.profile-side-figure img, .leadership-inline-figure img')].every((image) => image.complete && image.naturalWidth > 0))
-  check(await page.locator('.profile-side-figure img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size === 6), 'Profile side figures use six unique image sources')
-  check(await page.locator('.leadership-inline-figure img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size === 4), 'Leadership inline figures use four unique image sources')
+  check(await page.locator('.profile-side-figure img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size === 5), 'Profile side figures use five unique image sources')
+  check(await page.locator('.leadership-inline-figure img').evaluateAll((images) => new Set(images.map((image) => image.getAttribute('src'))).size === 5), 'Leadership evidence uses five unique image sources')
   check(await page.locator('.leadership-mun-gallery .leadership-inline-figure').count() === 3, 'Delegate & Bloc Leader contains all three MUN photographs')
   check(await page.locator('.leadership-inline-figure img[src$="kindergarten-english-reading.webp"]').count() === 1, 'Student Council contains the kindergarten English reading photograph')
   check(await page.locator('.profile-side-figure').evaluateAll((figures) => figures.every((figure) => {
@@ -168,6 +172,11 @@ try {
     if (!content) return false
     return figure.getBoundingClientRect().left >= content.getBoundingClientRect().right - 1
   })), 'Desktop side figures occupy a distinct right-hand evidence column')
+  check(await page.locator('.leadership-entry').evaluateAll((entries) => entries.every((entry) => {
+    const copy = entry.querySelector('.leadership-entry-copy')?.getBoundingClientRect()
+    const evidence = entry.querySelector('.leadership-entry-evidence')?.getBoundingClientRect()
+    return Boolean(copy && evidence && evidence.left >= copy.right - 1)
+  })), 'Every leadership photograph group sits to the right of its corresponding text')
   const profileImageSources = await page.locator('img').evaluateAll((images) => images.map((image) => image.getAttribute('src')))
   check(new Set(profileImageSources).size === 11, 'Profile uses eleven photographs exactly once')
   check(profileImageSources.every((source) => !homepageImageSources.includes(source)), 'Homepage and Profile share no repeated photographs')
@@ -305,6 +314,11 @@ try {
         if (!content) return false
         return figure.getBoundingClientRect().top >= content.getBoundingClientRect().bottom - 1
       })), 'Mobile side figures stack below their corresponding section content')
+      check(await mobilePage.locator('.leadership-entry').evaluateAll((entries) => entries.every((entry) => {
+        const copy = entry.querySelector('.leadership-entry-copy')?.getBoundingClientRect()
+        const evidence = entry.querySelector('.leadership-entry-evidence')?.getBoundingClientRect()
+        return Boolean(copy && evidence && evidence.top >= copy.bottom - 1)
+      })), 'Mobile leadership photographs stack below their corresponding text')
       check(await mobilePage.locator('.speaking-evidence, .activity-mosaic').count() === 0, 'Profile does not repeat homepage activity galleries')
       await noHorizontalOverflow(mobilePage, 'Mobile profile without duplicate galleries')
     }
