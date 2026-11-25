@@ -47,7 +47,7 @@ const photos = [
   },
 ]
 
-const targetFrameInterval = 1000 / 50
+const targetFrameInterval = 1000 / 90
 const flowSpeed = 0.11
 
 function normalize(value: number, length: number) {
@@ -223,7 +223,7 @@ export default function PhotoRing() {
         aria-label="Experiences in photographs"
         data-active-index={activeIndex}
         data-autoplay={paused || !inView || !pageVisible ? 'paused' : 'playing'}
-        data-target-frame-rate="50"
+        data-target-frame-rate="90"
       >
         <div ref={viewportRef} className="photo-ring-viewport">
           <div ref={ringRef} className="photo-ring" style={{ transform: 'translate3d(0px, 0, 0)' }}>

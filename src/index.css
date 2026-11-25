@@ -892,6 +892,56 @@ input { caret-color: var(--ink); }
   .photo-lightbox-content img { max-height: calc(100dvh - 210px); }
 }
 
+/* Keep the homepage gallery confident but compact; long-form reading stays unchanged. */
+@media (min-width: 761px) {
+  .home-opening { padding-top: 56px; }
+  .home-opening-copy, .home-section-heading, .featured-research, .current-work-list,
+  .home-writing-heading, .home-writing-list { max-width: 1240px; }
+  .home-opening h1 { max-width: 1080px; font-size: clamp(3.2rem, 6.4vw, 5.2rem); }
+  .home-intro-row { gap: 48px; margin: 24px 0 36px; padding-top: 20px; }
+  .home-opening-gallery {
+    max-width: 1120px;
+    grid-template-columns: minmax(0, 560px) minmax(280px, 1fr);
+    gap: clamp(20px, 2.2vw, 32px);
+    padding-bottom: 32px;
+  }
+  .home-portrait { max-width: 560px; }
+  .home-opening-satellite--top { margin-top: 32px; }
+  .home-opening-satellite--bottom { margin-bottom: 8px; }
+  .home-work, .home-experiences, .home-writing { padding: 84px 40px; }
+  .home-work { margin-top: 48px; }
+  .home-section-heading { gap: 48px; margin-bottom: 40px; }
+  .home-section-heading h2, .home-writing-heading h2 { font-size: clamp(2.55rem, 4vw, 4.1rem); }
+  .featured-research { gap: 64px; margin-bottom: 56px; padding: 40px 0 48px; }
+  .featured-research-heading h3 { font-size: clamp(2.55rem, 4.2vw, 4.2rem); }
+  .home-writing-heading { margin-bottom: 40px; }
+  .home-essay-link { padding-top: 28px; padding-bottom: 28px; }
+  .home-essay-copy strong { font-size: clamp(1.8rem, 2.7vw, 2.8rem); }
+  .photo-ring-viewport {
+    --ring-card-width: min(32vw, 400px);
+    --ring-card-height: 260px;
+    --ring-stagger: 20px;
+    height: 330px;
+  }
+  .photo-ring-caption { min-height: 136px; }
+  .home-contact { padding-top: 48px; padding-bottom: 48px; }
+  .home-contact a { font-size: clamp(1.3rem, 2.4vw, 2.2rem); }
+}
+
+@media (max-width: 760px) {
+  .home-opening { padding-top: 36px; }
+  .home-opening h1 { font-size: clamp(2.55rem, 11.4vw, 4rem); }
+  .home-intro-row { margin-top: 20px; margin-bottom: 28px; padding-top: 18px; }
+  .home-opening-gallery { padding-bottom: 20px; }
+  .home-portrait { width: 88%; max-width: 480px; justify-self: center; }
+  .home-work, .home-experiences, .home-writing { padding: 56px 20px; }
+  .home-work { margin-top: 40px; }
+  .home-section-heading h2, .home-writing-heading h2,
+  .featured-research-heading h3 { font-size: clamp(2.25rem, 10vw, 3.4rem); }
+  .photo-ring-caption { min-height: 170px; }
+  .home-contact { padding-top: 36px; padding-bottom: 36px; }
+}
+
 @media (hover: none) {
   .home-experience-grid figure:hover img { transform: none; }
 }

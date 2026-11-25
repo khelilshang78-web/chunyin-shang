@@ -86,8 +86,8 @@ try {
   check(await page.locator('.home-portrait img').getAttribute('src') === './images/panel-discussion.webp', 'Homepage main photograph is the SFLSHZ panel discussion')
   check(await page.locator('.home-portrait img').evaluate((image) => {
     const rect = image.getBoundingClientRect()
-    return Math.abs(rect.width / rect.height - 0.8) < 0.02 && rect.width <= 680
-  }), 'Homepage main photograph uses a large 4:5 portrait crop')
+    return Math.abs(rect.width / rect.height - 0.8) < 0.02 && rect.width <= 560
+  }), 'Homepage main photograph uses a compact 4:5 portrait crop that preserves the central speaker')
   check(await page.locator('.home-opening-gallery').evaluate((gallery) => {
     const main = gallery.querySelector('.home-portrait')?.getBoundingClientRect()
     const top = gallery.querySelector('.home-opening-satellite--top')?.getBoundingClientRect()
@@ -117,9 +117,9 @@ try {
   check(!ringImageSources.some((source) => source?.endsWith('kindergarten-english-reading.webp')), 'Kindergarten reading remains in Student Council leadership')
   check(await page.locator('.photo-ring-slide img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'All horizontal-flow image instances load successfully')
   check(await page.locator('img[src$="piano-performance.webp"]').first().evaluate((image) => image.style.objectPosition) === 'center 48%', 'Piano crop centers the performer instead of the stage backdrop')
-  check(await page.locator('.photo-ring-viewport').evaluate((element) => getComputedStyle(element).getPropertyValue('--ring-card-height').trim()) === '300px', 'Desktop flow retains compact landscape cards')
+  check(await page.locator('.photo-ring-viewport').evaluate((element) => getComputedStyle(element).getPropertyValue('--ring-card-height').trim()) === '260px', 'Desktop flow uses smaller 260 px landscape cards')
   check(await page.locator('.photo-ring-slide').evaluateAll((slides) => getComputedStyle(slides[0]).transform !== getComputedStyle(slides[1]).transform), 'Alternating cards are vertically staggered')
-  check(await page.locator('.photo-ring-carousel').getAttribute('data-target-frame-rate') === '50', 'Horizontal flow declares its 50 fps target update interval')
+  check(await page.locator('.photo-ring-carousel').getAttribute('data-target-frame-rate') === '90', 'Horizontal flow declares its 90 fps target update interval')
   check(await page.locator('.photo-ring').evaluate((ring) => ring.style.transform.includes('translate3d') && !ring.style.transform.includes('rotateY')), 'Horizontal flow translates without 3D rotation')
   check(await page.locator('.photo-ring-expand[tabindex="0"]').count() === 1, 'Exactly one visible loop instance is keyboard-active')
   const homepageImageSources = await page.locator('img').evaluateAll((images) => images.map((image) => image.getAttribute('src')))
