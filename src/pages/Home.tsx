@@ -59,19 +59,29 @@ export default function Home() {
         <div className="home-opening-gallery" aria-label="ChunYin Shang in public discussion">
           <figure className="home-portrait">
             <img
+              src="./images/panel-discussion.webp"
+              alt="ChunYin Shang speaking into a microphone during a school panel discussion"
+              width="1279"
+              height="1706"
+              fetchPriority="high"
+            />
+            <figcaption>
+              <span>Panel discussion · SFLSHZ</span>
+              <p>Contributing to a public conversation with fellow students.</p>
+            </figcaption>
+          </figure>
+
+          <figure className="home-opening-satellite home-opening-satellite--top">
+            <img
               src="./images/mun-kenya-home.webp"
               alt="ChunYin Shang working on a laptop while fellow Berkeley MUN China delegates gather around for a committee discussion"
               width="1340"
               height="812"
-              fetchPriority="high"
             />
-            <figcaption>
-              <span>Berkeley MUN China</span>
-              <p>Working through a committee discussion with fellow delegates.</p>
-            </figcaption>
+            <figcaption>Berkeley MUN China · Committee discussion</figcaption>
           </figure>
 
-          <figure className="home-opening-satellite home-opening-satellite--left">
+          <figure className="home-opening-satellite home-opening-satellite--bottom">
             <img
               src="./images/model-united-nations-speech.jpg"
               alt="ChunYin Shang speaking at a podium at Shanghai International Studies University"
@@ -79,16 +89,6 @@ export default function Home() {
               height="1080"
             />
             <figcaption>Global Youth Shanghai Diplomats Summit · SISU</figcaption>
-          </figure>
-
-          <figure className="home-opening-satellite home-opening-satellite--right">
-            <img
-              src="./images/panel-discussion.webp"
-              alt="ChunYin Shang speaking into a microphone during a school panel discussion"
-              width="1279"
-              height="1706"
-            />
-            <figcaption>Panel discussion · SFLSHZ</figcaption>
           </figure>
         </div>
       </section>

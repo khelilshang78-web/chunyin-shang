@@ -47,18 +47,26 @@ const photos = [
   },
 ]
 
-const step = 360 / photos.length
+const targetFrameInterval = 1000 / 50
+const flowSpeed = 0.11
+
+function normalize(value: number, length: number) {
+  return length > 0 ? ((value % length) + length) % length : 0
+}
 
 export default function PhotoRing() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [activeCopy, setActiveCopy] = useState(0)
   const [hovered, setHovered] = useState(false)
   const [focusPaused, setFocusPaused] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const [inView, setInView] = useState(() => !('IntersectionObserver' in window))
   const [pageVisible, setPageVisible] = useState(true)
   const [enlargedIndex, setEnlargedIndex] = useState<number | null>(null)
-  const angleRef = useRef(0)
+  const offsetRef = useRef(0)
   const activeIndexRef = useRef(0)
+  const activeCopyRef = useRef(0)
+  const metricsRef = useRef({ stride: 0, loopWidth: 0, cardWidth: 0, viewportWidth: 0 })
   const viewportRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement | null>(null)
@@ -68,20 +76,68 @@ export default function PhotoRing() {
   const enlargedPhoto = enlargedIndex === null ? null : photos[enlargedIndex]
   const paused = hovered || focusPaused || reducedMotion || enlargedIndex !== null
 
+  const updateActive = useCallback(() => {
+    const { stride, cardWidth, viewportWidth } = metricsRef.current
+    if (!stride || !cardWidth || !viewportWidth) return
+    const rawIndex = Math.round((viewportWidth / 2 + offsetRef.current - cardWidth / 2) / stride)
+    const nextIndex = normalize(rawIndex, photos.length)
+    const nextCopy = rawIndex >= photos.length ? 1 : 0
+    if (nextIndex !== activeIndexRef.current) {
+      activeIndexRef.current = nextIndex
+      setActiveIndex(nextIndex)
+    }
+    if (nextCopy !== activeCopyRef.current) {
+      activeCopyRef.current = nextCopy
+      setActiveCopy(nextCopy)
+    }
+  }, [])
+
+  const paint = useCallback(() => {
+    if (ringRef.current) {
+      ringRef.current.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`
+    }
+    updateActive()
+  }, [updateActive])
+
+  const measure = useCallback(() => {
+    const viewport = viewportRef.current
+    const ring = ringRef.current
+    if (!viewport || !ring) return
+    const sets = ring.querySelectorAll<HTMLElement>('.photo-ring-set')
+    const cards = sets[0]?.querySelectorAll<HTMLElement>('.photo-ring-slide')
+    if (!sets[0] || !sets[1] || !cards?.[0] || !cards[1]) return
+
+    const hadMeasurement = metricsRef.current.loopWidth > 0
+    const stride = cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left
+    const loopWidth = sets[1].getBoundingClientRect().left - sets[0].getBoundingClientRect().left
+    const cardWidth = cards[0].getBoundingClientRect().width
+    const viewportWidth = viewport.clientWidth
+    metricsRef.current = { stride, loopWidth, cardWidth, viewportWidth }
+
+    if (!hadMeasurement) {
+      offsetRef.current = normalize(cardWidth / 2 - viewportWidth / 2, loopWidth)
+    } else {
+      offsetRef.current = normalize(offsetRef.current, loopWidth)
+    }
+    paint()
+  }, [paint])
+
   const closeLightbox = useCallback(() => {
     setEnlargedIndex(null)
     requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }))
   }, [])
 
   const move = useCallback((direction: number) => {
-    const nextIndex = (activeIndexRef.current + direction + photos.length) % photos.length
-    angleRef.current = nextIndex * step
-    activeIndexRef.current = nextIndex
-    setActiveIndex(nextIndex)
-    if (ringRef.current) {
-      ringRef.current.style.transform = `translateZ(calc(-1 * var(--ring-radius))) rotateY(${-angleRef.current}deg)`
+    const nextIndex = normalize(activeIndexRef.current + direction, photos.length)
+    const { stride, loopWidth, cardWidth, viewportWidth } = metricsRef.current
+    if (!stride || !loopWidth) {
+      activeIndexRef.current = nextIndex
+      setActiveIndex(nextIndex)
+      return
     }
-  }, [])
+    offsetRef.current = normalize(nextIndex * stride + cardWidth / 2 - viewportWidth / 2, loopWidth)
+    paint()
+  }, [paint])
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -90,6 +146,17 @@ export default function PhotoRing() {
     query.addEventListener('change', update)
     return () => query.removeEventListener('change', update)
   }, [])
+
+  useEffect(() => {
+    const viewport = viewportRef.current
+    const ring = ringRef.current
+    if (!viewport || !ring) return
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(viewport)
+    ring.querySelectorAll('.photo-ring-set').forEach((set) => observer.observe(set))
+    return () => observer.disconnect()
+  }, [measure])
 
   useEffect(() => {
     const element = viewportRef.current
@@ -110,23 +177,23 @@ export default function PhotoRing() {
     if (paused || !inView || !pageVisible) return
     let frame = 0
     let previousTime = performance.now()
-    const spin = (now: number) => {
+    let accumulated = 0
+    const flow = (now: number) => {
       const elapsed = Math.min(now - previousTime, 64)
       previousTime = now
-      angleRef.current += elapsed * 0.01
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translateZ(calc(-1 * var(--ring-radius))) rotateY(${-angleRef.current}deg)`
+      accumulated += elapsed
+      if (accumulated >= targetFrameInterval) {
+        const intervals = Math.floor(accumulated / targetFrameInterval)
+        accumulated -= intervals * targetFrameInterval
+        const { loopWidth } = metricsRef.current
+        offsetRef.current = normalize(offsetRef.current + intervals * targetFrameInterval * flowSpeed, loopWidth)
+        paint()
       }
-      const nextIndex = ((Math.round(angleRef.current / step) % photos.length) + photos.length) % photos.length
-      if (nextIndex !== activeIndexRef.current) {
-        activeIndexRef.current = nextIndex
-        setActiveIndex(nextIndex)
-      }
-      frame = requestAnimationFrame(spin)
+      frame = requestAnimationFrame(flow)
     }
-    frame = requestAnimationFrame(spin)
+    frame = requestAnimationFrame(flow)
     return () => cancelAnimationFrame(frame)
-  }, [paused, inView, pageVisible])
+  }, [paused, inView, pageVisible, paint])
 
   useEffect(() => {
     if (enlargedIndex === null) return
@@ -156,50 +223,53 @@ export default function PhotoRing() {
         aria-label="Experiences in photographs"
         data-active-index={activeIndex}
         data-autoplay={paused || !inView || !pageVisible ? 'paused' : 'playing'}
+        data-target-frame-rate="50"
       >
         <div ref={viewportRef} className="photo-ring-viewport">
-          <div
-            ref={ringRef}
-            className="photo-ring"
-            style={{ transform: 'translateZ(calc(-1 * var(--ring-radius))) rotateY(0deg)' }}
-          >
-            {photos.map((photo, index) => (
-              <figure
-                key={photo.file}
-                className={`photo-ring-slide${index === activeIndex ? ' is-active' : ''}`}
-                style={{ transform: `rotateY(${index * step}deg) translateZ(var(--ring-radius))` }}
-                aria-hidden={index !== activeIndex}
-              >
-                <button
-                  type="button"
-                  className="photo-ring-expand"
-                  aria-label={`Enlarge photograph: ${photo.title}`}
-                  tabIndex={index === activeIndex ? 0 : -1}
-                  onClick={(event) => {
-                    triggerRef.current = event.currentTarget
-                    setEnlargedIndex(index)
-                  }}
-                  onMouseEnter={() => {
-                    if (index === activeIndex) setHovered(true)
-                  }}
-                  onMouseLeave={() => {
-                    if (index === activeIndex) setHovered(false)
-                  }}
-                  onFocus={(event) => {
-                    if (index === activeIndex && event.currentTarget.matches(':focus-visible')) setFocusPaused(true)
-                  }}
-                  onBlur={() => setFocusPaused(false)}
-                >
-                  <img
-                    src={`./images/${photo.file}`}
-                    alt={photo.alt}
-                    loading={index < 2 ? 'eager' : 'lazy'}
-                    decoding="async"
-                    draggable={false}
-                    style={{ objectPosition: photo.objectPosition ?? 'center' }}
-                  />
-                </button>
-              </figure>
+          <div ref={ringRef} className="photo-ring" style={{ transform: 'translate3d(0px, 0, 0)' }}>
+            {[0, 1].map((copy) => (
+              <div className="photo-ring-set" data-copy={copy} key={copy}>
+                {photos.map((photo, index) => {
+                  const isActive = index === activeIndex && copy === activeCopy
+                  return (
+                    <figure
+                      key={`${copy}-${photo.file}`}
+                      className={`photo-ring-slide${isActive ? ' is-active' : ''}`}
+                      data-index={index}
+                      data-copy={copy}
+                      aria-hidden={!isActive}
+                    >
+                      <button
+                        type="button"
+                        className="photo-ring-expand"
+                        aria-label={`Enlarge photograph: ${photo.title}`}
+                        tabIndex={isActive ? 0 : -1}
+                        onClick={(event) => {
+                          triggerRef.current = event.currentTarget
+                          setEnlargedIndex(index)
+                        }}
+                        onMouseEnter={() => {
+                          if (index === activeIndexRef.current && copy === activeCopyRef.current) setHovered(true)
+                        }}
+                        onMouseLeave={() => setHovered(false)}
+                        onFocus={(event) => {
+                          if (isActive && event.currentTarget.matches(':focus-visible')) setFocusPaused(true)
+                        }}
+                        onBlur={() => setFocusPaused(false)}
+                      >
+                        <img
+                          src={`./images/${photo.file}`}
+                          alt={photo.alt}
+                          loading="eager"
+                          decoding="async"
+                          draggable={false}
+                          style={{ objectPosition: photo.objectPosition ?? 'center' }}
+                        />
+                      </button>
+                    </figure>
+                  )
+                })}
+              </div>
             ))}
           </div>
         </div>
