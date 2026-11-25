@@ -897,48 +897,64 @@ input { caret-color: var(--ink); }
   .home-opening { padding-top: 56px; }
   .home-opening-copy, .home-section-heading, .featured-research, .current-work-list,
   .home-writing-heading, .home-writing-list { max-width: 1240px; }
-  .home-opening h1 { max-width: 1080px; font-size: clamp(3.2rem, 6.4vw, 5.2rem); }
+  .home-opening h1 { max-width: 1120px; font-size: clamp(3.4rem, 6.8vw, 5.6rem); }
+  .home-intro { font-size: 1.16rem; }
   .home-intro-row { gap: 48px; margin: 24px 0 36px; padding-top: 20px; }
+  .panel-link { font-size: 0.92rem; }
   .home-opening-gallery {
-    max-width: 1120px;
-    grid-template-columns: minmax(0, 560px) minmax(280px, 1fr);
+    max-width: 1040px;
+    grid-template-columns: minmax(0, 480px) minmax(280px, 1fr);
     gap: clamp(20px, 2.2vw, 32px);
     padding-bottom: 32px;
   }
-  .home-portrait { max-width: 560px; }
-  .home-opening-satellite--top { margin-top: 32px; }
+  .home-portrait { max-width: 480px; }
+  .home-opening-satellite--top { margin-top: 28px; }
   .home-opening-satellite--bottom { margin-bottom: 8px; }
   .home-work, .home-experiences, .home-writing { padding: 84px 40px; }
   .home-work { margin-top: 48px; }
   .home-section-heading { gap: 48px; margin-bottom: 40px; }
-  .home-section-heading h2, .home-writing-heading h2 { font-size: clamp(2.55rem, 4vw, 4.1rem); }
+  .home-section-heading h2, .home-writing-heading h2 { font-size: clamp(2.7rem, 4.3vw, 4.4rem); }
+  .home-section-heading > p, .featured-research-heading > p:not(.project-index),
+  .current-work-list article > p:not(.item-meta), .home-essay-copy > span { font-size: 0.98rem; }
   .featured-research { gap: 64px; margin-bottom: 56px; padding: 40px 0 48px; }
-  .featured-research-heading h3 { font-size: clamp(2.55rem, 4.2vw, 4.2rem); }
+  .featured-research-heading h3 { font-size: clamp(2.7rem, 4.5vw, 4.5rem); }
+  .featured-research-record dd { font-size: 0.96rem; }
+  .current-work-list h3 { font-size: 1.5rem; }
   .home-writing-heading { margin-bottom: 40px; }
   .home-essay-link { padding-top: 28px; padding-bottom: 28px; }
-  .home-essay-copy strong { font-size: clamp(1.8rem, 2.7vw, 2.8rem); }
+  .home-essay-copy strong { font-size: clamp(1.9rem, 2.9vw, 3rem); }
   .photo-ring-viewport {
-    --ring-card-width: min(32vw, 400px);
-    --ring-card-height: 260px;
-    --ring-stagger: 20px;
-    height: 330px;
+    --ring-card-width: min(28vw, 350px);
+    --ring-card-height: 230px;
+    --ring-stagger: 18px;
+    height: 300px;
   }
   .photo-ring-caption { min-height: 136px; }
+  .photo-ring-caption h3 { font-size: clamp(1.75rem, 2.7vw, 2.5rem); }
   .home-contact { padding-top: 48px; padding-bottom: 48px; }
-  .home-contact a { font-size: clamp(1.3rem, 2.4vw, 2.2rem); }
+  .home-contact a { font-size: clamp(1.35rem, 2.5vw, 2.35rem); }
 }
 
 @media (max-width: 760px) {
   .home-opening { padding-top: 36px; }
-  .home-opening h1 { font-size: clamp(2.55rem, 11.4vw, 4rem); }
+  .home-opening h1 { font-size: clamp(2.7rem, 12vw, 4.2rem); }
+  .home-intro { font-size: 1.05rem; }
   .home-intro-row { margin-top: 20px; margin-bottom: 28px; padding-top: 18px; }
   .home-opening-gallery { padding-bottom: 20px; }
-  .home-portrait { width: 88%; max-width: 480px; justify-self: center; }
+  .home-portrait { width: 80%; max-width: 400px; justify-self: center; }
   .home-work, .home-experiences, .home-writing { padding: 56px 20px; }
   .home-work { margin-top: 40px; }
   .home-section-heading h2, .home-writing-heading h2,
-  .featured-research-heading h3 { font-size: clamp(2.25rem, 10vw, 3.4rem); }
+  .featured-research-heading h3 { font-size: clamp(2.35rem, 10.6vw, 3.6rem); }
+  .home-essay-copy strong { font-size: 1.95rem; }
+  .photo-ring-viewport {
+    --ring-card-width: 68vw;
+    --ring-card-height: 158px;
+    --ring-stagger: 14px;
+    height: 230px;
+  }
   .photo-ring-caption { min-height: 170px; }
+  .photo-ring-caption h3 { font-size: 1.75rem; }
   .home-contact { padding-top: 36px; padding-bottom: 36px; }
 }
 

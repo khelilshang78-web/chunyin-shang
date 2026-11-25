@@ -86,14 +86,15 @@ try {
   check(await page.locator('.home-portrait img').getAttribute('src') === './images/panel-discussion.webp', 'Homepage main photograph is the SFLSHZ panel discussion')
   check(await page.locator('.home-portrait img').evaluate((image) => {
     const rect = image.getBoundingClientRect()
-    return Math.abs(rect.width / rect.height - 0.8) < 0.02 && rect.width <= 560
-  }), 'Homepage main photograph uses a compact 4:5 portrait crop that preserves the central speaker')
+    return Math.abs(rect.width / rect.height - 0.8) < 0.02 && rect.width <= 480
+  }), 'Homepage main photograph uses a smaller 4:5 portrait crop that preserves the central speaker')
+  check(await page.locator('.home-opening h1').evaluate((heading) => parseFloat(getComputedStyle(heading).fontSize) >= 84), 'Homepage headline is larger while the photographs become smaller')
   check(await page.locator('.home-opening-gallery').evaluate((gallery) => {
     const main = gallery.querySelector('.home-portrait')?.getBoundingClientRect()
     const top = gallery.querySelector('.home-opening-satellite--top')?.getBoundingClientRect()
     const bottom = gallery.querySelector('.home-opening-satellite--bottom')?.getBoundingClientRect()
-    return Boolean(main && top && bottom && main.right <= top.left + 1 && main.right <= bottom.left + 1 && main.width * main.height > top.width * top.height && top.bottom <= bottom.top)
-  }), 'Desktop opening places the large panel photograph left and two smaller photographs right')
+    return Boolean(main && top && bottom && gallery.getBoundingClientRect().width <= 1040 && main.right <= top.left + 1 && main.right <= bottom.left + 1 && main.width * main.height > top.width * top.height && top.bottom <= bottom.top)
+  }), 'Desktop opening balances larger text with a compact left portrait and two right photographs')
   check(await page.locator('.home-opening-satellite--top img').getAttribute('src') === './images/mun-kenya-home.webp', 'Kenya committee photograph moves to the upper-right position')
   check(await page.locator('.home-opening-satellite--bottom img').getAttribute('src') === './images/model-united-nations-speech.jpg', 'SISU speech photograph moves to the lower-right position')
   check(await page.locator('.home-portrait').getByText('Panel discussion · SFLSHZ', { exact: true }).isVisible(), 'Main portrait carries the accurate SFLSHZ panel caption')
@@ -117,7 +118,7 @@ try {
   check(!ringImageSources.some((source) => source?.endsWith('kindergarten-english-reading.webp')), 'Kindergarten reading remains in Student Council leadership')
   check(await page.locator('.photo-ring-slide img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), 'All horizontal-flow image instances load successfully')
   check(await page.locator('img[src$="piano-performance.webp"]').first().evaluate((image) => image.style.objectPosition) === 'center 48%', 'Piano crop centers the performer instead of the stage backdrop')
-  check(await page.locator('.photo-ring-viewport').evaluate((element) => getComputedStyle(element).getPropertyValue('--ring-card-height').trim()) === '260px', 'Desktop flow uses smaller 260 px landscape cards')
+  check(await page.locator('.photo-ring-viewport').evaluate((element) => getComputedStyle(element).getPropertyValue('--ring-card-height').trim()) === '230px', 'Desktop flow uses smaller 230 px landscape cards')
   check(await page.locator('.photo-ring-slide').evaluateAll((slides) => getComputedStyle(slides[0]).transform !== getComputedStyle(slides[1]).transform), 'Alternating cards are vertically staggered')
   check(await page.locator('.photo-ring-carousel').getAttribute('data-target-frame-rate') === '90', 'Horizontal flow declares its 90 fps target update interval')
   check(await page.locator('.photo-ring').evaluate((ring) => ring.style.transform.includes('translate3d') && !ring.style.transform.includes('rotateY')), 'Horizontal flow translates without 3D rotation')
